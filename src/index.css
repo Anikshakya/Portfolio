@@ -1,13 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-deep-space: #020208;
+  --color-cyan: #00f0ff;
+  --color-magenta: #ff007f;
+  --color-amber: #ffaa00;
+  --color-green: #00ff66;
+  --color-text-main: #e2e8f0;
+  --color-text-muted: #94a3b8;
+
+  --hud-bg: rgba(6, 10, 26, 0.65);
+  --hud-border-cyan: rgba(0, 240, 255, 0.25);
+  --hud-border-magenta: rgba(255, 0, 127, 0.25);
+  --hud-border-amber: rgba(255, 170, 0, 0.25);
+
+  --font-hud: 'Share Tech Mono', monospace;
+  --font-header: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --shadow-cyan: 0 0 15px rgba(0, 240, 255, 0.4);
+  --shadow-magenta: 0 0 15px rgba(255, 0, 127, 0.4);
+  --shadow-amber: 0 0 15px rgba(255, 170, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-cyan) rgba(2, 2, 8, 0.5);
+}
+
+/* Custom Scrollbar for a futuristic feel */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(2, 2, 8, 0.5);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-cyan);
+  border-radius: 3px;
+  box-shadow: var(--shadow-cyan);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: var(--bg-deep-space);
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+code,
+pre {
+  font-family: var(--font-hud);
+}
+
+/* Glassmorphism Panel styles */
+.hud-panel {
+  background: var(--hud-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--hud-border-cyan);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 8px rgba(0, 240, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hud-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-cyan), transparent);
+  animation: hud-scan 3s linear infinite;
+  opacity: 0.7;
+}
+
+.hud-panel-magenta {
+  border-color: var(--hud-border-magenta);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 8px rgba(255, 0, 127, 0.1);
+}
+
+.hud-panel-magenta::before {
+  background: linear-gradient(90deg, transparent, var(--color-magenta), transparent);
+}
+
+.hud-panel-amber {
+  border-color: var(--hud-border-amber);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 8px rgba(255, 170, 0, 0.1);
+}
+
+.hud-panel-amber::before {
+  background: linear-gradient(90deg, transparent, var(--color-amber), transparent);
+}
+
+/* Glow effects */
+.glow-text-cyan {
+  color: var(--color-cyan);
+  text-shadow: var(--shadow-cyan);
+}
+
+.glow-text-magenta {
+  color: var(--color-magenta);
+  text-shadow: var(--shadow-magenta);
+}
+
+.glow-text-amber {
+  color: var(--color-amber);
+  text-shadow: var(--shadow-amber);
+}
+
+/* Scanline Overlay for retro-futuristic CRT monitor look */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 6px 100%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* Keyframes */
+@keyframes hud-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(500px);
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px -1px 0 red, -1px 2px 0 blue;
+  }
+
+  20% {
+    text-shadow: -2px 1px 0 red, 2px -2px 0 blue;
+  }
+
+  40% {
+    text-shadow: 2px 2px 0 red, -2px 1px 0 blue;
+  }
+
+  60% {
+    text-shadow: -1px -2px 0 red, 1px 2px 0 blue;
+  }
+
+  80% {
+    text-shadow: 3px 1px 0 red, -1px -1px 0 blue;
+  }
+
+  100% {
+    text-shadow: 2px -1px 0 red, -1px 2px 0 blue;
+  }
+}
+
+.hud-title {
+  font-family: var(--font-header);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hud-monospace {
+  font-family: var(--font-hud);
+}
+
+.hud-button {
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--color-cyan);
+  color: var(--color-cyan);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-hud);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.hud-button:hover {
+  background: var(--color-cyan);
+  color: #000;
+  box-shadow: var(--shadow-cyan);
+}
+
+.hud-button:active {
+  transform: scale(0.97);
+}
+
+.hud-button-magenta {
+  background: rgba(255, 0, 127, 0.08);
+  border: 1px solid var(--color-magenta);
+  color: var(--color-magenta);
+}
+
+.hud-button-magenta:hover {
+  background: var(--color-magenta);
+  color: #fff;
+  box-shadow: var(--shadow-magenta);
+}
+
+.hud-button-amber {
+  background: rgba(255, 170, 0, 0.08);
+  border: 1px solid var(--color-amber);
+  color: var(--color-amber);
+}
+
+.hud-button-amber:hover {
+  background: var(--color-amber);
+  color: #000;
+  box-shadow: var(--shadow-amber);
 }
