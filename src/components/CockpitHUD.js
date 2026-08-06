@@ -4,7 +4,7 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [logs, setLogs] = useState([]);
   const [shipStats, setShipStats] = useState({
-    speed: '0.02c',
+    speed: '2,400 km/s',
     energy: '98.4%',
     shields: '100%',
     coordinates: 'RA 04h 35m / DEC +16° 30\''
@@ -127,38 +127,46 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
       if (prev.length > 0) {
         return [
           ...prev,
-          `[${new Date().toLocaleTimeString()}] [NAV] Locking coordinates to ${sectorNames[currentSector]}...`,
-          `[${new Date().toLocaleTimeString()}] [SYS] Calibrating thruster injectors for target vector.`
+          `[${new Date().toLocaleTimeString()}] [NAV] Target coordinate locked: ${sectorNames[currentSector]}.`,
+          `[${new Date().toLocaleTimeString()}] [SYS] Calibration complete. Orbit path projected.`
         ];
       }
       return prev;
     });
   }, [currentSector]);
 
-  // Adjust telemetry based on warping state
+  // Adjust telemetry based on warping state (Singularity Transition)
   useEffect(() => {
     let interval;
     if (isWarping) {
-      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] [WARP] ENGAGING HYPER-DRIVE. Shield stress increasing.`]);
-      playSound('warp');
+      setLogs(prev => [
+        ...prev, 
+        `[${new Date().toLocaleTimeString()}] [ALERT] GRAVITATIONAL ANOMALY. Generating localized black hole core.`,
+        `[${new Date().toLocaleTimeString()}] [WARN] Event horizon breached. Sucking card layouts into singularity.`
+      ]);
+      playSound('blackhole');
       interval = setInterval(() => {
         setShipStats(prev => ({
           ...prev,
-          speed: `${(9.2 + Math.random() * 0.7).toFixed(2)}c`,
-          energy: `${(92.1 - Math.random() * 2).toFixed(1)}%`,
-          shields: `${(94 + Math.random() * 2).toFixed(0)}%`,
-          coordinates: `WARP-VEC [${(Math.random() * 1000).toFixed(0)}, ${(Math.random() * 1000).toFixed(0)}, ${(Math.random() * 1000).toFixed(0)}]`
+          speed: `COMPRESSED_c`,
+          energy: `${(80.5 - Math.random() * 5).toFixed(1)}%`,
+          shields: `${(90 + Math.random() * 3).toFixed(0)}%`,
+          coordinates: `SINGULARITY [${(Math.random() * 9999).toFixed(0)}, ${(Math.random() * 9999).toFixed(0)}]`
         }));
       }, 100);
     } else {
       setLogs(prev => {
         if (prev.length > 0) {
-          return [...prev, `[${new Date().toLocaleTimeString()}] [NAV] Orbit achieved. Cruising thrusters only.`];
+          return [
+            ...prev, 
+            `[${new Date().toLocaleTimeString()}] [NAV] Singularity collapsed. Spat card data structure back into cockpit HUD.`,
+            `[${new Date().toLocaleTimeString()}] [SYS] Stabilizing thrusters at destination orbit.`
+          ];
         }
         return prev;
       });
       setShipStats({
-        speed: '0.02c',
+        speed: '2,400 km/s',
         energy: '97.2%',
         shields: '99%',
         coordinates: getSectorCoordinates(currentSector)

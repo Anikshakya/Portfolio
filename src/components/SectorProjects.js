@@ -76,17 +76,17 @@ export default function SectorProjects() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        minHeight: '100vh',
         width: '100%',
-        padding: '120px 24px 140px 24px',
+        padding: '95px 24px 30px 24px',
         zIndex: 5,
-        position: 'relative'
+        position: 'relative',
+        boxSizing: 'border-box'
       }}
     >
-      <div className="hud-panel animate-fade-in" style={{ padding: '24px', width: '100%', maxWidth: '900px', margin: '0 auto' }}>
+      <div className="hud-panel animate-fade-in" style={{ padding: '20px', width: '100%', maxWidth: '950px', margin: '0 auto' }}>
         
         {/* Header telemetry */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
           <span style={{ fontSize: '10px', color: 'var(--color-cyan)' }} className="hud-monospace">
             CARGO_BAY_INVENTORY // SEC_01 // PROJECTS
           </span>
@@ -95,26 +95,27 @@ export default function SectorProjects() {
           </span>
         </div>
 
-        <h2 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '20px', letterSpacing: '1px' }}>
+        <h2 style={{ fontSize: '1.6rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '14px', letterSpacing: '1px' }}>
           COSMIC <span className="glow-text-cyan">PROJECTS</span> ARCHIVES
         </h2>
 
-        {/* Project grid layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+        {/* Project horizontal flex layout */}
+        <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '10px', width: '100%', boxSizing: 'border-box' }}>
           {projects.map((proj, idx) => (
             <div 
               key={proj.id}
               className="hud-panel hud-panel-magenta"
               onClick={() => setSelectedProject(proj)}
               style={{
-                padding: '20px',
+                padding: '16px',
                 cursor: 'pointer',
                 textAlign: 'left',
                 transition: 'transform 0.2s ease, border-color 0.2s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                minHeight: '220px',
+                minHeight: '200px',
+                flex: '0 0 260px',
                 borderWidth: '1px',
                 borderColor: 'rgba(255, 0, 127, 0.2)'
               }}

@@ -23,17 +23,17 @@ export default function SectorSkills() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        minHeight: '100vh',
         width: '100%',
         maxWidth: '650px',
-        padding: '120px 24px 140px 24px',
+        padding: '95px 24px 30px 24px',
         zIndex: 5,
         position: 'relative',
-        textAlign: 'left'
+        textAlign: 'left',
+        boxSizing: 'border-box'
       }}
     >
       {/* 1. Core Systems Panel */}
-      <div className="hud-panel animate-fade-in" style={{ padding: '24px', marginBottom: '20px' }}>
+      <div className="hud-panel animate-fade-in" style={{ padding: '20px', marginBottom: '14px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
           <span style={{ fontSize: '10px', color: 'var(--color-cyan)' }} className="hud-monospace">
             SYSTEMS_DIAGNOSTICS // SEC_02 // SKILLS

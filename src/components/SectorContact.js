@@ -45,16 +45,16 @@ export default function SectorContact() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        minHeight: '100vh',
         width: '100%',
         maxWidth: '650px',
-        padding: '120px 24px 140px 24px',
+        padding: '95px 24px 30px 24px',
         zIndex: 5,
         position: 'relative',
-        textAlign: 'left'
+        textAlign: 'left',
+        boxSizing: 'border-box'
       }}
     >
-      <div className="hud-panel animate-fade-in" style={{ padding: '24px' }}>
+      <div className="hud-panel animate-fade-in" style={{ padding: '20px' }}>
         
         {/* Header Telemetry */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -91,10 +91,10 @@ export default function SectorContact() {
                   background: 'rgba(2, 2, 8, 0.6)',
                   border: '1px solid var(--hud-border-cyan)',
                   borderRadius: '4px',
-                  padding: '10px 14px',
+                  padding: '8px 12px',
                   color: '#fff',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   outline: 'none',
                   transition: 'border-color 0.2s ease'
                 }}
@@ -118,10 +118,10 @@ export default function SectorContact() {
                   background: 'rgba(2, 2, 8, 0.6)',
                   border: '1px solid var(--hud-border-cyan)',
                   borderRadius: '4px',
-                  padding: '10px 14px',
+                  padding: '8px 12px',
                   color: '#fff',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   outline: 'none',
                   transition: 'border-color 0.2s ease'
                 }}
@@ -137,7 +137,7 @@ export default function SectorContact() {
               </label>
               <textarea 
                 required
-                rows="4"
+                rows="3"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="Input mission coordinates, project specifications, or interstellar greetings..."
@@ -145,10 +145,10 @@ export default function SectorContact() {
                   background: 'rgba(2, 2, 8, 0.6)',
                   border: '1px solid var(--hud-border-cyan)',
                   borderRadius: '4px',
-                  padding: '12px 14px',
+                  padding: '8px 12px',
                   color: '#fff',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   outline: 'none',
                   resize: 'none',
                   transition: 'border-color 0.2s ease'
