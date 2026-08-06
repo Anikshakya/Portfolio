@@ -7,7 +7,7 @@ import SectorSkills from './components/SectorSkills';
 import SectorContact from './components/SectorContact';
 
 function App() {
-  const [currentSector, setSector] = useState(0);
+  const [currentSector, setSector] = useState(0); 
   const [isWarping, setIsWarping] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [blackHoleTransition, setBlackHoleTransition] = useState(null);
