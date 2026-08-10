@@ -15,9 +15,9 @@ export default function SectorContact() {
     const logSteps = [
       'Encapsulating transmission payload...',
       'Encrypting data packets with SHA-512...',
-      'Acquiring Event Horizon vector coordinates...',
-      'Opening capsule launch bays...',
-      'EJECTING COMMUNICATIONS PROBE INTO WORMHOLE...',
+      'Acquiring uplink vector coordinates...',
+      'Opening secure channel...',
+      'Transmitting handshake data...',
       'SIGNAL STRENGTH: 99.8% - UPLINK SYNCHRONIZED.'
     ];
 
@@ -46,39 +46,39 @@ export default function SectorContact() {
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        maxWidth: '650px',
-        padding: '95px 24px 30px 24px',
+        maxWidth: '800px',
+        padding: '100px 24px 40px 24px',
         zIndex: 5,
         position: 'relative',
         textAlign: 'left',
         boxSizing: 'border-box'
       }}
     >
-      <div className="hud-panel animate-fade-in" style={{ padding: '20px' }}>
+      <div className="hud-panel animate-fade-in" style={{ padding: '32px' }}>
         
         {/* Header Telemetry */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <span style={{ fontSize: '10px', color: 'var(--color-cyan)' }} className="hud-monospace">
-            COMMUNICATION_UPLINK // SEC_03 // EVENT_HORIZON
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+          <span style={{ fontSize: '12px', color: 'var(--color-cyan)' }} className="hud-monospace">
+            COMMUNICATION_UPLINK // SEC_03 // CONTACT_GRID
           </span>
-          <span style={{ fontSize: '9px', color: 'var(--color-magenta)' }} className="hud-monospace">
+          <span style={{ fontSize: '11px', color: 'var(--color-magenta)' }} className="hud-monospace">
             ANTENNA_BEACON: BROADCASTING
           </span>
         </div>
 
-        <h2 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '6px', letterSpacing: '1px' }}>
+        <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '10px', letterSpacing: '1px' }}>
           DISTRESS <span className="glow-text-magenta">BEACON</span> (CONTACT)
         </h2>
-        <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', marginBottom: '20px', lineHeight: '1.5' }}>
-          Need custom software systems integrated? Launch an encrypted data capsule directly into the singularity.
+        <p style={{ fontSize: '15px', color: 'var(--color-text-muted)', marginBottom: '28px', lineHeight: '1.6' }}>
+          Need custom software systems integrated? Send a secure message and I’ll respond as soon as possible.
         </p>
 
         {status === 'READY' && (
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Name Input */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-cyan)', fontWeight: 'bold' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label className="hud-monospace" style={{ fontSize: '12px', color: 'var(--color-cyan)', fontWeight: 'bold' }}>
                 SENDER_IDENTIFICATION (NAME)
               </label>
               <input 
@@ -90,11 +90,11 @@ export default function SectorContact() {
                 style={{
                   background: 'rgba(2, 2, 8, 0.6)',
                   border: '1px solid var(--hud-border-cyan)',
-                  borderRadius: '4px',
-                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  padding: '12px 16px',
                   color: '#fff',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '12px',
+                  fontSize: '14px',
                   outline: 'none',
                   transition: 'border-color 0.2s ease'
                 }}
@@ -104,8 +104,8 @@ export default function SectorContact() {
             </div>
 
             {/* Email Input */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-cyan)', fontWeight: 'bold' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label className="hud-monospace" style={{ fontSize: '12px', color: 'var(--color-cyan)', fontWeight: 'bold' }}>
                 RETURN_UPLINK_FREQUENCY (EMAIL)
               </label>
               <input 
@@ -117,11 +117,11 @@ export default function SectorContact() {
                 style={{
                   background: 'rgba(2, 2, 8, 0.6)',
                   border: '1px solid var(--hud-border-cyan)',
-                  borderRadius: '4px',
-                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  padding: '12px 16px',
                   color: '#fff',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '12px',
+                  fontSize: '14px',
                   outline: 'none',
                   transition: 'border-color 0.2s ease'
                 }}
@@ -131,27 +131,28 @@ export default function SectorContact() {
             </div>
 
             {/* Message Input */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-cyan)', fontWeight: 'bold' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label className="hud-monospace" style={{ fontSize: '12px', color: 'var(--color-cyan)', fontWeight: 'bold' }}>
                 MESSAGE_PAYLOAD (DETAILS)
               </label>
               <textarea 
                 required
-                rows="3"
+                rows="4"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="Input mission coordinates, project specifications, or interstellar greetings..."
                 style={{
                   background: 'rgba(2, 2, 8, 0.6)',
                   border: '1px solid var(--hud-border-cyan)',
-                  borderRadius: '4px',
-                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  padding: '12px 16px',
                   color: '#fff',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '12px',
+                  fontSize: '14px',
                   outline: 'none',
                   resize: 'none',
-                  transition: 'border-color 0.2s ease'
+                  transition: 'border-color 0.2s ease',
+                  lineHeight: '1.5'
                 }}
                 onFocus={(e) => e.target.style.borderColor = 'var(--color-cyan)'}
                 onBlur={(e) => e.target.style.borderColor = 'var(--hud-border-cyan)'}
@@ -163,13 +164,13 @@ export default function SectorContact() {
               type="submit" 
               className="hud-button-magenta"
               style={{
-                padding: '12px',
-                fontSize: '12px',
-                borderRadius: '4px',
+                padding: '16px',
+                fontSize: '14px',
+                borderRadius: '6px',
                 cursor: 'pointer',
                 fontWeight: 'bold',
                 letterSpacing: '2px',
-                marginTop: '6px'
+                marginTop: '10px'
               }}
             >
               LAUNCH_COMMUNICATION_PROBE
@@ -180,10 +181,10 @@ export default function SectorContact() {
 
         {/* Loading / Launch state */}
         {status === 'SENDING' && (
-          <div style={{ padding: '10px 0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div className="spinner" style={{ width: '20px', height: '20px', border: '2px solid rgba(255,0,127,0.2)', borderTopColor: 'var(--color-magenta)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-              <span className="hud-monospace glow-text-magenta" style={{ fontSize: '12px', fontWeight: 'bold' }}>
+          <div style={{ padding: '16px 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+              <div className="spinner" style={{ width: '28px', height: '28px', border: '3px solid rgba(255,0,127,0.2)', borderTopColor: 'var(--color-magenta)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+              <span className="hud-monospace glow-text-magenta" style={{ fontSize: '15px', fontWeight: 'bold' }}>
                 EJECTING PROBE POD...
               </span>
             </div>
@@ -193,18 +194,18 @@ export default function SectorContact() {
               style={{
                 background: 'rgba(2, 2, 8, 0.8)',
                 border: '1px solid rgba(255,0,127,0.3)',
-                padding: '14px',
-                fontSize: '10px',
+                padding: '18px',
+                fontSize: '12px',
                 color: 'var(--color-magenta)',
-                lineHeight: '1.6',
-                height: '140px',
+                lineHeight: '1.8',
+                height: '180px',
                 overflowY: 'auto',
-                borderRadius: '4px',
+                borderRadius: '6px',
                 textAlign: 'left'
               }}
             >
               {probeLogs.map((log, idx) => (
-                <div key={idx} style={{ marginBottom: '2px' }}>{log}</div>
+                <div key={idx} style={{ marginBottom: '4px' }}>{log}</div>
               ))}
             </div>
           </div>
@@ -212,31 +213,31 @@ export default function SectorContact() {
 
         {/* Success / Sent State */}
         {status === 'SENT' && (
-          <div className="animate-scale-in" style={{ textAlign: 'center', padding: '20px 10px' }}>
+          <div className="animate-scale-in" style={{ textAlign: 'center', padding: '30px 10px' }}>
             {/* Visual Success radar target */}
-            <div style={{ display: 'inline-flex', position: 'relative', marginBottom: '20px' }}>
-              <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(0, 255, 102, 0.1)', border: '2px solid var(--color-green)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ display: 'inline-flex', position: 'relative', marginBottom: '24px' }}>
+              <div style={{ width: '76px', height: '76px', borderRadius: '50%', background: 'rgba(0, 255, 102, 0.1)', border: '2px solid var(--color-green)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
               <div className="radar-ripple" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, border: '1px solid var(--color-green)', borderRadius: '50%', animation: 'ripple 1.5s linear infinite' }} />
             </div>
 
-            <h3 style={{ fontSize: '18px', fontFamily: 'var(--font-header)', color: '#fff', marginBottom: '8px', fontWeight: 'bold' }}>
+            <h3 style={{ fontSize: '22px', fontFamily: 'var(--font-header)', color: '#fff', marginBottom: '12px', fontWeight: 'bold' }}>
               PROBE LAUNCHED SUCCESSFULLY
             </h3>
             
-            <p style={{ fontSize: '12px', color: 'var(--color-text-muted)', lineHeight: '1.5', maxWidth: '400px', margin: '0 auto 20px auto' }}>
-              The communication capsule has breached the event horizon. Return signal routing established to <strong style={{ color: '#fff' }}>{formData.email}</strong>. Capt. Anik will return transmissions shortly.
+            <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', lineHeight: '1.6', maxWidth: '480px', margin: '0 auto 28px auto' }}>
+              Your message is on its way. Confirmation sent to <strong style={{ color: '#fff' }}>{formData.email}</strong>. Capt. Anik will reply shortly.
             </p>
 
             <button 
               onClick={handleReset}
               className="hud-button"
               style={{
-                fontSize: '10px',
-                padding: '8px 16px',
+                fontSize: '12px',
+                padding: '12px 24px',
                 borderColor: 'var(--color-cyan)'
               }}
             >

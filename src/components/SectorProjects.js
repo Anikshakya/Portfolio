@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 export default function SectorProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const scrollContainerRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const projects = [
     {
@@ -70,6 +73,31 @@ export default function SectorProjects() {
     }
   ];
 
+  // Monitor scroll positioning to toggle nav buttons
+  const checkScrollPosition = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 2);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollPosition();
+    window.addEventListener('resize', checkScrollPosition);
+    return () => window.removeEventListener('resize', checkScrollPosition);
+  }, []);
+
+  const handleScroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 340;
+      scrollContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <div 
       style={{
@@ -77,106 +105,186 @@ export default function SectorProjects() {
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        padding: '95px 24px 30px 24px',
+        padding: '95px 24px 40px 24px',
         zIndex: 5,
         position: 'relative',
         boxSizing: 'border-box'
       }}
     >
-      <div className="hud-panel animate-fade-in" style={{ padding: '20px', width: '100%', maxWidth: '950px', margin: '0 auto' }}>
+      {/* Expanded panel container width */}
+      <div className="hud-panel animate-fade-in" style={{ padding: '28px', width: '100%', maxWidth: '1150px', margin: '0 auto' }}>
         
         {/* Header telemetry */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-          <span style={{ fontSize: '10px', color: 'var(--color-cyan)' }} className="hud-monospace">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <span style={{ fontSize: '11px', color: 'var(--color-cyan)' }} className="hud-monospace">
             CARGO_BAY_INVENTORY // SEC_01 // PROJECTS
           </span>
-          <span style={{ fontSize: '9px', opacity: 0.6 }} className="hud-monospace">
+          <span style={{ fontSize: '10px', opacity: 0.6 }} className="hud-monospace">
             ACTIVE_CONTAINERS: 04 / 04
           </span>
         </div>
 
-        <h2 style={{ fontSize: '1.6rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '14px', letterSpacing: '1px' }}>
+        <h2 style={{ fontSize: '2rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '20px', letterSpacing: '1px' }}>
           COSMIC <span className="glow-text-cyan">PROJECTS</span> ARCHIVES
         </h2>
 
-        {/* Project horizontal flex layout */}
-        <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '10px', width: '100%', boxSizing: 'border-box' }}>
-          {projects.map((proj, idx) => (
-            <div 
-              key={proj.id}
-              className="hud-panel hud-panel-magenta"
-              onClick={() => setSelectedProject(proj)}
+        {/* Carousel Wrapper for absolute buttons */}
+        <div style={{ position: 'relative', width: '100%' }}>
+          
+          {/* Scroll Left Button */}
+          {canScrollLeft && (
+            <button
+              onClick={() => handleScroll('left')}
+              className="hud-nav-btn"
               style={{
-                padding: '16px',
+                position: 'absolute',
+                left: '-16px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                background: 'rgba(6, 12, 30, 0.95)',
+                border: '1px solid var(--color-cyan)',
+                color: 'var(--color-cyan)',
+                width: '38px',
+                height: '38px',
+                borderRadius: '50%',
                 cursor: 'pointer',
-                textAlign: 'left',
-                transition: 'transform 0.2s ease, border-color 0.2s ease',
                 display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                minHeight: '200px',
-                flex: '0 0 260px',
-                borderWidth: '1px',
-                borderColor: 'rgba(255, 0, 127, 0.2)'
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 0 10px rgba(0, 240, 255, 0.3)',
+                transition: 'all 0.2s ease'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = 'var(--color-magenta)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 0, 127, 0.2)';
-              }}
+              aria-label="Scroll Left"
             >
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-magenta)' }}>
-                    [{proj.category.toUpperCase()}]
-                  </span>
-                  <span className="hud-monospace" style={{ fontSize: '8px', color: '#00ff66' }}>
-                    {proj.status}
-                  </span>
-                </div>
-                
-                <h3 style={{ fontSize: '16px', fontFamily: 'var(--font-header)', fontWeight: 'bold', marginBottom: '8px', color: '#fff' }}>
-                  {proj.title}
-                </h3>
-                
-                <p style={{ fontSize: '12px', color: 'var(--color-text-muted)', lineHeight: '1.4', marginBottom: '12px' }}>
-                  {proj.shortDesc}
-                </p>
-              </div>
+              &#10094;
+            </button>
+          )}
 
-              {/* Stack items */}
-              <div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '12px' }}>
-                  {proj.stack.slice(0, 3).map((s, i) => (
-                    <span key={i} className="hud-monospace" style={{ fontSize: '8px', padding: '2px 6px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', borderRadius: '2px' }}>
-                      {s}
-                    </span>
-                  ))}
-                  {proj.stack.length > 3 && (
-                    <span className="hud-monospace" style={{ fontSize: '8px', padding: '2px 4px', color: 'var(--color-magenta)' }}>
-                      +{proj.stack.length - 3}
-                    </span>
-                  )}
-                </div>
-                
-                {/* Hologram trigger info */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '9px', color: 'var(--color-cyan)', fontFamily: 'var(--font-hud)' }}>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg>
-                  INITIALIZE_HOLOGRAM_OUTPUT
-                </div>
-              </div>
+          {/* Scroll Right Button */}
+          {canScrollRight && (
+            <button
+              onClick={() => handleScroll('right')}
+              className="hud-nav-btn"
+              style={{
+                position: 'absolute',
+                right: '-16px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                background: 'rgba(6, 12, 30, 0.95)',
+                border: '1px solid var(--color-cyan)',
+                color: 'var(--color-cyan)',
+                width: '38px',
+                height: '38px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 0 10px rgba(0, 240, 255, 0.3)',
+                transition: 'all 0.2s ease'
+              }}
+              aria-label="Scroll Right"
+            >
+              &#10095;
+            </button>
+          )}
 
-            </div>
-          ))}
+          {/* Project horizontal flex layout */}
+          <div 
+            ref={scrollContainerRef}
+            onScroll={checkScrollPosition}
+            style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              overflowX: 'auto', 
+              padding: '8px 4px 16px 4px', 
+              width: '100%', 
+              boxSizing: 'border-box',
+              scrollbarWidth: 'none', // Firefox
+              msOverflowStyle: 'none'  // IE/Edge
+            }}
+          >
+            {projects.map((proj) => (
+              <div 
+                key={proj.id}
+                className="hud-panel hud-panel-magenta"
+                onClick={() => setSelectedProject(proj)}
+                style={{
+                  padding: '20px',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  minHeight: '250px',
+                  flex: '0 0 310px',
+                  borderWidth: '1px',
+                  borderColor: 'rgba(255, 0, 127, 0.2)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-6px)';
+                  e.currentTarget.style.borderColor = 'var(--color-magenta)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 0, 127, 0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 0, 127, 0.2)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-magenta)' }}>
+                      [{proj.category.toUpperCase()}]
+                    </span>
+                    <span className="hud-monospace" style={{ fontSize: '9px', color: '#00ff66' }}>
+                      {proj.status}
+                    </span>
+                  </div>
+                  
+                  <h3 style={{ fontSize: '18px', fontFamily: 'var(--font-header)', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>
+                    {proj.title}
+                  </h3>
+                  
+                  <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', lineHeight: '1.45', marginBottom: '16px' }}>
+                    {proj.shortDesc}
+                  </p>
+                </div>
+
+                {/* Stack items */}
+                <div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
+                    {proj.stack.slice(0, 3).map((s, i) => (
+                      <span key={i} className="hud-monospace" style={{ fontSize: '9px', padding: '3px 8px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', borderRadius: '2px' }}>
+                        {s}
+                      </span>
+                    ))}
+                    {proj.stack.length > 3 && (
+                      <span className="hud-monospace" style={{ fontSize: '9px', padding: '3px 6px', color: 'var(--color-magenta)' }}>
+                        +{proj.stack.length - 3}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* Hologram trigger info */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: 'var(--color-cyan)', fontFamily: 'var(--font-hud)' }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                    INITIALIZE_HOLOGRAM_OUTPUT
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* 3. Detailed Hologram HUD Modal Overlay */}
+      {/* Detailed Hologram HUD Modal Overlay */}
       {selectedProject && (
         <div 
           style={{
@@ -199,8 +307,8 @@ export default function SectorProjects() {
             className="hud-panel hud-panel-amber animate-scale-in"
             style={{
               width: '100%',
-              maxWidth: '600px',
-              padding: '24px',
+              maxWidth: '650px',
+              padding: '28px',
               textAlign: 'left',
               borderWidth: '1.5px',
               borderColor: 'var(--color-amber)',
@@ -209,8 +317,8 @@ export default function SectorProjects() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Close bar */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 170, 0, 0.2)', paddingBottom: '8px', marginBottom: '16px' }}>
-              <span className="hud-monospace glow-text-amber" style={{ fontSize: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255, 170, 0, 0.2)', paddingBottom: '10px', marginBottom: '18px' }}>
+              <span className="hud-monospace glow-text-amber" style={{ fontSize: '11px' }}>
                 HOLOGRAM_STREAM_PORT // D-OUT
               </span>
               <button 
@@ -220,7 +328,7 @@ export default function SectorProjects() {
                   border: 'none',
                   color: 'var(--color-amber)',
                   cursor: 'pointer',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   fontFamily: 'var(--font-hud)',
                   padding: '2px 8px'
                 }}
@@ -230,28 +338,28 @@ export default function SectorProjects() {
             </div>
 
             {/* Title / Info */}
-            <div style={{ marginBottom: '12px' }}>
-              <h3 style={{ fontSize: '24px', fontFamily: 'var(--font-header)', fontWeight: 900, color: '#fff', margin: 0 }}>
+            <div style={{ marginBottom: '14px' }}>
+              <h3 style={{ fontSize: '26px', fontFamily: 'var(--font-header)', fontWeight: 900, color: '#fff', margin: 0 }}>
                 {selectedProject.title}
               </h3>
-              <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-amber)' }}>
+              <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--color-amber)' }}>
                 COSMIC_SECTOR: LOGS_BAY // STAT: {selectedProject.status}
               </span>
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: '13px', lineHeight: '1.5', color: 'var(--color-text-main)', marginBottom: '16px' }}>
+            <p style={{ fontSize: '14px', lineHeight: '1.55', color: 'var(--color-text-main)', marginBottom: '18px' }}>
               {selectedProject.longDesc}
             </p>
 
             {/* Specifications metrics */}
-            <div style={{ background: 'rgba(255, 170, 0, 0.05)', borderLeft: '3px solid var(--color-amber)', padding: '12px 16px', borderRadius: '0 4px 4px 0', marginBottom: '16px' }}>
-              <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-amber)', display: 'block', marginBottom: '6px', fontWeight: 'bold' }}>
+            <div style={{ background: 'rgba(255, 170, 0, 0.05)', borderLeft: '3px solid var(--color-amber)', padding: '14px 18px', borderRadius: '0 4px 4px 0', marginBottom: '18px' }}>
+              <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-amber)', display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
                 SYSTEMS DIAGNOSTICS & TELEMETRY
               </span>
               <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
                 {selectedProject.metrics.map((metric, i) => (
-                  <li key={i} className="hud-monospace" style={{ fontSize: '10px', color: '#fff', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <li key={i} className="hud-monospace" style={{ fontSize: '11px', color: '#fff', marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ color: 'var(--color-amber)' }}>✓</span> [ENG_REP] {metric}
                   </li>
                 ))}
@@ -259,13 +367,13 @@ export default function SectorProjects() {
             </div>
 
             {/* Tech Tags */}
-            <div style={{ marginBottom: '20px' }}>
-              <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-text-muted)', display: 'block', marginBottom: '6px' }}>
+            <div style={{ marginBottom: '22px' }}>
+              <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-text-muted)', display: 'block', marginBottom: '8px' }}>
                 SUBSYSTEM INTEGRATIONS:
               </span>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {selectedProject.stack.map((s, i) => (
-                  <span key={i} className="hud-monospace" style={{ fontSize: '10px', padding: '3px 8px', background: 'rgba(255, 170, 0, 0.1)', color: 'var(--color-amber)', border: '1px solid rgba(255, 170, 0, 0.2)', borderRadius: '3px' }}>
+                  <span key={i} className="hud-monospace" style={{ fontSize: '11px', padding: '4px 10px', background: 'rgba(255, 170, 0, 0.1)', color: 'var(--color-amber)', border: '1px solid rgba(255, 170, 0, 0.2)', borderRadius: '3px' }}>
                     {s}
                   </span>
                 ))}
@@ -273,7 +381,7 @@ export default function SectorProjects() {
             </div>
 
             {/* Footer Uplink trigger */}
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '12px' }}>
               <a 
                 href={selectedProject.github} 
                 target="_blank" 
@@ -285,7 +393,7 @@ export default function SectorProjects() {
                   gap: '8px',
                   textDecoration: 'none',
                   fontSize: '11px',
-                  padding: '10px 16px',
+                  padding: '10px 18px',
                   borderRadius: '4px',
                   border: '1px solid var(--color-amber)',
                   background: 'rgba(255, 170, 0, 0.1)',
@@ -320,8 +428,16 @@ export default function SectorProjects() {
         </div>
       )}
       
-      {/* Styles for animations */}
+      {/* Styles for scrollbar hiding & button hover */}
       <style>{`
+        div::-webkit-scrollbar {
+          display: none;
+        }
+        .hud-nav-btn:hover {
+          background: var(--color-cyan) !important;
+          color: #020208 !important;
+          box-shadow: 0 0 16px var(--color-cyan) !important;
+        }
         .animate-fade-in {
           animation: pageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }

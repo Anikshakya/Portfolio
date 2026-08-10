@@ -120,7 +120,7 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
       'Sector 0: Orbit of Genesis (Home Base)',
       'Sector 1: Nebula of Creations (Cargo Bay / Projects)',
       'Sector 2: Constellation of Expertise (System Diagnostics / Skills)',
-      'Sector 3: Event Horizon (Communications Grid / Contact)'
+      'Sector 3: Contact Grid (Communications)'
     ];
 
     setLogs(prev => {
@@ -135,31 +135,31 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
     });
   }, [currentSector]);
 
-  // Adjust telemetry based on warping state (Singularity Transition)
+  // Adjust telemetry based on warping state
   useEffect(() => {
     let interval;
     if (isWarping) {
       setLogs(prev => [
         ...prev, 
-        `[${new Date().toLocaleTimeString()}] [ALERT] GRAVITATIONAL ANOMALY. Generating localized black hole core.`,
-        `[${new Date().toLocaleTimeString()}] [WARN] Event horizon breached. Sucking card layouts into singularity.`
+        `[${new Date().toLocaleTimeString()}] [ALERT] Warp transition started. Plotting smooth scroll path.`,
+        `[${new Date().toLocaleTimeString()}] [SYS] Navigation grid engaged.`
       ]);
-      playSound('blackhole');
+      playSound('warp');
       interval = setInterval(() => {
         setShipStats(prev => ({
           ...prev,
-          speed: `COMPRESSED_c`,
-          energy: `${(80.5 - Math.random() * 5).toFixed(1)}%`,
-          shields: `${(90 + Math.random() * 3).toFixed(0)}%`,
-          coordinates: `SINGULARITY [${(Math.random() * 9999).toFixed(0)}, ${(Math.random() * 9999).toFixed(0)}]`
+          speed: `2,400 km/s`,
+          energy: `${(97.8 - Math.random() * 0.5).toFixed(1)}%`,
+          shields: `${(98 + Math.random() * 2).toFixed(0)}%`,
+          coordinates: getSectorCoordinates(currentSector)
         }));
-      }, 100);
+      }, 300);
     } else {
       setLogs(prev => {
         if (prev.length > 0) {
           return [
             ...prev, 
-            `[${new Date().toLocaleTimeString()}] [NAV] Singularity collapsed. Spat card data structure back into cockpit HUD.`,
+            `[${new Date().toLocaleTimeString()}] [NAV] Transition complete. HUD stabilized on destination sector.`,
             `[${new Date().toLocaleTimeString()}] [SYS] Stabilizing thrusters at destination orbit.`
           ];
         }
@@ -167,8 +167,8 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
       });
       setShipStats({
         speed: '2,400 km/s',
-        energy: '97.2%',
-        shields: '99%',
+        energy: '98.4%',
+        shields: '100%',
         coordinates: getSectorCoordinates(currentSector)
       });
     }
@@ -296,10 +296,10 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
       <div style={{ position: 'absolute', bottom: '20%', left: '5%', width: '150px', height: '150px', borderLeft: '1px solid rgba(0, 240, 255, 0.08)', borderBottom: '1px solid rgba(0, 240, 255, 0.08)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: '20%', right: '5%', width: '150px', height: '150px', borderRight: '1px solid rgba(0, 240, 255, 0.08)', borderBottom: '1px solid rgba(0, 240, 255, 0.08)', pointerEvents: 'none' }} />
 
-      {/* 3. BOTTOM CONTROL SYSTEM */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'stretch', pointerEvents: 'auto', gap: '16px', flexWrap: 'wrap', marginTop: '16px' }}>
+      {/* Bottom Section*/}
+      {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'stretch', pointerEvents: 'auto', gap: '16px', flexWrap: 'wrap', marginTop: '16px' }}>
         
-        {/* Telemetry Display */}
+        
         <div className="hud-panel hud-panel-amber" style={{ padding: '12px 18px', flex: '1 1 250px', minWidth: '220px' }}>
           <h2 style={{ fontSize: '11px', margin: 0, fontFamily: 'var(--font-header)', letterSpacing: '1px' }} className="glow-text-amber">
             SHIELD & RADAR TELEMETRY
@@ -312,7 +312,7 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
           </div>
         </div>
 
-        {/* Warp Drive Throttle Slider Control */}
+        
         <div className="hud-panel" style={{ padding: '12px 18px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '220px' }}>
           <div style={{ fontSize: '9px', fontFamily: 'var(--font-header)', letterSpacing: '1px', marginBottom: '8px', color: 'var(--color-cyan)' }}>
             WARP SPEED INJECTOR
@@ -344,7 +344,7 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
           </div>
         </div>
 
-        {/* Diagnostics & Logs Terminal Console */}
+        
         <div 
           className="hud-panel" 
           style={{ 
@@ -385,7 +385,7 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
           </div>
         </div>
 
-      </div>
+      </div> */}
     </div>
   );
 }
