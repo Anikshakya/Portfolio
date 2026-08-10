@@ -348,6 +348,7 @@ export default function SpaceCanvas({
           return false;
         });
 
+        // Draw Earth
         ctx.beginPath();
         ctx.arc(earthX, earthY, earthRadius, 0, Math.PI * 2);
         const earthGrad = ctx.createRadialGradient(earthX - 10, earthY - 10, 5, earthX, earthY, earthRadius);
@@ -360,6 +361,18 @@ export default function SpaceCanvas({
         ctx.lineWidth = 2;
         ctx.stroke();
 
+        // Label: Earth
+        ctx.fillStyle = '#00f0ff';
+        ctx.font = 'bold 13px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('EARTH [HQ]', earthX, earthY - earthRadius - 12);
+
+        // Subtext / Indicator dot for Earth
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '10px monospace';
+        ctx.fillText('● SIGNAL RECEIVER', earthX, earthY - earthRadius - 2);
+
+        // Draw Satellite / Astronaut
         ctx.save();
         ctx.translate(ax, ay);
         ctx.rotate(Math.sin(floatTime * 0.5) * 0.12);
@@ -388,6 +401,21 @@ export default function SpaceCanvas({
         ctx.stroke();
 
         ctx.restore();
+
+        // Label: Satellite / Orbital Relay Node
+        ctx.fillStyle = mouseRef.current.isDraggingAstronaut ? '#ff007f' : '#00f0ff';
+        ctx.font = 'bold 13px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('SATELLITE RELAY', ax, ay + 48);
+
+        // Status indicator text for Satellite
+        ctx.fillStyle = mouseRef.current.isDraggingAstronaut ? '#ff007f' : '#00ff66';
+        ctx.font = '10px monospace';
+        ctx.fillText(
+          mouseRef.current.isDraggingAstronaut ? 'TRANSMITTING...' : '● LINK ACTIVE', 
+          ax, 
+          ay + 62
+        );
       }
 
       animationFrameId = requestAnimationFrame(animate);
