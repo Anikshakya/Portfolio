@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-// Shifted percentages (px) to the right half of the canvas (0.55 - 0.92 range)
+// Skill node data
 const skillsData = [
   { id: 'flutter', label: 'Flutter', px: 0.72, py: 0.35, radius: 28, color: '#00f0ff', connections: ['dart', 'firebase', 'ios', 'android'] },
   { id: 'dart', label: 'Dart', px: 0.62, py: 0.48, radius: 20, color: '#00f0ff', connections: ['flutter'] },
@@ -15,7 +15,6 @@ const skillsData = [
 
 export default function SpaceCanvas({ 
   currentSector = 0, 
-  isWarping = false, 
   scrollY = 0, 
   selectedSkillId = null, 
   onSelectSkill = () => {} 
@@ -24,25 +23,23 @@ export default function SpaceCanvas({
 
   const scrollYRef = useRef(scrollY);
   const currentSectorRef = useRef(currentSector);
-  const isWarpingRef = useRef(isWarping);
   const selectedSkillIdRef = useRef(selectedSkillId);
+
   const mouseRef = useRef({ 
     x: -1000, 
     y: -1000, 
     isDown: false, 
-    draggedSkillIndex: null, 
+    draggedSkillIndex: null,
     isDraggingAstronaut: false 
   });
 
   const shockwavesRef = useRef([]);
   const stardustRef = useRef([]);
   const signalParticlesRef = useRef([]);
-
   const astroPhysicsRef = useRef({ x: 0, y: 0, vx: 0, vy: 0 });
 
   useEffect(() => { scrollYRef.current = scrollY; }, [scrollY]);
   useEffect(() => { currentSectorRef.current = currentSector; }, [currentSector]);
-  useEffect(() => { isWarpingRef.current = isWarping; }, [isWarping]);
   useEffect(() => { selectedSkillIdRef.current = selectedSkillId; }, [selectedSkillId]);
 
   useEffect(() => {
@@ -58,16 +55,45 @@ export default function SpaceCanvas({
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Interactive Stars
-    const backgroundStars = Array.from({ length: 400 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      baseX: Math.random() * window.innerWidth,
-      baseY: Math.random() * window.innerHeight,
-      size: Math.random() * 2 + 0.5,
-      color: Math.random() > 0.3 ? 'rgba(0, 240, 255, 0.7)' : 'rgba(255, 0, 127, 0.6)',
-      alpha: Math.random() * 0.8 + 0.2
+    // Dynamic camera parameters
+    const FOV = 400;
+    const MAX_DEPTH = 2200;
+    const MIN_DEPTH = 20;
+
+    let globalCameraOffsetZ = 0;
+
+    // Helper: Seamless Modulo Projection
+    const getProjectedZ = (baseZ, offsetZ) => {
+      const depthSpan = MAX_DEPTH - MIN_DEPTH;
+      let effectiveZ = (baseZ - offsetZ) % depthSpan;
+      if (effectiveZ < 0) effectiveZ += depthSpan;
+      return effectiveZ + MIN_DEPTH;
+    };
+
+    // Calculate edge alpha fade to eliminate wrap pops completely
+    const calculateAlpha = (z) => {
+      if (z > MAX_DEPTH - 300) return (MAX_DEPTH - z) / 300;
+      if (z < MIN_DEPTH + 150) return (z - MIN_DEPTH) / 150;
+      return 1.0;
+    };
+
+    // Warp Field Stars
+    const STAR_COUNT = 900;
+    const starField3D = Array.from({ length: STAR_COUNT }, () => ({
+      x: (Math.random() - 0.5) * 3200,
+      y: (Math.random() - 0.5) * 3200,
+      baseZ: Math.random() * (MAX_DEPTH - MIN_DEPTH) + MIN_DEPTH,
+      size: Math.random() * 1.8 + 0.5,
+      color: Math.random() > 0.4 ? '#00f0ff' : (Math.random() > 0.5 ? '#ff007f' : '#ffffff')
     }));
+
+    // Continuous Volumetric Nebula Clouds
+    const nebulaClouds3D = [
+      { x: -400, y: -200, baseZ: 400, baseRadius: 600, color: 'rgba(128, 0, 255, 0.25)' },
+      { x: 500, y: 300, baseZ: 1000, baseRadius: 800, color: 'rgba(0, 240, 255, 0.20)' },
+      { x: -200, y: 400, baseZ: 1600, baseRadius: 700, color: 'rgba(255, 0, 128, 0.22)' },
+      { x: 300, y: -500, baseZ: 2100, baseRadius: 900, color: 'rgba(0, 100, 255, 0.18)' }
+    ];
 
     const skillNodes = skillsData.map(node => ({
       ...node,
@@ -78,35 +104,18 @@ export default function SpaceCanvas({
 
     let floatTime = 0;
 
-    // Strict Sector Check for Skills (Sector 2)
     const isSkillsSectorActive = () => {
       const sector = currentSectorRef.current;
-      
-      // Explicit sector matches
       if (sector === 2) return true;
-      
-      // Hard block if explicitly in another sector (e.g., Sector 1, 3, or 4)
       if (sector > 0 && sector !== 2) return false;
-
-      // Fallback scroll bounds for Skills (between ~0.8x and 1.8x window height)
-      const h = window.innerHeight;
-      const currentY = scrollYRef.current;
-      return currentY >= h * 0.8 && currentY < h * 1.8;
+      return scrollYRef.current >= window.innerHeight * 0.8 && scrollYRef.current < window.innerHeight * 1.8;
     };
 
-    // Strict Sector Check for Contact (Sector 3 or 4 depending on setup)
     const isContactSectorActive = () => {
       const sector = currentSectorRef.current;
-      
-      // Matches either index convention for Contact (Sector 3 or 4)
       if (sector === 3 || sector === 4) return true;
-      
-      // Hard block if explicitly in an earlier sector
       if (sector > 0 && sector !== 3 && sector !== 4) return false;
-
-      // Fallback scroll bounds for Contact section (>2.8x window height)
-      const h = window.innerHeight;
-      return scrollYRef.current >= h * 2.8;
+      return scrollYRef.current >= window.innerHeight * 2.8;
     };
 
     const handlePointerMove = (e) => {
@@ -148,18 +157,13 @@ export default function SpaceCanvas({
       const my = e.clientY - rect.top;
 
       shockwavesRef.current.push({
-        x: mx,
-        y: my,
-        radius: 0,
-        maxRadius: 220,
-        speed: 8
+        x: mx, y: my, radius: 0, maxRadius: 220, speed: 8
       });
 
       if (isSkillsSectorActive()) {
         for (let i = 0; i < skillNodes.length; i++) {
           const node = skillNodes[i];
-          const dist = Math.hypot(node.x - mx, node.y - my);
-          if (dist < node.radius + 15) {
+          if (Math.hypot(node.x - mx, node.y - my) < node.radius + 15) {
             mouseRef.current.draggedSkillIndex = i;
             onSelectSkill(node.id);
             return;
@@ -168,14 +172,10 @@ export default function SpaceCanvas({
       }
 
       if (isContactSectorActive()) {
-        const distAstro = Math.hypot(astroPhysicsRef.current.x - mx, astroPhysicsRef.current.y - my);
-        if (distAstro < 45) {
+        if (Math.hypot(astroPhysicsRef.current.x - mx, astroPhysicsRef.current.y - my) < 45) {
           mouseRef.current.isDraggingAstronaut = true;
           for (let p = 0; p < 10; p++) {
-            signalParticlesRef.current.push({
-              progress: 0,
-              speed: 0.02 + Math.random() * 0.03
-            });
+            signalParticlesRef.current.push({ progress: 0, speed: 0.02 + Math.random() * 0.03 });
           }
         }
       }
@@ -191,37 +191,98 @@ export default function SpaceCanvas({
     window.addEventListener('pointerdown', handlePointerDown);
     window.addEventListener('pointerup', handlePointerUp);
 
+    // -------------------------------------------------------------
+    // WARP SPEED RENDER FUNCTION
+    // -------------------------------------------------------------
+    const renderWarpSpeed = (mouseOffX, mouseOffY, centerX, centerY) => {
+      // Nebulae
+      nebulaClouds3D.forEach(cloud => {
+        const currentZ = getProjectedZ(cloud.baseZ, globalCameraOffsetZ * 0.3);
+        const alpha = calculateAlpha(currentZ);
+        if (alpha > 0) {
+          const scale = FOV / currentZ;
+          const px = (cloud.x - mouseOffX) * scale + centerX;
+          const py = (cloud.y - mouseOffY) * scale + centerY;
+          const rad = cloud.baseRadius * scale;
+
+          if (px + rad > 0 && px - rad < canvas.width && py + rad > 0 && py - rad < canvas.height) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            const cloudGrad = ctx.createRadialGradient(px, py, 0, px, py, rad);
+            cloudGrad.addColorStop(0, cloud.color);
+            cloudGrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = cloudGrad;
+            ctx.beginPath();
+            ctx.arc(px, py, rad, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+      });
+
+      // Continuous Flying Stars
+      starField3D.forEach(star => {
+        const currentZ = getProjectedZ(star.baseZ, globalCameraOffsetZ);
+        const alpha = calculateAlpha(currentZ);
+
+        if (alpha > 0) {
+          const scale = FOV / currentZ;
+          const px = (star.x - mouseOffX) * scale + centerX;
+          const py = (star.y - mouseOffY) * scale + centerY;
+          const drawSize = star.size * scale * 1.5;
+
+          if (px > 0 && px < canvas.width && py > 0 && py < canvas.height) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = star.color;
+            ctx.beginPath();
+            ctx.arc(px, py, Math.max(0.5, drawSize), 0, Math.PI * 2);
+            ctx.fill();
+
+            if (scale > 0.3) {
+              const prevScale = FOV / (currentZ + 20);
+              const prevPx = (star.x - mouseOffX) * prevScale + centerX;
+              const prevPy = (star.y - mouseOffY) * prevScale + centerY;
+              ctx.strokeStyle = star.color;
+              ctx.lineWidth = drawSize * 0.7;
+              ctx.beginPath();
+              ctx.moveTo(px, py);
+              ctx.lineTo(prevPx, prevPy);
+              ctx.stroke();
+            }
+            ctx.restore();
+          }
+        }
+      });
+    };
+
+    // -------------------------------------------------------------
+    // MAIN ANIMATION LOOP
+    // -------------------------------------------------------------
     const animate = () => {
-      ctx.fillStyle = 'rgba(2, 2, 8, 0.28)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      floatTime += 0.02;
+      floatTime += 0.003; 
+      globalCameraOffsetZ += 1.8; // Smooth forward star velocity
 
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
 
-      // 1. Interactive Background Field
-      backgroundStars.forEach(star => {
-        const dx = mx - star.x;
-        const dy = my - star.y;
-        const dist = Math.hypot(dx, dy);
+      // Base Black Background
+      const bgGrad = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, Math.max(canvas.width, canvas.height));
+      bgGrad.addColorStop(0, '#090518');
+      bgGrad.addColorStop(0.5, '#04020c');
+      bgGrad.addColorStop(1, '#010005');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        if (dist < 120) {
-          const angle = Math.atan2(dy, dx);
-          const force = (120 - dist) * 0.08;
-          star.x -= Math.cos(angle) * force;
-          star.y -= Math.sin(angle) * force;
-        } else {
-          star.x += (star.baseX - star.x) * 0.05;
-          star.y += (star.baseY - star.y) * 0.05;
-        }
+      const mouseOffX = (mx - centerX) * 0.15;
+      const mouseOffY = (my - centerY) * 0.15;
 
-        ctx.fillStyle = star.color;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fill();
-      });
+      // Render Warp Speed background directly
+      renderWarpSpeed(mouseOffX, mouseOffY, centerX, centerY);
 
-      // 2. Cursor Stardust
+      // Cursor Stardust
       stardustRef.current = stardustRef.current.filter(p => {
         p.x += p.vx;
         p.y += p.vy;
@@ -238,7 +299,7 @@ export default function SpaceCanvas({
         return false;
       });
 
-      // 3. Shockwaves
+      // Shockwaves
       shockwavesRef.current = shockwavesRef.current.filter(wave => {
         wave.radius += wave.speed;
         if (wave.radius < wave.maxRadius) {
@@ -252,7 +313,7 @@ export default function SpaceCanvas({
         return false;
       });
 
-      // 4. Skills Constellation (Strictly active only in Skills Sector)
+      // Overlay UI - Skills Constellation
       if (isSkillsSectorActive()) {
         skillNodes.forEach((node, idx) => {
           const targetX = node.px * canvas.width;
@@ -298,7 +359,7 @@ export default function SpaceCanvas({
         });
       }
 
-      // 5. Contact Sector Elements
+      // Overlay UI - Contact Earth/Satellite
       if (isContactSectorActive()) {
         const earthX = canvas.width * 0.15;
         const earthY = canvas.height * 0.25;
@@ -348,7 +409,6 @@ export default function SpaceCanvas({
           return false;
         });
 
-        // Draw Earth
         ctx.beginPath();
         ctx.arc(earthX, earthY, earthRadius, 0, Math.PI * 2);
         const earthGrad = ctx.createRadialGradient(earthX - 10, earthY - 10, 5, earthX, earthY, earthRadius);
@@ -361,18 +421,11 @@ export default function SpaceCanvas({
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Label: Earth
         ctx.fillStyle = '#00f0ff';
         ctx.font = 'bold 13px monospace';
         ctx.textAlign = 'center';
         ctx.fillText('EARTH [HQ]', earthX, earthY - earthRadius - 12);
 
-        // Subtext / Indicator dot for Earth
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '10px monospace';
-        ctx.fillText('● SIGNAL RECEIVER', earthX, earthY - earthRadius - 2);
-
-        // Draw Satellite / Astronaut
         ctx.save();
         ctx.translate(ax, ay);
         ctx.rotate(Math.sin(floatTime * 0.5) * 0.12);
@@ -402,20 +455,10 @@ export default function SpaceCanvas({
 
         ctx.restore();
 
-        // Label: Satellite / Orbital Relay Node
         ctx.fillStyle = mouseRef.current.isDraggingAstronaut ? '#ff007f' : '#00f0ff';
         ctx.font = 'bold 13px monospace';
         ctx.textAlign = 'center';
         ctx.fillText('SATELLITE RELAY', ax, ay + 48);
-
-        // Status indicator text for Satellite
-        ctx.fillStyle = mouseRef.current.isDraggingAstronaut ? '#ff007f' : '#00ff66';
-        ctx.font = '10px monospace';
-        ctx.fillText(
-          mouseRef.current.isDraggingAstronaut ? 'TRANSMITTING...' : '● LINK ACTIVE', 
-          ax, 
-          ay + 62
-        );
       }
 
       animationFrameId = requestAnimationFrame(animate);
