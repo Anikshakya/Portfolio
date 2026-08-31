@@ -286,37 +286,41 @@ export default function SectorProjects() {
 
   return (
     <div 
+      className="hud-projects-wrapper"
       style={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        padding: '95px 24px 40px 24px',
+        padding: '60px 16px 10px 16px',
         zIndex: 5,
         position: 'relative',
         boxSizing: 'border-box'
       }}
     >
       {/* Expanded panel container width */}
-      <div className="hud-panel animate-fade-in" style={{ padding: '28px', width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+      <div 
+        className="hud-panel hud-projects-container hud-showcase-scroll-container animate-fade-in" 
+        style={{ padding: '16px 20px', width: '100%', maxWidth: '1240px', margin: '0 auto', maxHeight: 'calc(100vh - 75px)', overflowY: 'auto' }}
+      >
         
         {/* Header telemetry */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
-          <span style={{ fontSize: '11px', color: 'var(--color-cyan)' }} className="hud-monospace">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
+          <span style={{ fontSize: '10.5px', color: 'var(--color-cyan)' }} className="hud-monospace">
             CARGO_BAY_INVENTORY // SEC_01 // PROJECTS
           </span>
-          <span style={{ fontSize: '10px', opacity: 0.8 }} className="hud-monospace">
+          <span style={{ fontSize: '9.5px', opacity: 0.8 }} className="hud-monospace">
             WORK SHOWCASE: <strong style={{ color: 'var(--color-cyan)' }}>{showcaseProjects.length} APPS</strong> | TOTAL: {projects.length} PROJECTS
           </span>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px', flexWrap: 'wrap', gap: '14px' }}>
-          <h2 style={{ fontSize: '2rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '1px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '10px' }}>
+          <h2 style={{ fontSize: '1.6rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '1px' }}>
             PROJECTS & <span className="glow-text-cyan">WORK SHOWCASE</span>
           </h2>
 
           {/* Navigation View Tabs: Work Showcase vs All Projects */}
-          <div style={{ display: 'flex', gap: '8px', background: 'rgba(2, 2, 12, 0.7)', padding: '4px', borderRadius: '6px', border: '1px solid rgba(0, 240, 255, 0.25)' }}>
+          <div style={{ display: 'flex', gap: '6px', background: 'rgba(2, 2, 12, 0.7)', padding: '3px', borderRadius: '6px', border: '1px solid rgba(0, 240, 255, 0.25)' }}>
             <button
               onClick={() => setActiveTab('showcase')}
               className="hud-monospace"
@@ -324,13 +328,13 @@ export default function SectorProjects() {
                 background: activeTab === 'showcase' ? 'var(--color-cyan)' : 'transparent',
                 color: activeTab === 'showcase' ? '#020208' : 'var(--color-cyan)',
                 border: 'none',
-                padding: '8px 16px',
+                padding: '6px 12px',
                 borderRadius: '4px',
-                fontSize: '11.5px',
+                fontSize: '11px',
                 fontWeight: 'bold',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: activeTab === 'showcase' ? '0 0 12px rgba(0, 240, 255, 0.4)' : 'none'
+                boxShadow: activeTab === 'showcase' ? '0 0 10px rgba(0, 240, 255, 0.4)' : 'none'
               }}
             >
               Work Showcase ({showcaseProjects.length})
@@ -342,13 +346,13 @@ export default function SectorProjects() {
                 background: activeTab === 'all' ? 'var(--color-cyan)' : 'transparent',
                 color: activeTab === 'all' ? '#020208' : 'var(--color-cyan)',
                 border: 'none',
-                padding: '8px 16px',
+                padding: '6px 12px',
                 borderRadius: '4px',
-                fontSize: '11.5px',
+                fontSize: '11px',
                 fontWeight: 'bold',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: activeTab === 'all' ? '0 0 12px rgba(0, 240, 255, 0.4)' : 'none'
+                boxShadow: activeTab === 'all' ? '0 0 10px rgba(0, 240, 255, 0.4)' : 'none'
               }}
             >
               All Projects ({projects.length})
@@ -360,20 +364,21 @@ export default function SectorProjects() {
         {activeTab === 'showcase' && (
           <div>
             <div 
+              className="hud-showcase-grid"
               style={{ 
                 display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-                gap: '20px', 
-                marginBottom: '10px' 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+                gap: '12px', 
+                marginBottom: '6px' 
               }}
             >
               {showcaseProjects.map((proj) => (
                 <div 
                   key={proj.id}
-                  className="hud-panel animate-fade-in"
+                  className="hud-panel hud-showcase-card animate-fade-in"
                   onClick={() => setSelectedProject(proj)}
                   style={{
-                    padding: '22px',
+                    padding: '12px 14px',
                     cursor: 'pointer',
                     background: 'rgba(6, 14, 34, 0.85)',
                     border: '1px solid rgba(0, 240, 255, 0.25)',
@@ -381,38 +386,44 @@ export default function SectorProjects() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    transition: 'all 0.25s ease',
-                    boxShadow: '0 4px 20px rgba(0, 240, 255, 0.05)'
+                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                    boxShadow: '0 4px 16px rgba(0, 240, 255, 0.05)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-6px)';
+                    e.currentTarget.style.transform = 'translateY(-6px) scale(1.012)';
                     e.currentTarget.style.borderColor = 'var(--color-cyan)';
-                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 240, 255, 0.2)';
+                    e.currentTarget.style.background = 'rgba(8, 24, 52, 0.95)';
+                    e.currentTarget.style.boxShadow = '0 10px 28px rgba(0, 240, 255, 0.35)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
                     e.currentTarget.style.borderColor = 'rgba(0, 240, 255, 0.25)';
-                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 240, 255, 0.05)';
+                    e.currentTarget.style.background = 'rgba(6, 14, 34, 0.85)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 240, 255, 0.05)';
                   }}
                 >
                   <div>
                     {/* Top Row: App Logo & Status Badge */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         {/* High-res Local App Icon Container */}
-                        <div style={{ 
-                          width: '56px', 
-                          height: '56px', 
-                          borderRadius: '12px', 
-                          overflow: 'hidden', 
-                          background: '#0a0a1a', 
-                          border: '1.5px solid var(--color-cyan)', 
-                          boxShadow: '0 0 14px rgba(0, 240, 255, 0.35)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0
-                        }}>
+                        <div 
+                          className="showcase-icon-box"
+                          style={{ 
+                            width: '38px', 
+                            height: '38px', 
+                            borderRadius: '10px', 
+                            overflow: 'hidden', 
+                            background: '#0a0a1a', 
+                            border: '1.5px solid var(--color-cyan)', 
+                            boxShadow: '0 0 12px rgba(0, 240, 255, 0.35)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                            transition: 'all 0.3s ease'
+                          }}
+                        >
                           <img 
                             src={proj.appIcon} 
                             alt={proj.title}
@@ -421,37 +432,37 @@ export default function SectorProjects() {
                         </div>
 
                         <div>
-                          <h3 style={{ fontSize: '19px', fontFamily: 'var(--font-header)', fontWeight: 'bold', margin: '0 0 4px 0', color: '#fff' }}>
+                          <h3 className="showcase-title-text" style={{ fontSize: '15px', fontFamily: 'var(--font-header)', fontWeight: 'bold', margin: '0 0 2px 0', color: '#fff', transition: 'all 0.3s ease' }}>
                             {proj.title}
                           </h3>
-                          <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-cyan)' }}>
+                          <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-cyan)' }}>
                             [{proj.category.toUpperCase()}]
                           </span>
                         </div>
                       </div>
 
-                      <span className="hud-monospace" style={{ fontSize: '9px', padding: '4px 8px', background: 'rgba(0, 240, 255, 0.1)', color: 'var(--color-cyan)', border: '1px solid rgba(0, 240, 255, 0.3)', borderRadius: '3px', fontWeight: 'bold' }}>
+                      <span className="hud-monospace" style={{ fontSize: '8.5px', padding: '3px 6px', background: 'rgba(0, 240, 255, 0.1)', color: 'var(--color-cyan)', border: '1px solid rgba(0, 240, 255, 0.3)', borderRadius: '3px', fontWeight: 'bold' }}>
                         {proj.status}
                       </span>
                     </div>
 
-                    <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.5', marginBottom: '16px' }}>
+                    <p style={{ fontSize: '12px', color: 'var(--color-text-main)', lineHeight: '1.35', marginBottom: '8px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                       {proj.shortDesc}
                     </p>
                   </div>
 
                   <div>
                     {/* Stack Badges */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
-                      {proj.stack.slice(0, 4).map((s, i) => (
-                        <span key={i} className="hud-monospace" style={{ fontSize: '9px', padding: '3px 8px', background: 'rgba(255, 255, 255, 0.06)', color: '#fff', borderRadius: '3px' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '8px' }}>
+                      {proj.stack.slice(0, 3).map((s, i) => (
+                        <span key={i} className="hud-monospace" style={{ fontSize: '8.5px', padding: '2px 6px', background: 'rgba(255, 255, 255, 0.06)', color: '#fff', borderRadius: '3px' }}>
                           {s}
                         </span>
                       ))}
                     </div>
 
                     {/* Direct Quick Store / Repo Action Buttons */}
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '12px' }}>
+                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px' }}>
                       {proj.playstore && (
                         <a 
                           href={proj.playstore}
@@ -461,11 +472,11 @@ export default function SectorProjects() {
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '6px',
+                            gap: '5px',
                             textDecoration: 'none',
-                            fontSize: '10px',
-                            padding: '6px 10px',
-                            borderRadius: '4px',
+                            fontSize: '9px',
+                            padding: '4px 8px',
+                            borderRadius: '3px',
                             background: 'rgba(0, 255, 102, 0.1)',
                             border: '1px solid #00ff66',
                             color: '#00ff66',
@@ -473,8 +484,8 @@ export default function SectorProjects() {
                             fontFamily: 'var(--font-hud)'
                           }}
                         >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L18.81,13.97C20.08,13.24 20.08,12.76 18.81,12.03L16.81,10.88L14.81,12.88L16.81,15.12M4.6,3.16L13.1,11.66L15.3,9.46L5.3,3.71C5.07,3.58 4.83,3.37 4.6,3.16M4.6,20.84C4.83,20.63 5.07,20.42 5.3,20.29L15.3,14.54L13.1,12.34L4.6,20.84Z"/>
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L18.81,13.97C20.08,13.24 20.08,12.76 18.81,12.03L16.81,10.88L14.81,12.88M4.6,3.16L13.1,11.66L15.3,9.46L5.3,3.71C5.07,3.58 4.83,3.37 4.6,3.16M4.6,20.84C4.83,20.63 5.07,20.42 5.3,20.29L15.3,14.54L13.1,12.34L4.6,20.84Z"/>
                           </svg>
                           PLAY STORE
                         </a>
@@ -488,11 +499,11 @@ export default function SectorProjects() {
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '6px',
+                            gap: '5px',
                             textDecoration: 'none',
-                            fontSize: '10px',
-                            padding: '6px 10px',
-                            borderRadius: '4px',
+                            fontSize: '9px',
+                            padding: '4px 8px',
+                            borderRadius: '3px',
                             background: 'rgba(0, 240, 255, 0.1)',
                             border: '1px solid var(--color-cyan)',
                             color: 'var(--color-cyan)',
@@ -500,8 +511,8 @@ export default function SectorProjects() {
                             fontFamily: 'var(--font-hud)'
                           }}
                         >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.09,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.09,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
                           </svg>
                           APP STORE
                         </a>
@@ -515,11 +526,11 @@ export default function SectorProjects() {
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '6px',
+                            gap: '5px',
                             textDecoration: 'none',
-                            fontSize: '10px',
-                            padding: '6px 10px',
-                            borderRadius: '4px',
+                            fontSize: '9px',
+                            padding: '4px 8px',
+                            borderRadius: '3px',
                             background: 'rgba(255, 170, 0, 0.1)',
                             border: '1px solid var(--color-amber)',
                             color: 'var(--color-amber)',
@@ -943,6 +954,67 @@ export default function SectorProjects() {
         @keyframes modalScaleIn {
           0% { opacity: 0; transform: scale(0.92); }
           100% { opacity: 1; transform: scale(1); }
+        }
+        .hud-showcase-card {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .hud-showcase-card:hover {
+          transform: translateY(-8px) scale(1.015) !important;
+          border-color: var(--color-cyan) !important;
+          background: rgba(8, 24, 52, 0.95) !important;
+          box-shadow: 0 12px 35px rgba(0, 240, 255, 0.35) !important;
+        }
+        .hud-showcase-card:hover .showcase-icon-box {
+          border-color: var(--color-cyan) !important;
+          box-shadow: 0 0 20px var(--color-cyan) !important;
+          transform: scale(1.1) !important;
+        }
+        .hud-showcase-card:hover .showcase-title-text {
+          color: var(--color-cyan) !important;
+          text-shadow: 0 0 12px var(--color-cyan) !important;
+        }
+        .hud-showcase-scroll-container::-webkit-scrollbar {
+          width: 5px;
+        }
+        .hud-showcase-scroll-container::-webkit-scrollbar-track {
+          background: rgba(2, 2, 8, 0.5);
+        }
+        .hud-showcase-scroll-container::-webkit-scrollbar-thumb {
+          background: var(--color-cyan);
+          border-radius: 3px;
+        }
+        @media (min-width: 900px) {
+          .hud-showcase-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 12px !important;
+          }
+        }
+        @media (min-width: 650px) and (max-width: 899px) {
+          .hud-showcase-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+        }
+        @media (max-width: 649px) {
+          .hud-projects-wrapper {
+            padding-top: 80px !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            padding-bottom: 20px !important;
+          }
+          .hud-projects-container {
+            padding: 14px !important;
+            max-height: none !important;
+          }
+          .hud-showcase-grid {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+          }
+          .hud-modal-content {
+            padding: 18px !important;
+            max-width: 94vw !important;
+            max-height: 84vh !important;
+          }
         }
       `}</style>
 

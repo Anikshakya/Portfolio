@@ -32,6 +32,16 @@ function App() {
   // Black Hole Implosion: UI spirals & collapses into a fixed, small central singularity
   const triggerWarp = (targetSectorIdx) => {
     if (isWarping || targetSectorIdx === currentSector) return;
+
+    // Disable black hole animation on mobile view and scroll directly
+    if (window.innerWidth <= 768) {
+      setSector(targetSectorIdx);
+      if (sectorRefs.current[targetSectorIdx]) {
+        sectorRefs.current[targetSectorIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
+
     setIsWarping(true);
 
     // Dynamic singularity point in viewport
@@ -124,8 +134,14 @@ function App() {
       setBlackHoleTransition(prev => ({ ...prev, stage: 'scrolling' }));
       
       // Jump view directly behind singularity
-      const targetScrollTop = targetSectorIdx * window.innerHeight;
-      container.scrollTo({ top: targetScrollTop, behavior: 'instant' });
+      if (container && sectorRefs.current[targetSectorIdx]) {
+        if (window.innerWidth <= 768) {
+          sectorRefs.current[targetSectorIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          const targetScrollTop = targetSectorIdx * window.innerHeight;
+          container.scrollTo({ top: targetScrollTop, behavior: 'instant' });
+        }
+      }
       setSector(targetSectorIdx);
 
       // Snap black hole shut into singularity zero point
@@ -236,8 +252,9 @@ function App() {
         
         {/* Sector 0: Home */}
         <div 
+          className="sector-wrapper-item"
           style={{
-            height: '100vh',
+            minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
@@ -256,8 +273,9 @@ function App() {
 
         {/* Sector 1: Projects */}
         <div 
+          className="sector-wrapper-item"
           style={{
-            height: '100vh',
+            minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
@@ -276,8 +294,9 @@ function App() {
 
         {/* Sector 2: Skills */}
         <div 
+          className="sector-wrapper-item"
           style={{
-            height: '100vh',
+            minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
@@ -296,8 +315,9 @@ function App() {
 
         {/* Sector 3: Contact */}
         <div 
+          className="sector-wrapper-item"
           style={{
-            height: '100vh',
+            minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
@@ -319,6 +339,27 @@ function App() {
       <style>{`
         body {
           overflow: hidden !important;
+        }
+        @media (max-width: 768px) {
+          body {
+            overflow-y: auto !important;
+          }
+          .App {
+            scroll-snap-type: none !important;
+            height: auto !important;
+            min-height: 100vh !important;
+            overflow-y: auto !important;
+          }
+          .sector-wrapper-item {
+            height: auto !important;
+            min-height: auto !important;
+            opacity: 1 !important;
+            filter: none !important;
+            transform: none !important;
+            pointer-events: auto !important;
+            padding-top: 10px !important;
+            padding-bottom: 30px !important;
+          }
         }
       `}</style>
     </div>
