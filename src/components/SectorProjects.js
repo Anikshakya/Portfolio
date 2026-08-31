@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 const projects = [
   {
@@ -343,7 +344,7 @@ export default function SectorProjects() {
         width: '100%',
         maxWidth: '1280px',
         margin: '0 auto',
-        padding: '60px 20px 40px 20px',
+        padding: '20px 0',
         zIndex: 5,
         position: 'relative',
         boxSizing: 'border-box'
@@ -608,23 +609,26 @@ export default function SectorProjects() {
 
       </div>
 
-      {/* DETAIL MODAL OVERLAY */}
-      {selectedProject && (
+      {/* REACT PORTAL DETAIL MODAL OVERLAY (PERFECT VIEWPORT CENTERING) */}
+      {selectedProject && createPortal(
         <div 
           style={{
             position: 'fixed',
             top: 0,
             left: 0,
+            right: 0,
+            bottom: 0,
             width: '100vw',
             height: '100vh',
             background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)',
-            zIndex: 9000,
+            backdropFilter: 'blur(30px)',
+            WebkitBackdropFilter: 'blur(30px)',
+            zIndex: 10000,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '16px'
+            padding: '20px',
+            boxSizing: 'border-box'
           }}
           onClick={() => setSelectedProject(null)}
         >
@@ -632,10 +636,15 @@ export default function SectorProjects() {
             className="editorial-card"
             style={{
               width: '100%',
-              maxWidth: '640px',
-              padding: '36px',
-              background: 'var(--bg-base)',
-              borderRadius: '24px'
+              maxWidth: '660px',
+              maxHeight: '88vh',
+              overflowY: 'auto',
+              padding: '32px',
+              background: 'var(--bg-card)',
+              backdropFilter: 'blur(40px)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '28px',
+              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.6)'
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -701,7 +710,8 @@ export default function SectorProjects() {
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
