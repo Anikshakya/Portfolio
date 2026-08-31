@@ -271,14 +271,14 @@ const projects = [
 function RenderAppIcon({ proj, size = 56 }) {
   if (proj.appIcon) {
     return (
-      <div 
-        style={{ 
-          width: `${size}px`, 
-          height: `${size}px`, 
-          borderRadius: `${Math.round(size * 0.28)}px`, 
-          overflow: 'hidden', 
-          background: 'var(--bg-base)', 
-          border: '1px solid var(--border-subtle)', 
+      <div
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          borderRadius: `${Math.round(size * 0.28)}px`,
+          overflow: 'hidden',
+          background: 'var(--bg-base)',
+          border: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -286,8 +286,8 @@ function RenderAppIcon({ proj, size = 56 }) {
           boxShadow: 'var(--shadow-card)'
         }}
       >
-        <img 
-          src={proj.appIcon} 
+        <img
+          src={proj.appIcon}
           alt={proj.title}
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           onError={(e) => { e.target.style.display = 'none'; }}
@@ -298,13 +298,13 @@ function RenderAppIcon({ proj, size = 56 }) {
 
   // Placeholder glass badge if no image exists
   return (
-    <div 
-      style={{ 
-        width: `${size}px`, 
-        height: `${size}px`, 
-        borderRadius: `${Math.round(size * 0.28)}px`, 
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))', 
-        border: '1px solid var(--border-hover)', 
+    <div
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        borderRadius: `${Math.round(size * 0.28)}px`,
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+        border: '1px solid var(--border-hover)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -335,7 +335,7 @@ export default function SectorProjects() {
   };
 
   return (
-    <div 
+    <div
       className="hud-projects-wrapper apple-reveal"
       style={{
         display: 'flex',
@@ -351,7 +351,7 @@ export default function SectorProjects() {
       }}
     >
       <div className="editorial-card" style={{ padding: '36px', width: '100%' }}>
-        
+
         {/* Header Telemetry */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
           <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
@@ -365,7 +365,7 @@ export default function SectorProjects() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '14px' }}>
           <div>
             <h2 style={{ fontSize: '2.6rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '-0.04em' }} className="headline-gradient">
-              SELECTED PROJECTS
+              PROJECTS
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
               Explore production mobile applications, web platforms, and open-source GitHub repositories.
@@ -437,7 +437,7 @@ export default function SectorProjects() {
           <div>
             <div className="apple-carousel-container" ref={carouselRef}>
               {showcaseProjects.map((proj) => (
-                <div 
+                <div
                   key={proj.id}
                   className="editorial-card apple-carousel-card"
                   onClick={() => setSelectedProject(proj)}
@@ -498,7 +498,7 @@ export default function SectorProjects() {
                     {/* Direct Action Links */}
                     <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', borderTop: '1px solid var(--border-subtle)', paddingTop: '16px' }}>
                       {proj.playstore && (
-                        <a 
+                        <a
                           href={proj.playstore}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -510,7 +510,7 @@ export default function SectorProjects() {
                         </a>
                       )}
                       {proj.appstore && (
-                        <a 
+                        <a
                           href={proj.appstore}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -522,7 +522,7 @@ export default function SectorProjects() {
                         </a>
                       )}
                       {proj.github && (
-                        <a 
+                        <a
                           href={proj.github}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -543,16 +543,16 @@ export default function SectorProjects() {
 
         {/* ALL PROJECTS GRID VIEW */}
         {activeTab === 'all' && (
-          <div 
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
               gap: '16px',
-              marginBottom: '10px' 
+              marginBottom: '10px'
             }}
           >
             {projects.map((proj) => (
-              <div 
+              <div
                 key={proj.id}
                 className="editorial-card"
                 onClick={() => setSelectedProject(proj)}
@@ -611,7 +611,7 @@ export default function SectorProjects() {
 
       {/* REACT PORTAL DETAIL MODAL OVERLAY (PERFECT VIEWPORT CENTERING) */}
       {selectedProject && createPortal(
-        <div 
+        <div
           style={{
             position: 'fixed',
             top: 0,
@@ -632,7 +632,7 @@ export default function SectorProjects() {
           }}
           onClick={() => setSelectedProject(null)}
         >
-          <div 
+          <div
             className="editorial-card"
             style={{
               width: '100%',
@@ -657,7 +657,7 @@ export default function SectorProjects() {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={() => setSelectedProject(null)}
                 style={{ background: 'rgba(0,0,0,0.08)', border: 'none', color: 'var(--text-primary)', width: '32px', height: '32px', borderRadius: '50%', fontSize: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >

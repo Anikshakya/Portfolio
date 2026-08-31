@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-export default function CockpitHUD({ currentSector, setSector, isWarping, triggerWarp, theme = 'dark', toggleTheme = () => {} }) {
+export default function CockpitHUD({ currentSector, setSector, isWarping, triggerWarp, theme = 'dark', toggleTheme = () => { } }) {
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const audioCtxRef = useRef(null);
@@ -32,7 +32,7 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
         osc.start(now);
         osc.stop(now + 0.08);
       }
-    } catch (e) {}
+    } catch (e) { }
   }, [audioEnabled]);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
         if (audioCtxRef.current.state === 'suspended') {
           audioCtxRef.current.resume();
         }
-      } catch (e) {}
+      } catch (e) { }
       window.removeEventListener('click', handleFirstInteraction);
     };
     window.addEventListener('click', handleFirstInteraction);
@@ -155,17 +155,38 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
 
           {/* Actions: Download Resume, Theme Switcher, Sound & Mobile Drawer */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            
+
             {/* Download Resume / CV Button */}
             <a
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-editorial btn-primary desktop-nav-pills"
-              style={{ fontSize: '11.5px', padding: '6px 14px', textDecoration: 'none' }}
-              title="Download Anik Shakya's Resume / CV"
+              style={{
+                fontSize: '11.5px',
+                padding: '6px 14px',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+              title="Download Anik Shakya's Resume (CV)"
             >
-              Resume 📄
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download Resume (CV)
             </a>
 
             {/* Dark / Light Theme Toggle Switcher */}
@@ -247,57 +268,83 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
         <div
           style={{
             position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            background: 'var(--bg-base)',
-            backdropFilter: 'blur(30px)',
-            WebkitBackdropFilter: 'blur(30px)',
+            inset: 0,
             zIndex: 999,
+            background: 'rgba(0, 0, 0, 0.18)',
+            backdropFilter: 'blur(30px) saturate(140%)',
+            WebkitBackdropFilter: 'blur(30px) saturate(140%)',
             display: 'flex',
-            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             padding: '24px',
-            pointerEvents: 'auto'
+            pointerEvents: 'auto',
+            animation: 'drawerFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1)'
           }}
           onClick={() => setDrawerOpen(false)}
         >
           <div
             style={{
               width: '100%',
-              maxWidth: '360px',
+              maxWidth: '380px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '12px'
+              gap: '10px'
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {navigationItems.map((item) => {
+            {navigationItems.map((item, index) => {
               const isActive = currentSector === item.id;
+
               return (
                 <button
                   key={item.id}
                   onClick={() => handleSectorChange(item.id)}
                   style={{
-                    background: isActive ? 'var(--text-primary)' : 'var(--bg-card)',
+                    width: '100%',
+                    appearance: 'none',
                     border: '1px solid var(--border-subtle)',
-                    borderRadius: '16px',
-                    padding: '16px 20px',
-                    color: isActive ? 'var(--bg-base)' : 'var(--text-primary)',
+                    borderRadius: '18px',
+                    padding: '17px 20px',
+                    background: isActive
+                      ? 'var(--text-primary)'
+                      : 'color-mix(in srgb, var(--bg-card) 88%, transparent)',
+                    color: isActive
+                      ? 'var(--bg-base)'
+                      : 'var(--text-primary)',
                     fontFamily: 'var(--font-header)',
-                    fontSize: '18px',
+                    fontSize: '17px',
                     fontWeight: 600,
                     textAlign: 'left',
                     cursor: 'pointer',
                     display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    boxShadow: isActive
+                      ? '0 10px 30px rgba(0,0,0,0.14)'
+                      : '0 6px 20px rgba(0,0,0,0.06)',
+                    transform: isActive
+                      ? 'scale(1.015)'
+                      : 'scale(1)',
+                    transition:
+                      'background 0.35s ease, color 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease',
+                    animation: `drawerItemIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) ${80 + index * 55
+                      }ms both`
                   }}
                 >
-                  {item.name}
-                  {isActive && <span>●</span>}
+                  <span>{item.name}</span>
+
+                  <span
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      background: 'currentColor',
+                      opacity: isActive ? 1 : 0,
+                      transform: isActive ? 'scale(1)' : 'scale(0)',
+                      transition:
+                        'opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)'
+                    }}
+                  />
                 </button>
               );
             })}
@@ -308,20 +355,39 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
               rel="noopener noreferrer"
               className="btn-editorial btn-primary"
               style={{
-                marginTop: '12px',
-                padding: '16px 20px',
+                marginTop: '10px',
+                padding: '17px 20px',
+                minHeight: '56px',
+                borderRadius: '18px',
                 fontSize: '16px',
                 fontWeight: 700,
-                textAlign: 'center',
-                justifyContent: 'center'
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textDecoration: 'none',
+                animation:
+                  'drawerItemIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 300ms both'
               }}
             >
-              Download Resume / CV 📄
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download Resume (CV)
             </a>
           </div>
         </div>
       )}
-
       <style>{`
         @media (max-width: 768px) {
           .desktop-nav-pills {
