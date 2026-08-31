@@ -5,6 +5,8 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
   const [drawerOpen, setDrawerOpen] = useState(false);
   const audioCtxRef = useRef(null);
 
+  const resumeUrl = "https://drive.google.com/file/d/1DVXMgBsQ2_-sZ87uilSv-n76lRJsrCFP/view?usp=sharing";
+
   const playSound = useCallback((type) => {
     if (!audioEnabled) return;
     try {
@@ -59,13 +61,13 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
   const navigationItems = [
     { id: 0, name: 'Overview' },
     { id: 1, name: 'Projects' },
-    { id: 2, name: 'Architecture' },
+    { id: 2, name: 'Skills' },
     { id: 3, name: 'Contact' }
   ];
 
   return (
     <>
-      {/* FLOATING NAVIGATION PILL */}
+      {/* FLOATING NAVIGATION PILL HEADER */}
       <header
         style={{
           position: 'fixed',
@@ -75,21 +77,21 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
           zIndex: 1000,
           pointerEvents: 'auto',
           width: 'calc(100% - 32px)',
-          maxWidth: '820px'
+          maxWidth: '890px'
         }}
       >
         <div
           style={{
             background: 'var(--bg-card)',
-            backdropFilter: 'blur(24px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            backdropFilter: 'blur(30px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(30px) saturate(200%)',
             border: '1px solid var(--border-subtle)',
             borderRadius: '9999px',
             padding: '6px 10px 6px 18px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            boxShadow: 'var(--shadow-card)'
+            boxShadow: 'var(--shadow-card), var(--glass-specular)'
           }}
         >
           {/* Brand Monogram */}
@@ -151,9 +153,21 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
             })}
           </nav>
 
-          {/* Actions: Theme Switcher, Sound & Mobile Drawer */}
+          {/* Actions: Download Resume, Theme Switcher, Sound & Mobile Drawer */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             
+            {/* Download Resume / CV Button */}
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-editorial btn-primary desktop-nav-pills"
+              style={{ fontSize: '11.5px', padding: '6px 14px', textDecoration: 'none' }}
+              title="Download Anik Shakya's Resume / CV"
+            >
+              Resume 📄
+            </a>
+
             {/* Dark / Light Theme Toggle Switcher */}
             <button
               onClick={() => {
@@ -287,6 +301,23 @@ export default function CockpitHUD({ currentSector, setSector, isWarping, trigge
                 </button>
               );
             })}
+
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-editorial btn-primary"
+              style={{
+                marginTop: '12px',
+                padding: '16px 20px',
+                fontSize: '16px',
+                fontWeight: 700,
+                textAlign: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              Download Resume / CV 📄
+            </a>
           </div>
         </div>
       )}

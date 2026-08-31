@@ -44,7 +44,7 @@ export default function SectorSkills() {
         </div>
 
         <h2 style={{ fontSize: '2.4rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.04em' }} className="headline-gradient">
-          ARCHITECTURE & SKILLS
+          SKILLS & EXPERTISE
         </h2>
         <p style={{ fontSize: '14.5px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.6' }}>
           Proven mastery in cross-platform mobile frameworks, real-time cloud infrastructure, and full-stack web API architectures.

@@ -21,6 +21,13 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  // Disable browser auto scroll restoration on page refresh
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
@@ -64,23 +71,58 @@ function App() {
     };
   }, []);
 
-  // IntersectionObserver for Apple Scroll Reveals & Nav Pill Tracking
+  // Active Section Tracking & Apple Re-trigger Scroll Observer
   useEffect(() => {
+    let ticking = false;
+
+    const handleWindowScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          setScrollY(currentScrollY);
+
+          // Determine active section based on element center distance to viewport center
+          const viewportCenter = window.innerHeight * 0.45;
+          let activeIdx = 0;
+          let minDistance = Infinity;
+
+          sectorRefs.current.forEach((ref, idx) => {
+            if (ref) {
+              const rect = ref.getBoundingClientRect();
+              const elemCenter = rect.top + rect.height / 2;
+              const distance = Math.abs(elemCenter - viewportCenter);
+
+              if (distance < minDistance) {
+                minDistance = distance;
+                activeIdx = idx;
+              }
+            }
+          });
+
+          setSector(prev => (prev !== activeIdx ? activeIdx : prev));
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleWindowScroll, { passive: true });
+    handleWindowScroll(); // Initial check
+
+    // IntersectionObserver: Re-triggers Apple fade-in-up animation on scroll every time
     const observerOptions = {
       root: null,
-      rootMargin: '-10% 0px -20% 0px',
-      threshold: 0.15
+      rootMargin: '-30px 0px -30px 0px',
+      threshold: 0.08
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
-
-          const sectionIdx = parseInt(entry.target.getAttribute('data-section-idx'));
-          if (!isNaN(sectionIdx)) {
-            setSector(sectionIdx);
-          }
+        } else {
+          entry.target.classList.remove('revealed');
         }
       });
     }, observerOptions);
@@ -88,23 +130,30 @@ function App() {
     const revealElements = document.querySelectorAll('.apple-reveal, .sector-section');
     revealElements.forEach(el => observer.observe(el));
 
-    const handleWindowScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleWindowScroll, { passive: true });
-
     return () => {
       observer.disconnect();
       window.removeEventListener('scroll', handleWindowScroll);
     };
   }, []);
 
+  // EXACT INNER CONTENT SCROLL POSITIONING (NO TOP GAPS FOR SKILLS)
   const triggerWarp = (targetSectorIdx) => {
     setSector(targetSectorIdx);
+    if (targetSectorIdx === 0) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const targetEl = sectorRefs.current[targetSectorIdx];
     if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const contentEl = targetEl.firstElementChild || targetEl;
+      const contentTop = contentEl.getBoundingClientRect().top + window.pageYOffset;
+
+      // Tight 75px offset lands Skills & Contact right below floating navbar with no gap above
+      window.scrollTo({
+        top: contentTop - 75,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -132,7 +181,7 @@ function App() {
         theme={theme}
       />
 
-      {/* 2. Floating Navigation Pill Header */}
+      {/* 2. Apple Dynamic Island Floating Nav Pill */}
       <CockpitHUD
         currentSector={currentSector}
         setSector={triggerWarp}
@@ -153,9 +202,9 @@ function App() {
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'center',
-            padding: '20px max(4vw, 16px)',
+            padding: '70px max(4vw, 16px) 30px max(4vw, 16px)',
             boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[0] = el}
@@ -171,9 +220,9 @@ function App() {
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'center',
-            padding: '40px max(4vw, 16px)',
+            padding: '70px max(4vw, 16px) 30px max(4vw, 16px)',
             boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[1] = el}
@@ -181,7 +230,7 @@ function App() {
           <SectorProjects />
         </section>
 
-        {/* Section 2: Architecture */}
+        {/* Section 2: Skills */}
         <section
           data-section-idx="2"
           className="sector-section apple-reveal"
@@ -189,9 +238,9 @@ function App() {
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'center',
-            padding: '40px max(4vw, 16px)',
+            padding: '40px max(4vw, 16px) 30px max(4vw, 16px)',
             boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[2] = el}
@@ -207,9 +256,9 @@ function App() {
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'center',
-            padding: '40px max(4vw, 16px)',
+            padding: '40px max(4vw, 16px) 30px max(4vw, 16px)',
             boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[3] = el}
