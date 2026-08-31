@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 export default function SectorHome() {
   const [typedText, setTypedText] = useState('');
-  const fullText = 'Hi, I am ANIK SHAKYA.\n\n> CLASS: Lead Mobile & MERN Developer\n> EXP: Flutter (4 Years) | MERN Stack (1 Year)\n> TARGETS: Yonefu Int., NTT Data Kansai, GOATUS';
+  const profilePicUrl = "/icons/portfolio.png";
+  const fullText = 'Hi, I am ANIK SHAKYA.\n\n> CLASS: Senior Flutter Developer & Ex-MERN Developer\n> FOCUS: High-Performance Cross-Platform Mobile Apps\n> SPECIALTY: Native Channels | State Management | API Integrations';
 
   useEffect(() => {
     let index = 0;
@@ -42,7 +43,7 @@ export default function SectorHome() {
       {/* Outer Flex Container for Dual Column Layout on Desktop */}
       <div className="hud-columns-container" style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'stretch', width: '100%' }}>
         
-        {/* Left Column: Greeting and Identity Deck */}
+        {/* Left Column: Greeting, Picture and Identity Deck */}
         <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
           
           <div className="hud-panel animate-fade-in" style={{ padding: '28px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -57,45 +58,108 @@ export default function SectorHome() {
                 </span>
               </div>
 
+              {/* Profile Avatar & Intro Layout */}
+              <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap' }}>
+                {/* HUD Profile Image Container */}
+                <div style={{ position: 'relative', width: '110px', height: '110px', flexShrink: 0 }}>
+                  <div 
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '50%',
+                      padding: '4px',
+                      background: 'linear-gradient(135deg, var(--color-cyan), var(--color-magenta))',
+                      boxShadow: '0 0 20px rgba(0, 240, 255, 0.4)',
+                      position: 'relative'
+                    }}
+                  >
+                    <img 
+                      src={profilePicUrl} 
+                      alt="Anik Shakya - Senior Flutter Developer"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        background: '#0a0a16'
+                      }}
+                      onError={(e) => {
+                        // Fallback handling if network is restricted
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                  {/* Glowing Status Radar Dot */}
+                  <span 
+                    style={{
+                      position: 'absolute',
+                      bottom: '4px',
+                      right: '4px',
+                      width: '14px',
+                      height: '14px',
+                      borderRadius: '50%',
+                      background: '#00ff66',
+                      border: '2px solid #020208',
+                      boxShadow: '0 0 8px #00ff66'
+                    }}
+                    title="PILOT_ACTIVE // ONLINE"
+                  />
+                </div>
+
+                {/* Direct Intro Headings */}
+                <div style={{ flex: '1 1 200px' }}>
+                  <h2 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-header)', fontWeight: 800, color: 'var(--color-cyan)', margin: '0 0 6px 0', letterSpacing: '0.5px' }}>
+                    ANIK SHAKYA
+                  </h2>
+                  <div style={{ fontSize: '13px', fontWeight: 'bold', color: 'var(--color-magenta)', fontFamily: 'var(--font-header)', marginBottom: '8px' }}>
+                    Senior Flutter Developer
+                  </div>
+                  <div className="hud-monospace" style={{ fontSize: '10.5px', color: 'var(--color-text-muted)', background: 'rgba(255, 255, 255, 0.04)', padding: '4px 8px', borderRadius: '4px', display: 'inline-block' }}>
+                    MOBILE ARCHITECT & EX-MERN DEV
+                  </div>
+                </div>
+              </div>
+
               {/* Typing Terminal with Custom Name Highlight */}
               <div 
                 className="hud-monospace glow-box-cyan"
                 style={{
                   background: 'rgba(2, 2, 8, 0.85)',
                   borderLeft: '5px solid var(--color-cyan)',
-                  padding: '22px 24px',
+                  padding: '18px 20px',
                   whiteSpace: 'pre-wrap',
                   lineHeight: '1.6',
                   borderRadius: '0 6px 6px 0',
-                  minHeight: '140px',
+                  minHeight: '120px',
                   marginBottom: '20px',
                   boxShadow: '0 4px 20px rgba(0, 240, 255, 0.08)'
                 }}
               >
                 {/* Prefix: "Hi, I am " */}
-                <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#fff' }}>
+                <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>
                   {typedPrefix}
                 </span>
 
                 {/* Highlighted Name: "ANIK SHAKYA." in Cyan */}
-                <span style={{ fontSize: '22px', fontWeight: '900', color: 'var(--color-cyan)', textShadow: '0 0 10px rgba(0, 240, 255, 0.5)' }}>
+                <span style={{ fontSize: '20px', fontWeight: '900', color: 'var(--color-cyan)', textShadow: '0 0 10px rgba(0, 240, 255, 0.5)' }}>
                   {typedName}
                 </span>
 
                 {/* Telemetry details */}
-                <span style={{ fontSize: '14px', color: 'var(--color-cyan)' }}>
+                <span style={{ fontSize: '13px', color: 'var(--color-cyan)' }}>
                   {typedTelemetry}
                 </span>
 
                 <span className="cursor" style={{ animation: 'blink 1s step-end infinite', fontSize: '18px', color: 'var(--color-cyan)' }}>_</span>
               </div>
 
-              <h2 style={{ fontSize: '1.35rem', fontFamily: 'var(--font-header)', fontWeight: 600, color: 'var(--color-magenta)', marginBottom: '14px', letterSpacing: '0.5px' }}>
-                Mobile Engineer & MERN Developer
+              <h2 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-header)', fontWeight: 600, color: 'var(--color-magenta)', marginBottom: '12px', letterSpacing: '0.5px' }}>
+                ABOUT ME
               </h2>
 
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--color-text-main)' }}>
-                An interstellar developer navigating the cosmos of code. Specializing in building high-performance cross-platform mobile apps with <strong>Flutter</strong>, and expanding systems into the <strong>MERN Stack (MongoDB, Express, React, Node.js)</strong>, I bridge beautiful interfaces with scalable backend infrastructure.
+              <p style={{ fontSize: '14px', lineHeight: '1.65', color: 'var(--color-text-main)', margin: 0 }}>
+                Senior Flutter Developer specializing in building high-performance, production-ready cross-platform mobile applications. Experienced in mobile architecture, native platform channels, state management, complex UI components, and API integrations. Skilled at leading mobile strategies and delivering scalable solutions for international clients. Also an ex MERN developer.
               </p>
             </div>
           </div>
@@ -138,10 +202,10 @@ export default function SectorHome() {
 
         </div>
 
-        {/* Right Column: Mission Records (Chronology) */}
+        {/* Right Column: Mission Records (Chronology & Core Specialties) */}
         <div className="hud-panel hud-panel-magenta" style={{ flex: '1 1 500px', padding: '28px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <h3 style={{ fontSize: '12.5px', letterSpacing: '1.5px', fontFamily: 'var(--font-header)', color: 'var(--color-magenta)', marginBottom: '18px' }}>
-            MISSION RECORDS (WORK CHRONOLOGY)
+            KEY HIGHLIGHTS & ARCHITECTURAL EXPERTISE
           </h3>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', borderLeft: '2px solid rgba(255, 0, 127, 0.25)', paddingLeft: '18px', marginLeft: '4px' }}>
@@ -150,35 +214,47 @@ export default function SectorHome() {
             <div style={{ position: 'relative' }}>
               <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)', boxShadow: 'var(--shadow-magenta)' }} />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>GOATUS APP</h4>
-                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-magenta)' }}>CORE_FLUTTER // FIREBASE</span>
+                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>GOATUS APP (JAPAN)</h4>
+                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-magenta)' }}>PRODUCTION // FLUTTER</span>
               </div>
               <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
-                Engineered performance dashboard workout sync modules. Optimized offline data state persistence using Hive binary caching, reducing database sync overhead latency.
+                Japanese fan-athlete platform with subscriptions, activity feeds, and gifting systems live on Google Play & Apple App Store.
               </p>
             </div>
 
-            {/* NTT Data Kansai */}
+            {/* Durga Bhagawati Gaupalika App */}
             <div style={{ position: 'relative' }}>
               <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>NTT DATA KANSAI</h4>
-                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-text-muted)' }}>MERN // WEB SYSTEMS</span>
+                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>DURGA BHAGAWATI GAUPALIKA</h4>
+                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-cyan)' }}>PRODUCTION // CIVIC TECH</span>
               </div>
               <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
-                Constructed dashboard portals with React/Node/Express. Optimized database compound index queries on MongoDB to compile enterprise logistics records 4.2x faster.
+                Civic assistance application for municipal ward situational awareness, announcements, and direct user assistance in Nepal.
               </p>
             </div>
 
-            {/* Yonefu International */}
+            {/* Mobile Architecture & Native Platform Channels */}
             <div style={{ position: 'relative' }}>
               <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>YONEFU INTERNATIONAL</h4>
-                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-text-muted)' }}>FLUTTER MOBILE</span>
+                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>CROSS-PLATFORM ARCHITECTURE</h4>
+                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-text-muted)' }}>FLUTTER & NATIVE</span>
               </div>
               <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
-                Designed and deployed robust, cross-platform logistics transport clients. Integrated background geolocation trackers and WebSocket sync loops.
+                Expertise in native platform channels (iOS/Android), complex state management (BLoC/Provider), maps & polylines, and Stripe payment gateway integrations.
+              </p>
+            </div>
+
+            {/* Ex MERN Stack */}
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
+                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>EX-MERN STACK DEVELOPER</h4>
+                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-text-muted)' }}>FULL-STACK WEB</span>
+              </div>
+              <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
+                Background in MongoDB, Express.js, React, and Node.js for constructing scalable backend infrastructure and web admin portals.
               </p>
             </div>
 

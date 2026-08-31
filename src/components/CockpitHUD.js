@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 export default function CockpitHUD({ currentSector, setSector, isWarping, triggerWarp }) {
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [logs, setLogs] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [shipStats, setShipStats] = useState({
     speed: '2,400 km/s',
     energy: '98.4%',
