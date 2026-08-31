@@ -7,7 +7,7 @@ import SectorSkills from './components/SectorSkills';
 import SectorContact from './components/SectorContact';
 
 function App() {
-  const [currentSector, setSector] = useState(0); 
+  const [currentSector, setSector] = useState(0);
   const [isWarping, setIsWarping] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [blackHoleTransition, setBlackHoleTransition] = useState(null);
@@ -132,7 +132,7 @@ function App() {
     // Phase 2: Instant viewport relocation & black hole collapse
     setTimeout(() => {
       setBlackHoleTransition(prev => ({ ...prev, stage: 'scrolling' }));
-      
+
       // Jump view directly behind singularity
       if (container && sectorRefs.current[targetSectorIdx]) {
         if (window.innerWidth <= 768) {
@@ -156,8 +156,8 @@ function App() {
     setTimeout(() => {
       try {
         overlay.remove();
-      } catch (e) {}
-      
+      } catch (e) { }
+
       currentEl.style.visibility = '';
       targetEl.style.visibility = '';
       setBlackHoleTransition(null);
@@ -215,8 +215,8 @@ function App() {
   };
 
   return (
-    <div 
-      className="App" 
+    <div
+      className="App"
       ref={scrollContainerRef}
       onScroll={handleScroll}
       style={{
@@ -232,26 +232,26 @@ function App() {
       }}
     >
       {/* 1. Space Canvas Engine */}
-      <SpaceCanvas 
-        currentSector={currentSector} 
-        isWarping={isWarping} 
+      <SpaceCanvas
+        currentSector={currentSector}
+        isWarping={isWarping}
         scrollY={scrollY}
         blackHoleTransition={blackHoleTransition}
       />
 
       {/* 2. Cockpit HUD Deck */}
-      <CockpitHUD 
-        currentSector={currentSector} 
-        setSector={triggerWarp} 
-        isWarping={isWarping} 
-        triggerWarp={triggerWarp} 
+      <CockpitHUD
+        currentSector={currentSector}
+        setSector={triggerWarp}
+        isWarping={isWarping}
+        triggerWarp={triggerWarp}
       />
 
       {/* 3. Sector Stack */}
       <div style={{ position: 'relative', zIndex: 5, width: '100%' }}>
-        
+
         {/* Sector 0: Home */}
-        <div 
+        <div
           className="sector-wrapper-item"
           style={{
             minHeight: '100vh',
@@ -272,7 +272,7 @@ function App() {
         </div>
 
         {/* Sector 1: Projects */}
-        <div 
+        <div
           className="sector-wrapper-item"
           style={{
             minHeight: '100vh',
@@ -293,7 +293,7 @@ function App() {
         </div>
 
         {/* Sector 2: Skills */}
-        <div 
+        <div
           className="sector-wrapper-item"
           style={{
             minHeight: '100vh',
@@ -314,7 +314,7 @@ function App() {
         </div>
 
         {/* Sector 3: Contact */}
-        <div 
+        <div
           className="sector-wrapper-item"
           style={{
             minHeight: '100vh',

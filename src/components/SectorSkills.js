@@ -10,15 +10,15 @@ export default function SectorSkills() {
   }, []);
 
   const coreSkills = [
-    { name: 'Flutter & Dart Propulsion', value: 95, color: 'var(--color-cyan)', exp: '4 Years', details: 'BLoC/Provider architecture, local caches (Hive/SQLite), platform channels, performance profiling, responsive animations.' },
-    { name: 'Firebase Cloud Integrations', value: 90, color: 'var(--color-amber)', exp: '4 Years', details: 'Firestore real-time sync networks, offline persistence, serverless Cloud Functions, auth validation, Crashlytics analytics.' },
-    { name: 'React.js Web Engines', value: 85, color: 'var(--color-magenta)', exp: '1 Year', details: 'Custom hooks state pipelines, performance profiles, HTML5 canvas integrations, SPA structures.' },
-    { name: 'Node.js & Express Routing', value: 80, color: 'var(--color-green)', exp: '1 Year', details: 'REST/GraphQL routing, secure authentication vectors (JWT), middleware injectors, CORS containment.' },
-    { name: 'MongoDB Database Cores', value: 80, color: 'var(--color-green)', exp: '1 Year', details: 'Document mapping, spatial index optimization, compound indexing queries, pipeline aggregations.' }
+    { name: 'Flutter & Dart Propulsion', value: 90, color: 'var(--color-cyan)', exp: '4 Years', details: 'GetX/Provider architecture, local caches (SQLite), platform channels, responsive animations.' },
+    { name: 'Firebase Cloud Integrations', value: 90, color: 'var(--color-amber)', exp: '4 Years', details: 'Firestore real-time sync networks, auth validation, Crashlytics analytics, Firebase Analytics' },
+    { name: 'React.js Web Engines', value: 75, color: 'var(--color-magenta)', exp: '1 Year', details: 'Custom hooks state pipelines, performance profiles, HTML5 canvas integrations, SPA structures.' },
+    { name: 'Node.js & Express Routing', value: 50, color: 'var(--color-green)', exp: '1 Year', details: 'REST routing, secure authentication vectors (JWT), middleware injectors' },
+    { name: 'MongoDB Database Cores', value: 50, color: 'var(--color-green)', exp: '1 Year', details: 'Document mapping, compound indexing queries, pipeline aggregations.' }
   ];
 
   return (
-    <div 
+    <div
       className="hud-skills-wrapper"
       style={{
         display: 'flex',
@@ -53,7 +53,7 @@ export default function SectorSkills() {
         </p>
 
         {/* Constellation Nodes Interactive Tip */}
-        <div 
+        <div
           className="hud-monospace"
           style={{
             background: 'rgba(0, 240, 255, 0.05)',
@@ -88,20 +88,20 @@ export default function SectorSkills() {
                   <span style={{ fontWeight: 'bold', color: skill.color }}>{skill.value}%</span>
                 </div>
               </div>
-              
+
               {/* Animated Progress bar */}
-              <div 
-                style={{ 
-                  height: '10px', 
-                  background: 'rgba(255, 255, 255, 0.06)', 
-                  border: '1px solid rgba(255, 255, 255, 0.12)', 
-                  borderRadius: '5px', 
+              <div
+                style={{
+                  height: '10px',
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '5px',
                   overflow: 'hidden',
                   position: 'relative',
                   marginBottom: '8px'
                 }}
               >
-                <div 
+                <div
                   style={{
                     height: '100%',
                     width: animateMeters ? `${skill.value}%` : '0%',

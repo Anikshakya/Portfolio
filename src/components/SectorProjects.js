@@ -285,7 +285,7 @@ export default function SectorProjects() {
   };
 
   return (
-    <div 
+    <div
       className="hud-projects-wrapper"
       style={{
         display: 'flex',
@@ -299,11 +299,11 @@ export default function SectorProjects() {
       }}
     >
       {/* Expanded panel container width */}
-      <div 
-        className="hud-panel hud-projects-container hud-showcase-scroll-container animate-fade-in" 
+      <div
+        className="hud-panel hud-projects-container hud-showcase-scroll-container animate-fade-in"
         style={{ padding: '16px 20px', width: '100%', maxWidth: '1240px', margin: '0 auto', maxHeight: 'calc(100vh - 75px)', overflowY: 'auto' }}
       >
-        
+
         {/* Header telemetry */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
           <span style={{ fontSize: '10.5px', color: 'var(--color-cyan)' }} className="hud-monospace">
@@ -337,7 +337,7 @@ export default function SectorProjects() {
                 boxShadow: activeTab === 'showcase' ? '0 0 10px rgba(0, 240, 255, 0.4)' : 'none'
               }}
             >
-              Work Showcase ({showcaseProjects.length})
+              Work Showcase
             </button>
             <button
               onClick={() => setActiveTab('all')}
@@ -355,7 +355,7 @@ export default function SectorProjects() {
                 boxShadow: activeTab === 'all' ? '0 0 10px rgba(0, 240, 255, 0.4)' : 'none'
               }}
             >
-              All Projects ({projects.length})
+              All Projects
             </button>
           </div>
         </div>
@@ -363,17 +363,17 @@ export default function SectorProjects() {
         {/* 1. WORK SHOWCASE VIEW */}
         {activeTab === 'showcase' && (
           <div>
-            <div 
+            <div
               className="hud-showcase-grid"
-              style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-                gap: '12px', 
-                marginBottom: '6px' 
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '12px',
+                marginBottom: '6px'
               }}
             >
               {showcaseProjects.map((proj) => (
-                <div 
+                <div
                   key={proj.id}
                   className="hud-panel hud-showcase-card animate-fade-in"
                   onClick={() => setSelectedProject(proj)}
@@ -407,15 +407,15 @@ export default function SectorProjects() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         {/* High-res Local App Icon Container */}
-                        <div 
+                        <div
                           className="showcase-icon-box"
-                          style={{ 
-                            width: '38px', 
-                            height: '38px', 
-                            borderRadius: '10px', 
-                            overflow: 'hidden', 
-                            background: '#0a0a1a', 
-                            border: '1.5px solid var(--color-cyan)', 
+                          style={{
+                            width: '38px',
+                            height: '38px',
+                            borderRadius: '10px',
+                            overflow: 'hidden',
+                            background: '#0a0a1a',
+                            border: '1.5px solid var(--color-cyan)',
                             boxShadow: '0 0 12px rgba(0, 240, 255, 0.35)',
                             display: 'flex',
                             alignItems: 'center',
@@ -424,8 +424,8 @@ export default function SectorProjects() {
                             transition: 'all 0.3s ease'
                           }}
                         >
-                          <img 
-                            src={proj.appIcon} 
+                          <img
+                            src={proj.appIcon}
                             alt={proj.title}
                             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                           />
@@ -464,7 +464,7 @@ export default function SectorProjects() {
                     {/* Direct Quick Store / Repo Action Buttons */}
                     <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px' }}>
                       {proj.playstore && (
-                        <a 
+                        <a
                           href={proj.playstore}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -485,13 +485,13 @@ export default function SectorProjects() {
                           }}
                         >
                           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L18.81,13.97C20.08,13.24 20.08,12.76 18.81,12.03L16.81,10.88L14.81,12.88M4.6,3.16L13.1,11.66L15.3,9.46L5.3,3.71C5.07,3.58 4.83,3.37 4.6,3.16M4.6,20.84C4.83,20.63 5.07,20.42 5.3,20.29L15.3,14.54L13.1,12.34L4.6,20.84Z"/>
+                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L18.81,13.97C20.08,13.24 20.08,12.76 18.81,12.03L16.81,10.88L14.81,12.88M4.6,3.16L13.1,11.66L15.3,9.46L5.3,3.71C5.07,3.58 4.83,3.37 4.6,3.16M4.6,20.84C4.83,20.63 5.07,20.42 5.3,20.29L15.3,14.54L13.1,12.34L4.6,20.84Z" />
                           </svg>
                           PLAY STORE
                         </a>
                       )}
                       {proj.appstore && (
-                        <a 
+                        <a
                           href={proj.appstore}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -512,13 +512,13 @@ export default function SectorProjects() {
                           }}
                         >
                           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.09,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                            <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.09,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z" />
                           </svg>
                           APP STORE
                         </a>
                       )}
                       {proj.github && (
-                        <a 
+                        <a
                           href={proj.github}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -553,7 +553,7 @@ export default function SectorProjects() {
         {/* 2. ALL PROJECTS CAROUSEL VIEW */}
         {activeTab === 'all' && (
           <div style={{ position: 'relative', width: '100%' }}>
-            
+
             {/* Scroll Left Button */}
             {canScrollLeft && (
               <button
@@ -615,22 +615,22 @@ export default function SectorProjects() {
             )}
 
             {/* Project horizontal flex layout */}
-            <div 
+            <div
               ref={scrollContainerRef}
               onScroll={checkScrollPosition}
-              style={{ 
-                display: 'flex', 
-                gap: '20px', 
-                overflowX: 'auto', 
-                padding: '8px 4px 16px 4px', 
-                width: '100%', 
+              style={{
+                display: 'flex',
+                gap: '20px',
+                overflowX: 'auto',
+                padding: '8px 4px 16px 4px',
+                width: '100%',
                 boxSizing: 'border-box',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none'
               }}
             >
               {projects.map((proj) => (
-                <div 
+                <div
                   key={proj.id}
                   className="hud-panel hud-panel-magenta"
                   onClick={() => setSelectedProject(proj)}
@@ -667,11 +667,11 @@ export default function SectorProjects() {
                         {proj.status}
                       </span>
                     </div>
-                    
+
                     <h3 style={{ fontSize: '18px', fontFamily: 'var(--font-header)', fontWeight: 'bold', marginBottom: '10px', color: '#fff' }}>
                       {proj.title}
                     </h3>
-                    
+
                     <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', lineHeight: '1.45', marginBottom: '16px' }}>
                       {proj.shortDesc}
                     </p>
@@ -691,7 +691,7 @@ export default function SectorProjects() {
                         </span>
                       )}
                     </div>
-                    
+
                     {/* Hologram trigger info */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '10px', color: 'var(--color-cyan)', fontFamily: 'var(--font-hud)' }}>
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -710,7 +710,7 @@ export default function SectorProjects() {
 
       {/* Detailed Hologram HUD Modal Overlay */}
       {selectedProject && (
-        <div 
+        <div
           style={{
             position: 'fixed',
             top: 0,
@@ -727,7 +727,7 @@ export default function SectorProjects() {
           }}
           onClick={() => setSelectedProject(null)}
         >
-          <div 
+          <div
             className="hud-panel hud-panel-amber animate-scale-in"
             style={{
               width: '100%',
@@ -747,7 +747,7 @@ export default function SectorProjects() {
               <span className="hud-monospace glow-text-amber" style={{ fontSize: '11px' }}>
                 HOLOGRAM_STREAM_PORT // D-OUT
               </span>
-              <button 
+              <button
                 onClick={() => setSelectedProject(null)}
                 style={{
                   background: 'transparent',
@@ -766,15 +766,15 @@ export default function SectorProjects() {
             {/* Title / Info */}
             <div style={{ marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '16px' }}>
               {selectedProject.appIcon && (
-                <div style={{ 
-                  width: '56px', 
-                  height: '56px', 
-                  borderRadius: '12px', 
-                  overflow: 'hidden', 
-                  background: '#040814', 
-                  border: '1.5px solid var(--color-amber)', 
+                <div style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: '#040814',
+                  border: '1.5px solid var(--color-amber)',
                   boxShadow: '0 0 12px rgba(255, 170, 0, 0.3)',
-                  flexShrink: 0 
+                  flexShrink: 0
                 }}>
                   <img src={selectedProject.appIcon} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                 </div>
@@ -825,9 +825,9 @@ export default function SectorProjects() {
             {/* Multi-link Footer Uplink triggers */}
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
               {selectedProject.playstore && (
-                <a 
-                  href={selectedProject.playstore} 
-                  target="_blank" 
+                <a
+                  href={selectedProject.playstore}
+                  target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex',
@@ -846,16 +846,16 @@ export default function SectorProjects() {
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L18.81,13.97C20.08,13.24 20.08,12.76 18.81,12.03L16.81,10.88L14.81,12.88L16.81,15.12M4.6,3.16L13.1,11.66L15.3,9.46L5.3,3.71C5.07,3.58 4.83,3.37 4.6,3.16M4.6,20.84C4.83,20.63 5.07,20.42 5.3,20.29L15.3,14.54L13.1,12.34L4.6,20.84Z"/>
+                    <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L18.81,13.97C20.08,13.24 20.08,12.76 18.81,12.03L16.81,10.88L14.81,12.88L16.81,15.12M4.6,3.16L13.1,11.66L15.3,9.46L5.3,3.71C5.07,3.58 4.83,3.37 4.6,3.16M4.6,20.84C4.83,20.63 5.07,20.42 5.3,20.29L15.3,14.54L13.1,12.34L4.6,20.84Z" />
                   </svg>
                   PLAY STORE
                 </a>
               )}
 
               {selectedProject.appstore && (
-                <a 
-                  href={selectedProject.appstore} 
-                  target="_blank" 
+                <a
+                  href={selectedProject.appstore}
+                  target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex',
@@ -874,16 +874,16 @@ export default function SectorProjects() {
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.09,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                    <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.09,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z" />
                   </svg>
                   APP STORE
                 </a>
               )}
 
               {selectedProject.github && (
-                <a 
-                  href={selectedProject.github} 
-                  target="_blank" 
+                <a
+                  href={selectedProject.github}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="hud-button-amber"
                   style={{
@@ -911,7 +911,7 @@ export default function SectorProjects() {
                 </a>
               )}
 
-              <button 
+              <button
                 onClick={() => setSelectedProject(null)}
                 className="hud-button"
                 style={{
@@ -930,7 +930,7 @@ export default function SectorProjects() {
           </div>
         </div>
       )}
-      
+
       {/* Styles for scrollbar hiding & button hover */}
       <style>{`
         div::-webkit-scrollbar {

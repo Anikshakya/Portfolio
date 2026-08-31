@@ -7,15 +7,17 @@ export default function SectorHome() {
 
   useEffect(() => {
     let index = 0;
-    const interval = setInterval(() => {
-      setTypedText(fullText.substring(0, index));
-      index++;
-      if (index > fullText.length) {
-        clearInterval(interval);
+    const timer = setInterval(() => {
+      if (index < fullText.length) {
+        setTypedText(fullText.substring(0, index + 1));
+        index++;
+      } else {
+        clearInterval(timer);
       }
-    }, 25);
-    return () => clearInterval(interval);
-  }, []);
+    }, 20);
+
+    return () => clearInterval(timer);
+  }, [fullText]);
 
   // Split greeting and name targeting
   const prefixLength = "Hi, I am ".length;
@@ -26,14 +28,16 @@ export default function SectorHome() {
   const typedTelemetry = typedText.length > (prefixLength + nameLength) ? typedText.substring(prefixLength + nameLength) : '';
 
   return (
-    <div
+    <div 
       className="home-sector-wrapper"
       style={{
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
         maxWidth: '1250px',
-        padding: '100px 24px 40px 24px',
+        padding: '65px 20px 20px 20px',
+        maxHeight: 'calc(100vh - 75px)',
+        overflowY: 'auto',
         zIndex: 5,
         position: 'relative',
         textAlign: 'left',
@@ -41,15 +45,15 @@ export default function SectorHome() {
       }}
     >
       {/* Outer Flex Container for Dual Column Layout on Desktop */}
-      <div className="hud-columns-container" style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'stretch', width: '100%' }}>
+      <div className="hud-columns-container" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'stretch', width: '100%' }}>
 
         {/* Left Column: Greeting, Picture and Identity Deck */}
-        <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '18px', width: '100%' }}>
+        <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '14px', width: '100%' }}>
 
-          <div className="hud-panel animate-fade-in" style={{ padding: '28px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div className="hud-panel animate-fade-in" style={{ padding: '22px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               {/* Telemetry Bar */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                 <span style={{ fontSize: '10.5px', color: 'var(--color-cyan)' }} className="hud-monospace">
                   PROFILE OVERVIEW // ANIK SHAKYA
                 </span>
@@ -59,17 +63,17 @@ export default function SectorHome() {
               </div>
 
               {/* Profile Avatar & Intro Layout */}
-              <div className="hud-avatar-row" style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap' }}>
+              <div className="hud-avatar-row" style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap' }}>
                 {/* HUD Profile Image Container */}
-                <div style={{ position: 'relative', width: '110px', height: '110px', flexShrink: 0 }}>
+                <div style={{ position: 'relative', width: '90px', height: '90px', flexShrink: 0 }}>
                   <div
                     style={{
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      padding: '4px',
+                      padding: '3px',
                       background: 'linear-gradient(135deg, var(--color-cyan), var(--color-magenta))',
-                      boxShadow: '0 0 20px rgba(0, 240, 255, 0.4)',
+                      boxShadow: '0 0 16px rgba(0, 240, 255, 0.4)',
                       position: 'relative'
                     }}
                   >
@@ -93,27 +97,24 @@ export default function SectorHome() {
                   <span
                     style={{
                       position: 'absolute',
-                      bottom: '4px',
-                      right: '4px',
-                      width: '14px',
-                      height: '14px',
+                      bottom: '2px',
+                      right: '2px',
+                      width: '12px',
+                      height: '12px',
                       borderRadius: '50%',
                       background: 'var(--color-green)',
                       border: '2px solid #020208',
-                      boxShadow: '0 0 10px var(--color-green)'
+                      boxShadow: '0 0 8px var(--color-green)'
                     }}
                   />
                 </div>
 
                 <div>
-                  <h1 style={{ fontSize: '2.1rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '1px' }}>
+                  <h1 style={{ fontSize: '1.9rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '1px' }}>
                     ANIK <span className="glow-text-cyan">SHAKYA</span>
                   </h1>
-                  <span className="hud-monospace" style={{ fontSize: '11.5px', color: 'var(--color-cyan)', display: 'block', marginTop: '4px' }}>
+                  <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--color-cyan)', display: 'block', marginTop: '4px' }}>
                     FLUTTER DEVELOPER & EX-MERN DEVELOPER
-                  </span>
-                  <span className="hud-monospace" style={{ fontSize: '10.5px', color: 'var(--color-green)', display: 'block', marginTop: '2px' }}>
-                    ● AVAILABLE FOR NEW PROJECTS
                   </span>
                 </div>
               </div>
@@ -123,28 +124,28 @@ export default function SectorHome() {
                 className="hud-monospace glow-box-cyan"
                 style={{
                   background: 'rgba(2, 2, 8, 0.85)',
-                  padding: '16px',
+                  padding: '14px',
                   borderRadius: '6px',
                   border: '1px solid rgba(0, 240, 255, 0.25)',
-                  marginBottom: '20px',
-                  minHeight: '85px',
-                  lineHeight: '1.6',
+                  marginBottom: '16px',
+                  minHeight: '75px',
+                  lineHeight: '1.5',
                   whiteSpace: 'pre-wrap',
                   wordBreak: 'break-word'
                 }}
               >
-                <span style={{ fontSize: '13px', color: 'var(--color-text-main)' }}>
+                <span style={{ fontSize: '12.5px', color: 'var(--color-text-main)' }}>
                   {typedPrefix}
                 </span>
 
                 <span
                   className="glow-text-cyan"
                   style={{
-                    fontSize: '15px',
+                    fontSize: '14px',
                     fontWeight: 'bold',
                     color: 'var(--color-cyan)',
                     background: 'rgba(0, 240, 255, 0.1)',
-                    padding: '2px 6px',
+                    padding: '2px 5px',
                     borderRadius: '3px',
                     margin: '0 2px'
                   }}
@@ -152,25 +153,25 @@ export default function SectorHome() {
                   {typedName}
                 </span>
 
-                <span style={{ fontSize: '13px', color: 'var(--color-cyan)' }}>
+                <span style={{ fontSize: '12.5px', color: 'var(--color-cyan)' }}>
                   {typedTelemetry}
                 </span>
 
-                <span className="cursor" style={{ animation: 'blink 1s step-end infinite', fontSize: '18px', color: 'var(--color-cyan)' }}>_</span>
+                <span className="cursor" style={{ animation: 'blink 1s step-end infinite', fontSize: '16px', color: 'var(--color-cyan)' }}>_</span>
               </div>
 
-              <h2 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-header)', fontWeight: 600, color: 'var(--color-magenta)', marginBottom: '12px', letterSpacing: '0.5px' }}>
+              <h2 style={{ fontSize: '1.15rem', fontFamily: 'var(--font-header)', fontWeight: 600, color: 'var(--color-magenta)', marginBottom: '10px', letterSpacing: '0.5px' }}>
                 ABOUT ME
               </h2>
 
-              <p style={{ fontSize: '14px', lineHeight: '1.65', color: 'var(--color-text-main)', margin: 0 }}>
+              <p style={{ fontSize: '13.5px', lineHeight: '1.55', color: 'var(--color-text-main)', margin: 0 }}>
                 Flutter Developer specializing in building high-performance, production-ready cross-platform mobile applications. Experienced in mobile architecture, native platform channels, state management, complex UI components, and API integrations. Skilled at leading mobile strategies and delivering scalable solutions for international clients. Also an ex MERN developer.
               </p>
             </div>
           </div>
 
           {/* Social Communications Deck */}
-          <div className="hud-panel" style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+          <div className="hud-panel" style={{ padding: '14px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
             <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--color-cyan)' }}>
               CONNECT WITH ME
             </span>
@@ -180,7 +181,7 @@ export default function SectorHome() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hud-button"
-                style={{ padding: '6px 12px', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
+                style={{ padding: '5px 10px', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
               >
                 GITHUB
               </a>
@@ -189,7 +190,7 @@ export default function SectorHome() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hud-button"
-                style={{ padding: '6px 12px', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
+                style={{ padding: '5px 10px', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
               >
                 LINKEDIN
               </a>
@@ -198,7 +199,7 @@ export default function SectorHome() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hud-button"
-                style={{ padding: '6px 12px', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
+                style={{ padding: '5px 10px', fontSize: '10px', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}
               >
                 INSTAGRAM
               </a>
@@ -208,58 +209,82 @@ export default function SectorHome() {
         </div>
 
         {/* Right Column: Mission Records (Chronology & Core Specialties) */}
-        <div className="hud-panel hud-panel-magenta" style={{ flex: '1 1 300px', padding: '28px', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
-          <h3 style={{ fontSize: '12.5px', letterSpacing: '1.5px', fontFamily: 'var(--font-header)', color: 'var(--color-magenta)', marginBottom: '18px' }}>
+        <div className="hud-panel hud-panel-magenta" style={{ flex: '1 1 300px', padding: '22px', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
+          <h3 style={{ fontSize: '12px', letterSpacing: '1.5px', fontFamily: 'var(--font-header)', color: 'var(--color-magenta)', marginBottom: '14px' }}>
             HIGHLIGHTS & FEATURED WORK
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', borderLeft: '2px solid rgba(255, 0, 127, 0.25)', paddingLeft: '18px', marginLeft: '4px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', borderLeft: '2px solid rgba(255, 0, 127, 0.25)', paddingLeft: '16px', marginLeft: '4px' }}>
 
             {/* GOATUS App */}
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)', boxShadow: 'var(--shadow-magenta)' }} />
+              <div style={{ position: 'absolute', left: '-21px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)', boxShadow: 'var(--shadow-magenta)' }} />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>GOATUS APP (JAPAN)</h4>
-                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-magenta)' }}>PRODUCTION // FLUTTER</span>
+                <h4 style={{ fontSize: '14px', fontWeight: 'bold', margin: 0 }}>GOATUS APP (JAPAN)</h4>
+                <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-magenta)' }}>PRODUCTION // FLUTTER</span>
               </div>
-              <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
-                Japanese fan-athlete platform with subscriptions, activity feeds, and gifting systems live on Google Play & Apple App Store.
+              <p style={{ fontSize: '12.5px', color: 'var(--color-text-main)', lineHeight: '1.4', marginTop: '3px', marginBottom: 0 }}>
+                Japanese fan-athlete platform with subscriptions, activity feeds, and gifting live on Play Store & App Store.
+              </p>
+            </div>
+
+            {/* Pecon App */}
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '-21px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-cyan)', boxShadow: 'var(--shadow-cyan)' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
+                <h4 style={{ fontSize: '14px', fontWeight: 'bold', margin: 0 }}>PECON APP</h4>
+                <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-cyan)' }}>PRODUCTION // WHOLESALE E-COM</span>
+              </div>
+              <p style={{ fontSize: '12.5px', color: 'var(--color-text-main)', lineHeight: '1.4', marginTop: '3px', marginBottom: 0 }}>
+                Wholesale e-commerce app for electronics with QR code scanning for bulk ordering and reward points.
+              </p>
+            </div>
+
+            {/* Trandz Vistaar App */}
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '-21px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-amber)', boxShadow: 'var(--shadow-amber)' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
+                <h4 style={{ fontSize: '14px', fontWeight: 'bold', margin: 0 }}>TRANDZ VISTAAR</h4>
+                <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-amber)' }}>PRODUCTION // APPLIANCES E-COM</span>
+              </div>
+              <p style={{ fontSize: '12.5px', color: 'var(--color-text-main)', lineHeight: '1.4', marginTop: '3px', marginBottom: 0 }}>
+                Home appliances e-commerce platform featuring QR scanning for product authenticity, warranty registration, and rewards.
               </p>
             </div>
 
             {/* Durga Bhagawati Gaupalika App */}
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
+              <div style={{ position: 'absolute', left: '-21px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>DURGA BHAGAWATI GAUPALIKA</h4>
-                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-cyan)' }}>PRODUCTION // CIVIC TECH</span>
+                <h4 style={{ fontSize: '14px', fontWeight: 'bold', margin: 0 }}>DURGA BHAGAWATI GAUPALIKA</h4>
+                <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-cyan)' }}>PRODUCTION // CIVIC TECH</span>
               </div>
-              <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
+              <p style={{ fontSize: '12.5px', color: 'var(--color-text-main)', lineHeight: '1.4', marginTop: '3px', marginBottom: 0 }}>
                 Civic assistance application for municipal ward situational awareness, announcements, and direct user assistance in Nepal.
               </p>
             </div>
 
             {/* Mobile Architecture & Native Platform Channels */}
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
+              <div style={{ position: 'absolute', left: '-21px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>CROSS-PLATFORM ARCHITECTURE</h4>
-                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-text-muted)' }}>FLUTTER & NATIVE</span>
+                <h4 style={{ fontSize: '14px', fontWeight: 'bold', margin: 0 }}>CROSS-PLATFORM ARCHITECTURE</h4>
+                <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-text-muted)' }}>FLUTTER & NATIVE</span>
               </div>
-              <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
-                Expertise in native platform channels (iOS/Android), complex state management (BLoC/Provider), maps & polylines, and Stripe payment gateway integrations.
+              <p style={{ fontSize: '12.5px', color: 'var(--color-text-main)', lineHeight: '1.4', marginTop: '3px', marginBottom: 0 }}>
+                Expertise in native platform channels (iOS/Android), state management (GetX/Provider/BLoC), polylines, and Stripe SDKs.
               </p>
             </div>
 
             {/* Ex MERN Stack */}
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '-23px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
+              <div style={{ position: 'absolute', left: '-21px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-magenta)' }} />
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 'bold' }}>EX-MERN STACK DEVELOPER</h4>
-                <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--color-text-muted)' }}>FULL-STACK WEB</span>
+                <h4 style={{ fontSize: '14px', fontWeight: 'bold', margin: 0 }}>EX-MERN STACK DEVELOPER</h4>
+                <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--color-text-muted)' }}>FULL-STACK WEB</span>
               </div>
-              <p style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: '1.45', marginTop: '4px' }}>
-                Background in MongoDB, Express.js, React, and Node.js for constructing scalable backend infrastructure and web admin portals.
+              <p style={{ fontSize: '12.5px', color: 'var(--color-text-main)', lineHeight: '1.4', marginTop: '3px', marginBottom: 0 }}>
+                Background in MongoDB, Express.js, React, and Node.js for constructing scalable backend APIs and web admin portals.
               </p>
             </div>
 
@@ -269,6 +294,16 @@ export default function SectorHome() {
       </div>
 
       <style>{`
+        .home-sector-wrapper::-webkit-scrollbar {
+          width: 5px;
+        }
+        .home-sector-wrapper::-webkit-scrollbar-track {
+          background: rgba(2, 2, 8, 0.5);
+        }
+        .home-sector-wrapper::-webkit-scrollbar-thumb {
+          background: var(--color-cyan);
+          border-radius: 3px;
+        }
         @keyframes blink {
           50% { opacity: 0; }
         }
@@ -278,10 +313,11 @@ export default function SectorHome() {
             padding-left: 12px !important;
             padding-right: 12px !important;
             padding-bottom: 20px !important;
+            max-height: none !important;
           }
           .hud-columns-container {
             flex-direction: column !important;
-            gap: 16px !important;
+            gap: 14px !important;
           }
         }
         @media (max-width: 480px) {
