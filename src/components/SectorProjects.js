@@ -5,7 +5,7 @@ const APP_ICONS = {
   pecon: "/icons/pecon.png",
   trandz: "/icons/trandz.png",
   mulyankan: "/icons/mulyankan.png",
-  civic: "/icons/durga_bhagawati.png",
+  civic: "/icons/durga_bhagawati.png"
 };
 
 const projects = [
@@ -82,21 +82,18 @@ const projects = [
 ];
 
 export default function SectorProjects() {
-  const [activeTab, setActiveTab] = useState('showcase');
   const [selectedProject, setSelectedProject] = useState(null);
   const carouselRef = useRef(null);
 
-  const showcaseProjects = projects.filter(p => p.featured);
-
   const scrollCarousel = (direction) => {
     if (carouselRef.current) {
-      const scrollAmount = direction === 'left' ? -360 : 360;
+      const scrollAmount = direction === 'left' ? -420 : 420;
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <div
+    <div 
       className="hud-projects-wrapper apple-reveal"
       style={{
         display: 'flex',
@@ -111,260 +108,160 @@ export default function SectorProjects() {
         boxSizing: 'border-box'
       }}
     >
-      <div
-        className="editorial-card"
-        style={{ padding: '32px', width: '100%' }}
+      <div 
+        className="editorial-card" 
+        style={{ padding: '36px', width: '100%' }}
       >
         {/* Header Telemetry */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
           <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-            FEATURED ENGINEERING WORK
+            FEATURED ENGINEERING WORK // 5 PRODUCTION APPS
           </span>
-          <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--text-secondary)' }}>
-            SHOWCASE: <strong style={{ color: 'var(--accent-primary)' }}>{showcaseProjects.length} APPS</strong> | TOTAL: {projects.length} PROJECTS
+          <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--accent-emerald)', background: 'rgba(16, 185, 129, 0.1)', padding: '4px 12px', borderRadius: '9999px', fontWeight: 600 }}>
+            LIVE DEPLOYED STORE APPS
           </span>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '14px' }}>
-          <h2 style={{ fontSize: '2.4rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '-0.04em' }} className="headline-gradient">
-            SELECTED PROJECTS
-          </h2>
-
-          {/* Controls: Segmented Tabs & Carousel Arrows */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {activeTab === 'showcase' && (
-              <div style={{ display: 'flex', gap: '6px' }}>
-                <button
-                  onClick={() => scrollCarousel('left')}
-                  className="btn-editorial"
-                  style={{ width: '36px', height: '36px', padding: 0, justifyContent: 'center', borderRadius: '50%', fontSize: '16px' }}
-                  title="Previous App"
-                >
-                  ←
-                </button>
-                <button
-                  onClick={() => scrollCarousel('right')}
-                  className="btn-editorial"
-                  style={{ width: '36px', height: '36px', padding: 0, justifyContent: 'center', borderRadius: '50%', fontSize: '16px' }}
-                  title="Next App"
-                >
-                  →
-                </button>
-              </div>
-            )}
-
-            <div style={{ display: 'flex', gap: '4px', background: 'rgba(0, 0, 0, 0.08)', padding: '4px', borderRadius: '9999px', border: '1px solid var(--border-subtle)' }}>
-              <button
-                onClick={() => setActiveTab('showcase')}
-                style={{
-                  background: activeTab === 'showcase' ? 'var(--text-primary)' : 'transparent',
-                  color: activeTab === 'showcase' ? 'var(--bg-base)' : 'var(--text-secondary)',
-                  border: 'none',
-                  padding: '6px 16px',
-                  borderRadius: '9999px',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
-                }}
-              >
-                Carousel View ({showcaseProjects.length})
-              </button>
-              <button
-                onClick={() => setActiveTab('all')}
-                style={{
-                  background: activeTab === 'all' ? 'var(--text-primary)' : 'transparent',
-                  color: activeTab === 'all' ? 'var(--bg-base)' : 'var(--text-secondary)',
-                  border: 'none',
-                  padding: '6px 16px',
-                  borderRadius: '9999px',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
-                }}
-              >
-                All Projects ({projects.length})
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* APPLE CAROUSEL SHOWCASE VIEW */}
-        {activeTab === 'showcase' && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '14px' }}>
           <div>
-            <div className="apple-carousel-container" ref={carouselRef}>
-              {showcaseProjects.map((proj) => (
-                <div
-                  key={proj.id}
-                  className="editorial-card apple-carousel-card"
-                  onClick={() => setSelectedProject(proj)}
-                  style={{
-                    padding: '22px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    minHeight: '270px'
-                  }}
-                >
-                  <div>
-                    {/* Top Row */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <div
-                          style={{
-                            width: '46px',
-                            height: '46px',
-                            borderRadius: '14px',
-                            overflow: 'hidden',
-                            background: 'var(--bg-base)',
-                            border: '1px solid var(--border-subtle)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0
-                          }}
-                        >
-                          <img
-                            src={proj.appIcon}
-                            alt={proj.title}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                          />
-                        </div>
-
-                        <div>
-                          <h3 style={{ fontSize: '17px', fontFamily: 'var(--font-header)', fontWeight: 700, margin: '0 0 2px 0', color: 'var(--text-primary)' }}>
-                            {proj.title}
-                          </h3>
-                          <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--accent-primary)' }}>
-                            [{proj.category.toUpperCase()}]
-                          </span>
-                        </div>
-                      </div>
-
-                      <span className="hud-monospace" style={{ fontSize: '8.5px', padding: '3px 8px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-primary)', border: '1px solid rgba(59, 130, 246, 0.3)', borderRadius: '9999px', fontWeight: 600 }}>
-                        {proj.status}
-                      </span>
-                    </div>
-
-                    <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.45', marginBottom: '14px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                      {proj.shortDesc}
-                    </p>
-                  </div>
-
-                  <div>
-                    {/* Tech Badges */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '12px' }}>
-                      {proj.stack.slice(0, 3).map((s, i) => (
-                        <span key={i} className="hud-monospace" style={{ fontSize: '8.5px', padding: '3px 8px', background: 'rgba(0, 0, 0, 0.06)', color: 'var(--text-secondary)', borderRadius: '6px' }}>
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Store Links */}
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', borderTop: '1px solid var(--border-subtle)', paddingTop: '12px' }}>
-                      {proj.playstore && (
-                        <a
-                          href={proj.playstore}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="btn-editorial"
-                          style={{ fontSize: '9.5px', padding: '5px 12px' }}
-                        >
-                          PLAY STORE
-                        </a>
-                      )}
-                      {proj.appstore && (
-                        <a
-                          href={proj.appstore}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="btn-editorial"
-                          style={{ fontSize: '9.5px', padding: '5px 12px' }}
-                        >
-                          APP STORE
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <h2 style={{ fontSize: '2.6rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '-0.04em' }} className="headline-gradient">
+              SELECTED PROJECTS
+            </h2>
+            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
+              Explore production mobile applications deployed on Google Play Store & Apple App Store.
+            </p>
           </div>
-        )}
 
-        {/* ALL PROJECTS GRID VIEW */}
-        {activeTab === 'all' && (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '14px',
-              marginBottom: '10px'
-            }}
-          >
-            {projects.map((proj) => (
-              <div
-                key={proj.id}
-                className="editorial-card"
-                onClick={() => setSelectedProject(proj)}
-                style={{
-                  padding: '18px 20px',
-                  cursor: 'pointer',
-                  borderRadius: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                    <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
-                      {proj.title}
-                    </h3>
-                    <span className="hud-monospace" style={{ fontSize: '8.5px', padding: '2px 8px', background: 'rgba(0, 0, 0, 0.05)', color: 'var(--text-secondary)', borderRadius: '9999px' }}>
-                      {proj.status}
-                    </span>
+          {/* Carousel Arrow Controls */}
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={() => scrollCarousel('left')}
+              className="btn-editorial"
+              style={{ width: '42px', height: '42px', padding: 0, justifyContent: 'center', borderRadius: '50%', fontSize: '18px' }}
+              title="Previous App"
+            >
+              ←
+            </button>
+            <button
+              onClick={() => scrollCarousel('right')}
+              className="btn-editorial"
+              style={{ width: '42px', height: '42px', padding: 0, justifyContent: 'center', borderRadius: '50%', fontSize: '18px' }}
+              title="Next App"
+            >
+              →
+            </button>
+          </div>
+        </div>
+
+        {/* APPLE LARGE KEYNOTE CAROUSEL SLIDER */}
+        <div className="apple-carousel-container" ref={carouselRef}>
+          {projects.map((proj) => (
+            <div 
+              key={proj.id}
+              className="editorial-card apple-carousel-card"
+              onClick={() => setSelectedProject(proj)}
+              style={{
+                padding: '28px',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '320px'
+              }}
+            >
+              <div>
+                {/* Top Row */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '18px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <div 
+                      style={{ 
+                        width: '56px', 
+                        height: '56px', 
+                        borderRadius: '16px', 
+                        overflow: 'hidden', 
+                        background: 'var(--bg-base)', 
+                        border: '1px solid var(--border-subtle)', 
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: 'var(--shadow-card)'
+                      }}
+                    >
+                      <img 
+                        src={proj.appIcon} 
+                        alt={proj.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+
+                    <div>
+                      <h3 style={{ fontSize: '20px', fontFamily: 'var(--font-header)', fontWeight: 800, margin: '0 0 4px 0', color: 'var(--text-primary)' }}>
+                        {proj.title}
+                      </h3>
+                      <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--accent-primary)', fontWeight: 600 }}>
+                        [{proj.category.toUpperCase()}]
+                      </span>
+                    </div>
                   </div>
 
-                  <span className="hud-monospace" style={{ fontSize: '9px', color: 'var(--accent-primary)', display: 'block', marginBottom: '8px' }}>
-                    [{proj.category}]
+                  <span className="hud-monospace" style={{ fontSize: '9px', padding: '4px 10px', background: 'rgba(16, 185, 129, 0.12)', color: 'var(--accent-emerald)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '9999px', fontWeight: 600 }}>
+                    {proj.status}
                   </span>
-
-                  <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4', marginBottom: '10px' }}>
-                    {proj.shortDesc}
-                  </p>
                 </div>
 
-                <div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '8px' }}>
-                    {proj.stack.slice(0, 3).map((s, i) => (
-                      <span key={i} className="hud-monospace" style={{ fontSize: '8.5px', padding: '2px 6px', background: 'rgba(0, 0, 0, 0.05)', color: 'var(--text-muted)', borderRadius: '4px' }}>
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.55', marginBottom: '18px' }}>
+                  {proj.fullDesc}
+                </p>
+              </div>
 
-                  <div style={{ display: 'flex', gap: '8px', fontSize: '9px', fontWeight: 600 }}>
-                    {proj.playstore && <span style={{ color: 'var(--accent-emerald)' }}>PLAY STORE</span>}
-                    {proj.appstore && <span style={{ color: 'var(--accent-primary)' }}>APP STORE</span>}
-                    {proj.github && <span style={{ color: 'var(--accent-amber)' }}>GITHUB</span>}
-                  </div>
+              <div>
+                {/* Tech Stack Pills */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
+                  {proj.stack.map((s, i) => (
+                    <span key={i} className="hud-monospace" style={{ fontSize: '9px', padding: '4px 10px', background: 'rgba(0, 0, 0, 0.06)', color: 'var(--text-primary)', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
+                      {s}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Direct Store Links */}
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', borderTop: '1px solid var(--border-subtle)', paddingTop: '16px' }}>
+                  {proj.playstore && (
+                    <a 
+                      href={proj.playstore}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="btn-editorial btn-primary"
+                      style={{ fontSize: '11px', padding: '8px 16px' }}
+                    >
+                      Google Play Store →
+                    </a>
+                  )}
+                  {proj.appstore && (
+                    <a 
+                      href={proj.appstore}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="btn-editorial"
+                      style={{ fontSize: '11px', padding: '8px 16px' }}
+                    >
+                      Apple App Store →
+                    </a>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
 
       </div>
 
       {/* DETAIL MODAL */}
       {selectedProject && (
-        <div
+        <div 
           style={{
             position: 'fixed',
             top: 0,
@@ -382,12 +279,12 @@ export default function SectorProjects() {
           }}
           onClick={() => setSelectedProject(null)}
         >
-          <div
+          <div 
             className="editorial-card"
             style={{
               width: '100%',
-              maxWidth: '580px',
-              padding: '30px',
+              maxWidth: '600px',
+              padding: '34px',
               background: 'var(--bg-base)',
               borderRadius: '24px'
             }}
@@ -395,10 +292,10 @@ export default function SectorProjects() {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <img
-                  src={selectedProject.appIcon}
-                  alt={selectedProject.title}
-                  style={{ width: '52px', height: '52px', borderRadius: '14px', background: '#000', border: '1px solid var(--border-subtle)' }}
+                <img 
+                  src={selectedProject.appIcon} 
+                  alt={selectedProject.title} 
+                  style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#000', border: '1px solid var(--border-subtle)' }}
                 />
                 <div>
                   <h3 style={{ fontSize: '22px', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>{selectedProject.title}</h3>
@@ -406,7 +303,7 @@ export default function SectorProjects() {
                 </div>
               </div>
 
-              <button
+              <button 
                 onClick={() => setSelectedProject(null)}
                 style={{ background: 'rgba(0,0,0,0.08)', border: 'none', color: 'var(--text-primary)', width: '32px', height: '32px', borderRadius: '50%', fontSize: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
@@ -414,11 +311,11 @@ export default function SectorProjects() {
               </button>
             </div>
 
-            <p style={{ fontSize: '14.5px', lineHeight: '1.65', color: 'var(--text-secondary)', marginBottom: '20px' }}>
+            <p style={{ fontSize: '15px', lineHeight: '1.65', color: 'var(--text-secondary)', marginBottom: '20px' }}>
               {selectedProject.fullDesc}
             </p>
 
-            <div style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '24px' }}>
               <h4 style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px', letterSpacing: '0.05em' }}>TECH ARCHITECTURE</h4>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {selectedProject.stack.map((s, i) => (
@@ -438,11 +335,6 @@ export default function SectorProjects() {
               {selectedProject.appstore && (
                 <a href={selectedProject.appstore} target="_blank" rel="noopener noreferrer" className="btn-editorial">
                   Apple App Store
-                </a>
-              )}
-              {selectedProject.github && (
-                <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="btn-editorial">
-                  GitHub Repository
                 </a>
               )}
             </div>

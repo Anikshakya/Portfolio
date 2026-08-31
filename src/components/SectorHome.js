@@ -8,8 +8,8 @@ export default function SectorHome({ triggerWarp = () => {} }) {
     { title: 'PECON APP', cat: 'PRODUCTION // WHOLESALE E-COM', tagColor: 'var(--accent-primary)', desc: 'Wholesale e-commerce app for electronics with QR code scanning for bulk ordering and reward programs.' },
     { title: 'TRANDZ VISTAAR', cat: 'PRODUCTION // APPLIANCES E-COM', tagColor: 'var(--accent-amber)', desc: 'Home appliances e-commerce platform featuring QR scanning for product authenticity and warranty registration.' },
     { title: 'DURGA BHAGAWATI GAUPALIKA', cat: 'PRODUCTION // CIVIC TECH', tagColor: 'var(--accent-emerald)', desc: 'Civic assistance application for municipal ward situational awareness, announcements, and direct user assistance.' },
-    { title: 'CROSS-PLATFORM ARCHITECTURE', cat: 'FLUTTER & NATIVE', tagColor: 'var(--accent-primary)', desc: 'Expertise in native platform channels (iOS/Android), state management (GetX/Provider/BLoC), polylines, and Stripe SDKs.' },
-    { title: 'EX-MERN STACK DEVELOPER', cat: 'FULL-STACK WEB', tagColor: 'var(--accent-secondary)', desc: 'Background in MongoDB, Express.js, React, and Node.js for constructing scalable backend APIs and web admin portals.' }
+    { title: 'MULYANKAN APP', cat: 'PRODUCTION // FINTECH & MAPS', tagColor: 'var(--accent-primary)', desc: 'Official property and land valuation engine widely used in Nepal with map rate algorithms.' },
+    { title: 'CROSS-PLATFORM ARCHITECTURE', cat: 'FLUTTER & NATIVE', tagColor: 'var(--accent-secondary)', desc: 'Expertise in native platform channels (iOS/Android), state management (GetX/Provider/BLoC), polylines, and Stripe SDKs.' }
   ];
 
   return (
@@ -21,7 +21,7 @@ export default function SectorHome({ triggerWarp = () => {} }) {
         width: '100%',
         maxWidth: '1280px',
         margin: '0 auto',
-        padding: '100px 20px 60px 20px',
+        padding: '110px 20px 60px 20px',
         zIndex: 5,
         position: 'relative',
         boxSizing: 'border-box'
@@ -30,42 +30,59 @@ export default function SectorHome({ triggerWarp = () => {} }) {
       {/* 1. CINEMATIC HERO HEADER */}
       <div style={{ textAlign: 'center', marginBottom: '50px' }} className="apple-reveal apple-reveal-delay-1">
         
-        {/* Availability Badge */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: '9999px', marginBottom: '20px' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-emerald)', boxShadow: '0 0 10px var(--accent-emerald)' }} />
-          <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--accent-emerald)', letterSpacing: '0.02em' }}>
-            Available for Selected Mobile Architecture Projects
-          </span>
+        {/* Availability & Direct Phone Pill */}
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', padding: '6px 18px', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: '9999px', marginBottom: '22px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-emerald)', boxShadow: '0 0 10px var(--accent-emerald)' }} />
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--accent-emerald)', letterSpacing: '0.02em' }}>
+              Available for Selected Mobile Architecture Projects
+            </span>
+          </div>
+          <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>|</span>
+          <a href="tel:+9779863021878" style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <span>📞 +977 9863021878</span>
+          </a>
         </div>
 
         {/* Giant Headline */}
         <h1 
           style={{ 
-            fontSize: 'clamp(2.8rem, 6vw, 4.8rem)', 
+            fontSize: 'clamp(2.8rem, 5.5vw, 4.8rem)', 
             fontFamily: 'var(--font-header)', 
             fontWeight: 800, 
             lineHeight: '1.08', 
             letterSpacing: '-0.04em', 
-            marginBottom: '18px',
-            maxWidth: '900px',
-            margin: '0 auto 18px auto'
+            marginBottom: '16px',
+            maxWidth: '960px',
+            margin: '0 auto 16px auto'
           }} 
           className="headline-gradient"
         >
           Crafting High-Performance Mobile Applications.
         </h1>
 
+        {/* Identity & Subtitle */}
+        <div style={{ marginBottom: '16px' }}>
+          <h2 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-header)', fontWeight: 800, letterSpacing: '0.05em', color: 'var(--text-primary)', margin: '0 0 4px 0' }}>
+            ANIK SHAKYA
+          </h2>
+          <span className="hud-monospace" style={{ fontSize: '12px', color: 'var(--accent-primary)', fontWeight: 600, letterSpacing: '0.08em' }}>
+            MOBILE ARCHITECT & FULL-STACK ENGINEER
+          </span>
+        </div>
+
+        {/* Exact Bio Text Requested */}
         <p 
           style={{ 
-            fontSize: 'clamp(1rem, 2vw, 1.25rem)', 
+            fontSize: 'clamp(1rem, 1.8vw, 1.18rem)', 
             color: 'var(--text-secondary)', 
-            maxWidth: '680px', 
-            margin: '0 auto 30px auto', 
-            lineHeight: '1.6', 
+            maxWidth: '820px', 
+            margin: '0 auto 32px auto', 
+            lineHeight: '1.65', 
             fontWeight: 400 
           }}
         >
-          Hi, I'm <strong style={{ color: 'var(--text-primary)' }}>ANIK SHAKYA</strong>. Senior Flutter Developer & Ex-MERN Stack Engineer specializing in production-ready cross-platform mobile architectures.
+          Senior Flutter Developer specializing in building high-performance, production-ready cross-platform mobile applications. Experienced in mobile architecture, native platform channels, state management, complex UI components, and API integrations. Skilled at leading mobile strategies and delivering scalable solutions for international clients. Also an ex MERN developer.
         </p>
 
         {/* Primary & Secondary CTAs */}
@@ -77,12 +94,19 @@ export default function SectorHome({ triggerWarp = () => {} }) {
           >
             Explore Selected Projects ↓
           </button>
+          <a
+            href="tel:+9779863021878"
+            className="btn-editorial"
+            style={{ padding: '14px 28px', fontSize: '14px', fontWeight: 600 }}
+          >
+            Call: +977 9863021878
+          </a>
           <button 
             onClick={() => triggerWarp(3)} 
             className="btn-editorial"
             style={{ padding: '14px 28px', fontSize: '14px', fontWeight: 500 }}
           >
-            Get In Touch
+            Send Inquiry
           </button>
         </div>
       </div>
@@ -90,7 +114,7 @@ export default function SectorHome({ triggerWarp = () => {} }) {
       {/* 2. BENTO BOX EDITORIAL GRID */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px', width: '100%' }}>
         
-        {/* Tile 1: Profile & Bio (8 Columns) */}
+        {/* Tile 1: Profile & Bio Details (8 Columns) */}
         <div 
           className="editorial-card apple-reveal apple-reveal-delay-2" 
           style={{ gridColumn: 'span 8', padding: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
@@ -125,16 +149,19 @@ export default function SectorHome({ triggerWarp = () => {} }) {
               </div>
 
               <div>
-                <h2 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '-0.03em' }} className="headline-gradient">
+                <h3 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '-0.03em' }} className="headline-gradient">
                   ANIK SHAKYA
-                </h2>
+                </h3>
                 <span className="hud-monospace" style={{ fontSize: '12px', color: 'var(--accent-primary)', display: 'block', marginTop: '4px' }}>
                   MOBILE ARCHITECT & FULL-STACK ENGINEER
+                </span>
+                <span style={{ fontSize: '13px', color: 'var(--text-secondary)', display: 'block', marginTop: '2px' }}>
+                  📞 +977 9863021878 | ✉️ aniklinkin@gmail.com
                 </span>
               </div>
             </div>
 
-            <p style={{ fontSize: '15px', lineHeight: '1.7', color: 'var(--text-secondary)', margin: 0 }}>
+            <p style={{ fontSize: '14.5px', lineHeight: '1.7', color: 'var(--text-secondary)', margin: 0 }}>
               Senior Flutter Developer specializing in building high-performance, production-ready cross-platform mobile applications. Experienced in mobile architecture, native platform channels, state management, complex UI components, and API integrations. Skilled at leading mobile strategies and delivering scalable solutions for international clients. Also an ex MERN developer.
             </p>
           </div>
@@ -143,6 +170,7 @@ export default function SectorHome({ triggerWarp = () => {} }) {
             <a href="https://github.com/AnikShakya" target="_blank" rel="noopener noreferrer" className="btn-editorial">GitHub</a>
             <a href="https://www.linkedin.com/in/anik-shakya-67141b192/" target="_blank" rel="noopener noreferrer" className="btn-editorial">LinkedIn</a>
             <a href="https://www.instagram.com/anik_shakya_" target="_blank" rel="noopener noreferrer" className="btn-editorial">Instagram</a>
+            <a href="https://wa.me/9779863021878" target="_blank" rel="noopener noreferrer" className="btn-editorial">WhatsApp</a>
           </div>
         </div>
 
@@ -157,7 +185,7 @@ export default function SectorHome({ triggerWarp = () => {} }) {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', margin: '20px 0' }}>
             <div>
-              <span style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--accent-primary)', fontFamily: 'var(--font-header)' }}>6+</span>
+              <span style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--accent-primary)', fontFamily: 'var(--font-header)' }}>5+</span>
               <span style={{ fontSize: '13px', color: 'var(--text-secondary)', display: 'block', fontWeight: 500 }}>Live Deployed Mobile Apps</span>
             </div>
             <div>
@@ -175,7 +203,7 @@ export default function SectorHome({ triggerWarp = () => {} }) {
           </span>
         </div>
 
-        {/* Tile 3: Featured Work Timeline (Full 12 Columns) */}
+        {/* Tile 3: Featured Work Highlights (Full 12 Columns) */}
         <div 
           className="editorial-card apple-reveal apple-reveal-delay-4" 
           style={{ gridColumn: 'span 12', padding: '32px' }}

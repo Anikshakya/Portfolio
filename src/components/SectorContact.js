@@ -33,7 +33,7 @@ export default function SectorContact() {
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        maxWidth: '860px',
+        maxWidth: '880px',
         margin: '0 auto',
         padding: '60px 20px 60px 20px',
         zIndex: 5,
@@ -44,26 +44,49 @@ export default function SectorContact() {
     >
       <div className="editorial-card" style={{ padding: '40px' }}>
         
-        {/* Header */}
+        {/* Header Telemetry */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '10px' }}>
           <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             DIRECT CONTACT // INQUIRIES
           </span>
-          <a 
-            href="mailto:aniklinkin@gmail.com"
-            className="hud-monospace" 
-            style={{ fontSize: '11px', textDecoration: 'none', color: 'var(--accent-primary)', fontWeight: '600' }}
-          >
-            aniklinkin@gmail.com
-          </a>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <a 
+              href="tel:+9779863021878"
+              className="hud-monospace" 
+              style={{ fontSize: '11px', textDecoration: 'none', color: 'var(--accent-emerald)', fontWeight: '600' }}
+            >
+              📞 +977 9863021878
+            </a>
+            <span style={{ color: 'var(--text-muted)', fontSize: '11px' }}>|</span>
+            <a 
+              href="mailto:aniklinkin@gmail.com"
+              className="hud-monospace" 
+              style={{ fontSize: '11px', textDecoration: 'none', color: 'var(--accent-primary)', fontWeight: '600' }}
+            >
+              aniklinkin@gmail.com
+            </a>
+          </div>
         </div>
 
         <h2 style={{ fontSize: '2.6rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.04em' }} className="headline-gradient">
           LET'S BUILD SOMETHING GREAT
         </h2>
-        <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '32px', lineHeight: '1.65' }}>
-          Interested in bringing a mobile app vision to life, or building scalable cross-platform architectures? Send a message directly to <strong style={{ color: 'var(--text-primary)' }}>aniklinkin@gmail.com</strong>.
+        <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.65' }}>
+          Interested in bringing a mobile app vision to life, or building scalable cross-platform architectures? Reach out directly via Phone/WhatsApp <strong style={{ color: 'var(--text-primary)' }}>+977 9863021878</strong> or email <strong style={{ color: 'var(--text-primary)' }}>aniklinkin@gmail.com</strong>.
         </p>
+
+        {/* Quick Contact Buttons */}
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '32px' }}>
+          <a href="tel:+9779863021878" className="btn-editorial btn-primary">
+            Call +977 9863021878
+          </a>
+          <a href="https://wa.me/9779863021878" target="_blank" rel="noopener noreferrer" className="btn-editorial">
+            WhatsApp Direct
+          </a>
+          <a href="mailto:aniklinkin@gmail.com" className="btn-editorial">
+            Email aniklinkin@gmail.com
+          </a>
+        </div>
 
         {status === 'READY' && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
