@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function SectorHome() {
   const [typedText, setTypedText] = useState('');
   const profilePicUrl = "/icons/portfolio.png";
-  const fullText = 'Hi, I am ANIK SHAKYA.\n\n> CLASS: Flutter Developer & Ex-MERN Developer\n> FOCUS: High-Performance Cross-Platform Mobile Apps\n> SPECIALTY: Native Channels | State Management | API Integrations';
+  const fullText = 'Hi, I am ANIK SHAKYA.\n\n> CLASS: Flutter Developer & Ex-MERN Developer\n> FOCUS: High-Performance Cross-Platform Mobile Apps';
 
   useEffect(() => {
     let index = 0;
@@ -165,7 +165,10 @@ export default function SectorHome() {
               </h2>
 
               <p style={{ fontSize: '13.5px', lineHeight: '1.55', color: 'var(--color-text-main)', margin: 0 }}>
-                Flutter Developer specializing in building high-performance, production-ready cross-platform mobile applications. Experienced in mobile architecture, native platform channels, state management, complex UI components, and API integrations. Skilled at leading mobile strategies and delivering scalable solutions. Also an ex MERN developer.
+                Goal-oriented Flutter & Web Developer with experience building high-performance, cross-
+platform mobile and web applications. Proficient in Flutter, Dart, state management, REST
+APIs, native platform integration, and responsive UI development. Focused on delivering
+scalable, maintainable solutions with strong performance, usability, and code quality.
               </p>
             </div>
           </div>
