@@ -4,17 +4,16 @@ export default function SectorSkills() {
   const [animateMeters, setAnimateMeters] = useState(false);
 
   useEffect(() => {
-    // Trigger meter filling animation after mount
     const timer = setTimeout(() => setAnimateMeters(true), 200);
     return () => clearTimeout(timer);
   }, []);
 
   const coreSkills = [
-    { name: 'Flutter & Dart Propulsion', value: 90, color: 'var(--color-cyan)', exp: '4 Years', details: 'GetX/Provider architecture, local caches (SQLite), platform channels, responsive animations.' },
-    { name: 'Firebase Cloud Integrations', value: 90, color: 'var(--color-amber)', exp: '4 Years', details: 'Firestore real-time sync networks, auth validation, Crashlytics analytics, Firebase Analytics' },
-    { name: 'React.js Web Engines', value: 75, color: 'var(--color-magenta)', exp: '1 Year', details: 'Custom hooks state pipelines, performance profiles, HTML5 canvas integrations, SPA structures.' },
-    { name: 'Node.js & Express Routing', value: 50, color: 'var(--color-green)', exp: '1 Year', details: 'REST routing, secure authentication vectors (JWT), middleware injectors' },
-    { name: 'MongoDB Database Cores', value: 50, color: 'var(--color-green)', exp: '1 Year', details: 'Document mapping, compound indexing queries, pipeline aggregations.' }
+    { name: 'Flutter & Dart Engine', value: 90, color: 'var(--accent-primary)', exp: '4 Years', details: 'GetX/Provider architecture, local caches (SQLite), platform channels, responsive animations.' },
+    { name: 'Firebase Cloud Infrastructure', value: 90, color: 'var(--accent-amber)', exp: '4 Years', details: 'Firestore real-time sync networks, auth validation, Crashlytics analytics, Firebase Analytics' },
+    { name: 'React.js Web Client', value: 75, color: 'var(--accent-secondary)', exp: '1 Year', details: 'Custom hooks state pipelines, performance profiles, HTML5 canvas integrations, SPA structures.' },
+    { name: 'Node.js & Express API', value: 50, color: 'var(--accent-emerald)', exp: '1 Year', details: 'REST routing, secure authentication vectors (JWT), middleware injectors' },
+    { name: 'MongoDB Database', value: 50, color: 'var(--accent-emerald)', exp: '1 Year', details: 'Document mapping, compound indexing queries, pipeline aggregations.' }
   ];
 
   return (
@@ -24,9 +23,9 @@ export default function SectorSkills() {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        maxWidth: '1050px',
-        padding: '80px 20px 20px 20px',
-        maxHeight: 'calc(100vh - 40px)',
+        maxWidth: '1080px',
+        padding: '90px 20px 30px 20px',
+        maxHeight: 'calc(100vh - 65px)',
         overflowY: 'auto',
         zIndex: 5,
         position: 'relative',
@@ -34,71 +33,47 @@ export default function SectorSkills() {
         boxSizing: 'border-box'
       }}
     >
-      {/* 1. Core Systems Panel */}
-      <div className="hud-panel animate-fade-in" style={{ padding: '24px', marginBottom: '16px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-          <span style={{ fontSize: '11px', color: 'var(--color-cyan)' }} className="hud-monospace">
-            SYSTEMS_DIAGNOSTICS // SEC_02 // SKILLS
+      {/* Core Panel */}
+      <div className="editorial-card" style={{ padding: '30px', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+          <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+            ENGINEERING METRICS
           </span>
-          <span style={{ fontSize: '10px', color: 'var(--color-green)', background: 'rgba(0, 255, 128, 0.1)', padding: '2px 8px', borderRadius: '3px' }} className="hud-monospace">
-            CORE_REACTIVE: 100%
+          <span style={{ fontSize: '10px', color: 'var(--accent-emerald)', background: 'rgba(16, 185, 129, 0.12)', padding: '3px 10px', borderRadius: '9999px', fontWeight: 600 }}>
+            PRODUCTION READY
           </span>
         </div>
 
-        <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '6px', letterSpacing: '1px' }}>
-          SKILLS <span className="glow-text-cyan">CONSTELLATION</span>
+        <h2 style={{ fontSize: '2.4rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.04em' }} className="headline-gradient">
+          ARCHITECTURE & SKILLS
         </h2>
-        <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', marginBottom: '16px', lineHeight: '1.5' }}>
-          Starship ANIK-01 operates on a multi-threaded reactive framework. Hover over and drag the constellation nodes in deep space to analyze link forces.
+        <p style={{ fontSize: '14.5px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.6' }}>
+          Proven mastery in cross-platform mobile frameworks, real-time cloud infrastructure, and full-stack web API architectures.
         </p>
 
-        {/* Constellation Nodes Interactive Tip */}
-        <div
-          className="hud-monospace"
-          style={{
-            background: 'rgba(0, 240, 255, 0.05)',
-            border: '1px dashed var(--color-cyan)',
-            padding: '10px 14px',
-            fontSize: '11px',
-            color: 'var(--color-cyan)',
-            borderRadius: '4px',
-            marginBottom: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px'
-          }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 16v-4M12 8h.01" />
-          </svg>
-          <span>INTERACTIVE FLUID MECHANICS: Try clicking and dragging skill stars in the background space layout to test spring tension constraints.</span>
-        </div>
-
-        {/* Gauges Grid Layout */}
+        {/* Gauges Grid */}
         <div className="skills-gauges-grid">
           {coreSkills.map((skill, idx) => (
-            <div key={idx} style={{ background: 'rgba(2, 2, 12, 0.4)', padding: '12px 14px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
-                <span style={{ fontSize: '14px', fontWeight: 'bold', fontFamily: 'var(--font-header)', letterSpacing: '0.5px' }}>
+            <div key={idx} style={{ background: 'rgba(0, 0, 0, 0.04)', padding: '16px 18px', borderRadius: '14px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '10px' }}>
+                <span style={{ fontSize: '15px', fontWeight: '700', fontFamily: 'var(--font-header)', color: 'var(--text-primary)' }}>
                   {skill.name}
                 </span>
-                <div className="hud-monospace" style={{ fontSize: '11px', opacity: 0.9 }}>
-                  <span style={{ color: 'var(--color-text-muted)', marginRight: '8px' }}>EXP: {skill.exp}</span>
+                <div className="hud-monospace" style={{ fontSize: '11px' }}>
+                  <span style={{ color: 'var(--text-muted)', marginRight: '8px' }}>EXP: {skill.exp}</span>
                   <span style={{ fontWeight: 'bold', color: skill.color }}>{skill.value}%</span>
                 </div>
               </div>
 
-              {/* Animated Progress bar */}
+              {/* Progress Bar */}
               <div
                 style={{
-                  height: '10px',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  borderRadius: '5px',
+                  height: '6px',
+                  background: 'rgba(0, 0, 0, 0.08)',
+                  borderRadius: '9999px',
                   overflow: 'hidden',
                   position: 'relative',
-                  marginBottom: '8px'
+                  marginBottom: '10px'
                 }}
               >
                 <div
@@ -106,40 +81,37 @@ export default function SectorSkills() {
                     height: '100%',
                     width: animateMeters ? `${skill.value}%` : '0%',
                     backgroundColor: skill.color,
-                    boxShadow: `0 0 10px ${skill.color}`,
-                    borderRadius: '4px',
+                    borderRadius: '9999px',
                     transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 />
               </div>
 
-              {/* Details text */}
-              <p style={{ fontSize: '12px', color: 'var(--color-text-main)', lineHeight: '1.4', margin: 0 }}>
+              <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.45', margin: 0 }}>
                 {skill.details}
               </p>
             </div>
           ))}
         </div>
-
       </div>
 
-      {/* 2. Subsystems diagnostics deck */}
-      <div className="hud-panel hud-panel-amber" style={{ padding: '20px' }}>
-        <h3 style={{ fontSize: '12px', letterSpacing: '1.2px', fontFamily: 'var(--font-header)', color: 'var(--color-amber)', marginBottom: '12px' }}>
-          AUXILIARY COGNITIVE NODES
+      {/* Additional Specs */}
+      <div className="editorial-card" style={{ padding: '24px' }}>
+        <h3 style={{ fontSize: '12px', letterSpacing: '0.08em', fontFamily: 'var(--font-header)', color: 'var(--text-muted)', marginBottom: '14px', fontWeight: 600 }}>
+          ADDITIONAL SPECS & TOOLING
         </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px', fontSize: '12px' }} className="hud-monospace">
-          <div style={{ border: '1px solid rgba(255, 170, 0, 0.15)', padding: '10px', borderRadius: '4px', background: 'rgba(2,2,8,0.5)', lineHeight: '1.4' }}>
-            <span style={{ color: 'var(--color-amber)', fontWeight: 'bold' }}>[PLATFORM]</span> iOS Swift integrations, Android Gradle settings, APK/IPA compilers.
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', fontSize: '12px' }} className="hud-monospace">
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+            <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>[PLATFORM]</span> iOS Swift integrations, Android Gradle settings, APK/IPA compilers.
           </div>
-          <div style={{ border: '1px solid rgba(255, 170, 0, 0.15)', padding: '10px', borderRadius: '4px', background: 'rgba(2,2,8,0.5)', lineHeight: '1.4' }}>
-            <span style={{ color: 'var(--color-amber)', fontWeight: 'bold' }}>[ARCHITECT]</span> Microservices, Clean Architecture, REST endpoints, Websocket feeds.
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+            <span style={{ color: 'var(--accent-secondary)', fontWeight: 'bold' }}>[ARCHITECT]</span> Clean Architecture, REST endpoints, Websocket feeds.
           </div>
-          <div style={{ border: '1px solid rgba(255, 170, 0, 0.15)', padding: '10px', borderRadius: '4px', background: 'rgba(2,2,8,0.5)', lineHeight: '1.4' }}>
-            <span style={{ color: 'var(--color-amber)', fontWeight: 'bold' }}>[VERSION]</span> Git branching models, Docker compilation tags, CI/CD runners.
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+            <span style={{ color: 'var(--accent-emerald)', fontWeight: 'bold' }}>[VERSION]</span> Git branching models, Docker containers, CI/CD runners.
           </div>
-          <div style={{ border: '1px solid rgba(255, 170, 0, 0.15)', padding: '10px', borderRadius: '4px', background: 'rgba(2,2,8,0.5)', lineHeight: '1.4' }}>
-            <span style={{ color: 'var(--color-amber)', fontWeight: 'bold' }}>[COMPILER]</span> VS Code environment variables, Xcode projects, Android Studio plugins.
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+            <span style={{ color: 'var(--accent-amber)', fontWeight: 'bold' }}>[COMPILER]</span> VS Code environment variables, Xcode projects, Android Studio profiling.
           </div>
         </div>
       </div>
@@ -152,15 +124,14 @@ export default function SectorSkills() {
         }
 
         .hud-skills-wrapper::-webkit-scrollbar {
-          width: 6px;
+          width: 5px;
         }
         .hud-skills-wrapper::-webkit-scrollbar-track {
-          background: rgba(2, 2, 8, 0.6);
+          background: var(--bg-base);
         }
         .hud-skills-wrapper::-webkit-scrollbar-thumb {
-          background: var(--color-cyan);
-          border-radius: 3px;
-          box-shadow: 0 0 6px var(--color-cyan);
+          background: var(--border-hover);
+          border-radius: 9999px;
         }
 
         @media (max-width: 820px) {
@@ -169,9 +140,8 @@ export default function SectorSkills() {
             gap: 12px;
           }
           .hud-skills-wrapper {
-            padding-top: 75px !important;
+            padding-top: 80px !important;
             max-height: none !important;
-            overflow-y: visible !important;
           }
         }
       `}</style>
