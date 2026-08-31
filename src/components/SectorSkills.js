@@ -18,15 +18,14 @@ export default function SectorSkills() {
 
   return (
     <div
-      className="hud-skills-wrapper"
+      className="hud-skills-wrapper apple-reveal"
       style={{
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        maxWidth: '1080px',
-        padding: '90px 20px 30px 20px',
-        maxHeight: 'calc(100vh - 65px)',
-        overflowY: 'auto',
+        maxWidth: '1280px',
+        margin: '0 auto',
+        padding: '60px 20px 40px 20px',
         zIndex: 5,
         position: 'relative',
         textAlign: 'left',
@@ -34,7 +33,7 @@ export default function SectorSkills() {
       }}
     >
       {/* Core Panel */}
-      <div className="editorial-card" style={{ padding: '30px', marginBottom: '20px' }}>
+      <div className="editorial-card" style={{ padding: '32px', marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
           <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             ENGINEERING METRICS
@@ -54,7 +53,7 @@ export default function SectorSkills() {
         {/* Gauges Grid */}
         <div className="skills-gauges-grid">
           {coreSkills.map((skill, idx) => (
-            <div key={idx} style={{ background: 'rgba(0, 0, 0, 0.04)', padding: '16px 18px', borderRadius: '14px', border: '1px solid var(--border-subtle)' }}>
+            <div key={idx} style={{ background: 'rgba(0, 0, 0, 0.04)', padding: '18px 20px', borderRadius: '16px', border: '1px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '10px' }}>
                 <span style={{ fontSize: '15px', fontWeight: '700', fontFamily: 'var(--font-header)', color: 'var(--text-primary)' }}>
                   {skill.name}
@@ -96,21 +95,21 @@ export default function SectorSkills() {
       </div>
 
       {/* Additional Specs */}
-      <div className="editorial-card" style={{ padding: '24px' }}>
+      <div className="editorial-card" style={{ padding: '28px' }}>
         <h3 style={{ fontSize: '12px', letterSpacing: '0.08em', fontFamily: 'var(--font-header)', color: 'var(--text-muted)', marginBottom: '14px', fontWeight: 600 }}>
           ADDITIONAL SPECS & TOOLING
         </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', fontSize: '12px' }} className="hud-monospace">
-          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', fontSize: '12px' }} className="hud-monospace">
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: '14px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
             <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>[PLATFORM]</span> iOS Swift integrations, Android Gradle settings, APK/IPA compilers.
           </div>
-          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: '14px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
             <span style={{ color: 'var(--accent-secondary)', fontWeight: 'bold' }}>[ARCHITECT]</span> Clean Architecture, REST endpoints, Websocket feeds.
           </div>
-          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: '14px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
             <span style={{ color: 'var(--accent-emerald)', fontWeight: 'bold' }}>[VERSION]</span> Git branching models, Docker containers, CI/CD runners.
           </div>
-          <div style={{ border: '1px solid var(--border-subtle)', padding: '14px', borderRadius: '12px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
+          <div style={{ border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: '14px', background: 'rgba(0,0,0,0.02)', lineHeight: '1.45' }}>
             <span style={{ color: 'var(--accent-amber)', fontWeight: 'bold' }}>[COMPILER]</span> VS Code environment variables, Xcode projects, Android Studio profiling.
           </div>
         </div>
@@ -120,18 +119,7 @@ export default function SectorSkills() {
         .skills-gauges-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 14px;
-        }
-
-        .hud-skills-wrapper::-webkit-scrollbar {
-          width: 5px;
-        }
-        .hud-skills-wrapper::-webkit-scrollbar-track {
-          background: var(--bg-base);
-        }
-        .hud-skills-wrapper::-webkit-scrollbar-thumb {
-          background: var(--border-hover);
-          border-radius: 9999px;
+          gap: 16px;
         }
 
         @media (max-width: 820px) {
@@ -140,8 +128,7 @@ export default function SectorSkills() {
             gap: 12px;
           }
           .hud-skills-wrapper {
-            padding-top: 80px !important;
-            max-height: none !important;
+            padding-top: 60px !important;
           }
         }
       `}</style>

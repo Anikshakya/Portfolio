@@ -27,26 +27,25 @@ export default function SectorContact() {
 
   return (
     <div 
-      className="hud-contact-wrapper"
+      className="hud-contact-wrapper apple-reveal"
       style={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        maxWidth: '820px',
-        padding: '90px 20px 30px 20px',
-        maxHeight: 'calc(100vh - 65px)',
-        overflowY: 'auto',
+        maxWidth: '860px',
+        margin: '0 auto',
+        padding: '60px 20px 60px 20px',
         zIndex: 5,
         position: 'relative',
         textAlign: 'left',
         boxSizing: 'border-box'
       }}
     >
-      <div className="editorial-card" style={{ padding: '36px' }}>
+      <div className="editorial-card" style={{ padding: '40px' }}>
         
         {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '10px' }}>
           <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             DIRECT CONTACT // INQUIRIES
           </span>
@@ -59,15 +58,15 @@ export default function SectorContact() {
           </a>
         </div>
 
-        <h2 style={{ fontSize: '2.4rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.04em' }} className="headline-gradient">
+        <h2 style={{ fontSize: '2.6rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.04em' }} className="headline-gradient">
           LET'S BUILD SOMETHING GREAT
         </h2>
-        <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '28px', lineHeight: '1.6' }}>
+        <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '32px', lineHeight: '1.65' }}>
           Interested in bringing a mobile app vision to life, or building scalable cross-platform architectures? Send a message directly to <strong style={{ color: 'var(--text-primary)' }}>aniklinkin@gmail.com</strong>.
         </p>
 
         {status === 'READY' && (
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Name Input */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -83,13 +82,13 @@ export default function SectorContact() {
                 style={{
                   background: 'var(--bg-input)',
                   border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
+                  borderRadius: '14px',
                   padding: '14px 18px',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-body)',
                   fontSize: '14px',
                   outline: 'none',
-                  transition: 'border-color 0.25s ease, background 0.25s ease'
+                  transition: 'border-color 0.25s ease'
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = 'var(--border-hover)';
@@ -114,13 +113,13 @@ export default function SectorContact() {
                 style={{
                   background: 'var(--bg-input)',
                   border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
+                  borderRadius: '14px',
                   padding: '14px 18px',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-body)',
                   fontSize: '14px',
                   outline: 'none',
-                  transition: 'border-color 0.25s ease, background 0.25s ease'
+                  transition: 'border-color 0.25s ease'
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = 'var(--border-hover)';
@@ -145,14 +144,14 @@ export default function SectorContact() {
                 style={{
                   background: 'var(--bg-input)',
                   border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
+                  borderRadius: '14px',
                   padding: '14px 18px',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-body)',
                   fontSize: '14px',
                   outline: 'none',
                   resize: 'none',
-                  transition: 'border-color 0.25s ease, background 0.25s ease',
+                  transition: 'border-color 0.25s ease',
                   lineHeight: '1.5'
                 }}
                 onFocus={(e) => {
@@ -236,10 +235,7 @@ export default function SectorContact() {
         }
         @media (max-width: 768px) {
           .hud-contact-wrapper {
-            padding-top: 80px !important;
-            padding-left: 12px !important;
-            padding-right: 12px !important;
-            padding-bottom: 20px !important;
+            padding-top: 60px !important;
           }
         }
       `}</style>

@@ -8,11 +8,9 @@ import SectorContact from './components/SectorContact';
 
 function App() {
   const [currentSector, setSector] = useState(0);
-  const [isWarping, setIsWarping] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [theme, setTheme] = useState('dark');
 
-  const scrollContainerRef = useRef(null);
   const sectorRefs = useRef([]);
 
   // Desktop Custom Cursor
@@ -27,6 +25,7 @@ function App() {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
+  // Custom Cursor
   useEffect(() => {
     let mouseX = -100;
     let mouseY = -100;
@@ -65,213 +64,160 @@ function App() {
     };
   }, []);
 
-  const handleScroll = (e) => {
-    const scrollTop = e.currentTarget.scrollTop;
-    setScrollY(scrollTop);
+  // IntersectionObserver for Apple Scroll Reveals & Nav Pill Tracking
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10% 0px -20% 0px',
+      threshold: 0.15
+    };
 
-    if (isWarping) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
 
-    const height = window.innerHeight;
-    const activeIdx = Math.min(3, Math.max(0, Math.round(scrollTop / height)));
-    if (activeIdx !== currentSector) {
-      setSector(activeIdx);
-    }
-  };
+          const sectionIdx = parseInt(entry.target.getAttribute('data-section-idx'));
+          if (!isNaN(sectionIdx)) {
+            setSector(sectionIdx);
+          }
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.apple-reveal, .sector-section');
+    revealElements.forEach(el => observer.observe(el));
+
+    const handleWindowScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleWindowScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleWindowScroll);
+    };
+  }, []);
 
   const triggerWarp = (targetSectorIdx) => {
-    if (isWarping || targetSectorIdx === currentSector) return;
-    setIsWarping(true);
-
-    if (sectorRefs.current[targetSectorIdx]) {
-      if (window.innerWidth <= 768) {
-        sectorRefs.current[targetSectorIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        const targetScrollTop = targetSectorIdx * window.innerHeight;
-        scrollContainerRef.current.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
-      }
-    }
-
     setSector(targetSectorIdx);
-    setTimeout(() => {
-      setIsWarping(false);
-    }, 600);
-  };
-
-  // APPLE 3D PARALLAX SCROLL ENGINE
-  const getAppleParallaxStyle = (idx) => {
-    const height = window.innerHeight || 800;
-    const itemTargetScroll = idx * height;
-    const scrollDelta = scrollY - itemTargetScroll;
-    const isActive = idx === currentSector;
-
-    const parallaxOffset = scrollDelta * 0.22;
-    const rotateX = Math.max(-10, Math.min(10, scrollDelta * 0.012));
-    const scale = isActive ? 1 : Math.max(0.92, 1 - Math.abs(scrollDelta) / 3000);
-
-    return {
-      transform: `translate3d(0, ${parallaxOffset}px, 0) rotateX(${rotateX}deg) scale(${scale})`,
-      opacity: isActive ? 1 : Math.max(0.08, 1 - Math.abs(scrollDelta) / 800),
-      filter: isActive ? 'blur(0px)' : 'blur(8px)',
-      transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s',
-      pointerEvents: isActive ? 'auto' : 'none',
-      perspective: '1200px'
-    };
+    const targetEl = sectorRefs.current[targetSectorIdx];
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
     <div
       className="App"
-      ref={scrollContainerRef}
-      onScroll={handleScroll}
       style={{
-        height: '100vh',
+        minHeight: '100vh',
         width: '100vw',
         backgroundColor: 'var(--bg-base)',
         color: 'var(--text-primary)',
-        overflowY: isWarping ? 'hidden' : 'scroll',
         overflowX: 'hidden',
         position: 'relative',
-        scrollBehavior: 'smooth',
-        scrollSnapType: 'y mandatory',
         transition: 'background-color 0.4s ease'
       }}
     >
-      {/* Custom Cursor */}
+      {/* Custom Desktop Cursor */}
       <div ref={dotRef} className="custom-cursor-dot" />
       <div ref={ringRef} className="custom-cursor-ring" />
 
-      {/* 1. Ambient Lighting Canvas */}
+      {/* 1. Ambient Backdrop Canvas */}
       <SpaceCanvas
         currentSector={currentSector}
         scrollY={scrollY}
         theme={theme}
       />
 
-      {/* 2. Floating Navigation Header */}
+      {/* 2. Floating Navigation Pill Header */}
       <CockpitHUD
         currentSector={currentSector}
         setSector={triggerWarp}
-        isWarping={isWarping}
+        isWarping={false}
         triggerWarp={triggerWarp}
         theme={theme}
         toggleTheme={toggleTheme}
       />
 
-      {/* 3. Main Sector Content Stack */}
+      {/* 3. Main Continuous Scroll Section Stack */}
       <div style={{ position: 'relative', zIndex: 5, width: '100%' }}>
 
-        {/* Sector 0: Overview */}
-        <div
-          className="sector-wrapper-item"
+        {/* Section 0: Overview */}
+        <section
+          data-section-idx="0"
+          className="sector-section apple-reveal"
           style={{
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 max(4vw, 16px)',
-            boxSizing: 'border-box',
-            scrollSnapAlign: 'start',
-            scrollSnapStop: 'always',
-            willChange: 'transform, opacity, filter',
-            ...getAppleParallaxStyle(0)
+            padding: '20px max(4vw, 16px)',
+            boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[0] = el}
         >
           <SectorHome triggerWarp={triggerWarp} />
-        </div>
+        </section>
 
-        {/* Sector 1: Projects */}
-        <div
-          className="sector-wrapper-item"
+        {/* Section 1: Projects */}
+        <section
+          data-section-idx="1"
+          className="sector-section apple-reveal"
           style={{
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 max(4vw, 16px)',
-            boxSizing: 'border-box',
-            scrollSnapAlign: 'start',
-            scrollSnapStop: 'always',
-            willChange: 'transform, opacity, filter',
-            ...getAppleParallaxStyle(1)
+            padding: '40px max(4vw, 16px)',
+            boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[1] = el}
         >
           <SectorProjects />
-        </div>
+        </section>
 
-        {/* Sector 2: Architecture */}
-        <div
-          className="sector-wrapper-item"
+        {/* Section 2: Architecture */}
+        <section
+          data-section-idx="2"
+          className="sector-section apple-reveal"
           style={{
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 max(4vw, 16px)',
-            boxSizing: 'border-box',
-            scrollSnapAlign: 'start',
-            scrollSnapStop: 'always',
-            willChange: 'transform, opacity, filter',
-            ...getAppleParallaxStyle(2)
+            padding: '40px max(4vw, 16px)',
+            boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[2] = el}
         >
           <SectorSkills />
-        </div>
+        </section>
 
-        {/* Sector 3: Contact */}
-        <div
-          className="sector-wrapper-item"
+        {/* Section 3: Contact */}
+        <section
+          data-section-idx="3"
+          className="sector-section apple-reveal"
           style={{
             minHeight: '100vh',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 max(4vw, 16px)',
-            boxSizing: 'border-box',
-            scrollSnapAlign: 'start',
-            scrollSnapStop: 'always',
-            willChange: 'transform, opacity, filter',
-            ...getAppleParallaxStyle(3)
+            padding: '40px max(4vw, 16px)',
+            boxSizing: 'border-box'
           }}
           ref={el => sectorRefs.current[3] = el}
         >
           <SectorContact />
-        </div>
+        </section>
 
       </div>
-
-      <style>{`
-        body {
-          overflow: hidden !important;
-        }
-        @media (max-width: 768px) {
-          body {
-            overflow-y: auto !important;
-          }
-          .App {
-            scroll-snap-type: none !important;
-            height: auto !important;
-            min-height: 100vh !important;
-            overflow-y: visible !important;
-          }
-          .sector-wrapper-item {
-            min-height: auto !important;
-            padding-top: 40px !important;
-            padding-bottom: 40px !important;
-            scroll-snap-align: none !important;
-            scroll-snap-stop: normal !important;
-            opacity: 1 !important;
-            transform: none !important;
-            filter: none !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

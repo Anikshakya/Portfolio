@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const APP_ICONS = {
   goatus: "/icons/goatus.png",
@@ -6,7 +6,6 @@ const APP_ICONS = {
   trandz: "/icons/trandz.png",
   mulyankan: "/icons/mulyankan.png",
   civic: "/icons/durga_bhagawati.png",
-  gocart: "/icons/gocart.png"
 };
 
 const projects = [
@@ -20,7 +19,7 @@ const projects = [
     fullDesc: 'GOATUS is a Japanese mobile platform built for athletes and fans. Fans can subscribe to athletes, track their daily activity feeds, purchase digital gifts, and interact directly. Engineered with Flutter, native platform channels, and scalable backend integrations.',
     stack: ['Flutter', 'Dart', 'Firebase', 'iOS & Android', 'Native Channels', 'Stripe'],
     playstore: 'https://play.google.com/store/apps/details?id=jp.goatus&hl=en',
-    appstore: 'https://apps.apple.com/jp/app/goatus-%E3%82%B4%E3%83%BC%E3%82%B',
+    appstore: 'https://apps.apple.com/jp/app/goatus-%E3%82%B4%E3%83%BC%E3%82%BF%E3%82%B9/id6499320524?l=en-US',
     github: '',
     featured: true
   },
@@ -75,342 +74,246 @@ const projects = [
     shortDesc: 'Official municipal ward civic assistance & public awareness app.',
     fullDesc: 'Durga Bhagawati Gaupalika App is a civic tech solution connecting citizens with municipal administration in Nepal. Features emergency alerts, ward news, tax guidelines, digital public service requests, and civic feedback.',
     stack: ['Flutter', 'Dart', 'Push Notifications', 'Firebase', 'REST API'],
-    playstore: 'https://play.google.com/store/search?q=durga%20bhagawati%20gaupalika&c=apps&hl=en',
+    playstore: 'https://play.google.com/store/apps/details?id=com.durgagaupalika.np&hl=en',
     appstore: '',
     github: '',
     featured: true
-  },
-  {
-    id: 'gocart',
-    title: 'GoCart App',
-    category: 'E-Commerce Mobile Engine',
-    appIcon: APP_ICONS.gocart,
-    status: 'LIVE STORE',
-    shortDesc: 'Fast grocery & retail shopping mobile client with real-time cart sync.',
-    fullDesc: 'GoCart is an e-commerce mobile application built for fast retail shopping. It features real-time cart synchronization, automated coupons, order tracking, and payment gateway integrations.',
-    stack: ['Flutter', 'Dart', 'Provider', 'REST API', 'Payment Gateways'],
-    playstore: 'https://play.google.com/store/search?q=gocart&c=apps&hl=en',
-    appstore: '',
-    github: '',
-    featured: true
-  },
-  {
-    id: 'food_delivery',
-    title: 'Multi-Vendor Food Delivery',
-    category: 'On-Demand Delivery Architecture',
-    appIcon: APP_ICONS.goatus,
-    status: 'COMPLETED',
-    shortDesc: 'Complete food ordering client, delivery partner app, and admin dashboard.',
-    fullDesc: 'End-to-end multi-vendor food delivery ecosystem featuring live GPS driver tracking, polyline navigation, restaurant dashboard management, dynamic cart pricing, and instant push notifications.',
-    stack: ['Flutter', 'Google Maps API', 'Polylines', 'Socket.io', 'GetX'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
-  },
-  {
-    id: 'ride_sharing',
-    title: 'Ride-Sharing Mobile Platform',
-    category: 'Urban Mobility',
-    appIcon: APP_ICONS.gocart,
-    status: 'COMPLETED',
-    shortDesc: 'Real-time ride booking with interactive map routes and fare calculators.',
-    fullDesc: 'Urban ride-hailing application with real-time driver matching, custom map markers, fare estimation algorithms, cash/wallet payments, and in-app emergency SOS triggers.',
-    stack: ['Flutter', 'Google Maps API', 'Firebase Realtime DB', 'GetX'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
-  },
-  {
-    id: 'hotel_booking',
-    title: 'Hotel & Resort Booking Engine',
-    category: 'Travel & Hospitality',
-    appIcon: APP_ICONS.trandz,
-    status: 'COMPLETED',
-    shortDesc: 'Hotel room discovery, dynamic pricing filters, and instant reservations.',
-    fullDesc: 'Travel booking mobile application featuring interactive room photo galleries, date pickers, amenity filtering, guest reviews, and automated PDF booking receipt generation.',
-    stack: ['Flutter', 'Provider', 'REST API', 'Stripe API', 'SQLite'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
-  },
-  {
-    id: 'fitness_tracker',
-    title: 'Fitness & Workout Coach',
-    category: 'Health & Wellness',
-    appIcon: APP_ICONS.pecon,
-    status: 'COMPLETED',
-    shortDesc: 'Workout routine planner, calorie counters, and step counter analytics.',
-    fullDesc: 'Health and workout tracking application using native device sensors for pedometer step counting, custom workout routines, calorie burn charts, and progress streak badges.',
-    stack: ['Flutter', 'Native Sensors', 'Hive Local DB', 'FL Chart'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
-  },
-  {
-    id: 'crypto_wallet',
-    title: 'Crypto Portfolio Tracker',
-    category: 'Fintech & Web3',
-    appIcon: APP_ICONS.mulyankan,
-    status: 'COMPLETED',
-    shortDesc: 'Live crypto ticker, portfolio balance analytics, and price alerts.',
-    fullDesc: 'Fintech application tracking real-time cryptocurrency exchange prices, historical candlestick charts, watchlist price thresholds, and portfolio profit/loss analytics.',
-    stack: ['Flutter', 'CoinGecko REST API', 'WebSockets', 'GetX'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
-  },
-  {
-    id: 'chat_app',
-    title: 'Real-Time Messaging Network',
-    category: 'Social & Communication',
-    appIcon: APP_ICONS.civic,
-    status: 'COMPLETED',
-    shortDesc: 'Encrypted 1-on-1 chat, media attachments, and voice note sharing.',
-    fullDesc: 'Modern messaging application supporting real-time chat sync, message read receipts, image/video compression, voice note recording, and push notifications.',
-    stack: ['Flutter', 'Firebase Cloud Messaging', 'Firestore', 'GetX'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
-  },
-  {
-    id: 'task_manager',
-    title: 'Kanban Productivity Suite',
-    category: 'Productivity & Tools',
-    appIcon: APP_ICONS.pecon,
-    status: 'COMPLETED',
-    shortDesc: 'Drag-and-drop task boards, deadline reminders, and team tags.',
-    fullDesc: 'Kanban-style productivity app with offline-first local SQLite sync, drag-and-drop cards, subtask checklists, and automated notification reminders.',
-    stack: ['Flutter', 'SQLite', 'Provider', 'Local Notifications'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
-  },
-  {
-    id: 'mern_ecom',
-    title: 'Full-Stack MERN E-Com Portal',
-    category: 'Full-Stack Web (Ex-MERN)',
-    appIcon: APP_ICONS.gocart,
-    status: 'COMPLETED',
-    shortDesc: 'React web frontend, Express REST API, and MongoDB backend admin suite.',
-    fullDesc: 'Full-stack web e-commerce platform built with MongoDB, Express, React, and Node.js. Features user authentication (JWT), product inventory management, admin dashboard analytics, and checkout integration.',
-    stack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Tailwind'],
-    playstore: '',
-    appstore: '',
-    github: 'https://github.com/AnikShakya',
-    featured: false
   }
 ];
 
 export default function SectorProjects() {
   const [activeTab, setActiveTab] = useState('showcase');
   const [selectedProject, setSelectedProject] = useState(null);
+  const carouselRef = useRef(null);
 
   const showcaseProjects = projects.filter(p => p.featured);
 
+  const scrollCarousel = (direction) => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'left' ? -360 : 360;
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div 
-      className="hud-projects-wrapper"
+    <div
+      className="hud-projects-wrapper apple-reveal"
       style={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        padding: '80px 16px 10px 16px',
+        maxWidth: '1280px',
+        margin: '0 auto',
+        padding: '60px 20px 40px 20px',
         zIndex: 5,
         position: 'relative',
         boxSizing: 'border-box'
       }}
     >
-      <div 
-        className="editorial-card hud-showcase-scroll-container" 
-        style={{ padding: '24px 28px', width: '100%', maxWidth: '1240px', margin: '0 auto', maxHeight: 'calc(100vh - 65px)', overflowY: 'auto' }}
+      <div
+        className="editorial-card"
+        style={{ padding: '32px', width: '100%' }}
       >
         {/* Header Telemetry */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
           <span className="hud-monospace" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-            SELECTED WORK & PROJECTS
+            FEATURED ENGINEERING WORK
           </span>
           <span className="hud-monospace" style={{ fontSize: '10px', color: 'var(--text-secondary)' }}>
             SHOWCASE: <strong style={{ color: 'var(--accent-primary)' }}>{showcaseProjects.length} APPS</strong> | TOTAL: {projects.length} PROJECTS
           </span>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
-          <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '-0.04em' }} className="headline-gradient">
-            PROJECTS
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '14px' }}>
+          <h2 style={{ fontSize: '2.4rem', fontFamily: 'var(--font-header)', fontWeight: 800, margin: 0, letterSpacing: '-0.04em' }} className="headline-gradient">
+            SELECTED PROJECTS
           </h2>
 
-          {/* Segmented Tab Controls */}
-          <div style={{ display: 'flex', gap: '4px', background: 'rgba(0, 0, 0, 0.08)', padding: '4px', borderRadius: '9999px', border: '1px solid var(--border-subtle)' }}>
-            <button
-              onClick={() => setActiveTab('showcase')}
-              style={{
-                background: activeTab === 'showcase' ? 'var(--text-primary)' : 'transparent',
-                color: activeTab === 'showcase' ? 'var(--bg-base)' : 'var(--text-secondary)',
-                border: 'none',
-                padding: '6px 16px',
-                borderRadius: '9999px',
-                fontSize: '12px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}
-            >
-              Showcase Apps ({showcaseProjects.length})
-            </button>
-            <button
-              onClick={() => setActiveTab('all')}
-              style={{
-                background: activeTab === 'all' ? 'var(--text-primary)' : 'transparent',
-                color: activeTab === 'all' ? 'var(--bg-base)' : 'var(--text-secondary)',
-                border: 'none',
-                padding: '6px 16px',
-                borderRadius: '9999px',
-                fontSize: '12px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}
-            >
-              All Projects ({projects.length})
-            </button>
+          {/* Controls: Segmented Tabs & Carousel Arrows */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {activeTab === 'showcase' && (
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <button
+                  onClick={() => scrollCarousel('left')}
+                  className="btn-editorial"
+                  style={{ width: '36px', height: '36px', padding: 0, justifyContent: 'center', borderRadius: '50%', fontSize: '16px' }}
+                  title="Previous App"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={() => scrollCarousel('right')}
+                  className="btn-editorial"
+                  style={{ width: '36px', height: '36px', padding: 0, justifyContent: 'center', borderRadius: '50%', fontSize: '16px' }}
+                  title="Next App"
+                >
+                  →
+                </button>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', gap: '4px', background: 'rgba(0, 0, 0, 0.08)', padding: '4px', borderRadius: '9999px', border: '1px solid var(--border-subtle)' }}>
+              <button
+                onClick={() => setActiveTab('showcase')}
+                style={{
+                  background: activeTab === 'showcase' ? 'var(--text-primary)' : 'transparent',
+                  color: activeTab === 'showcase' ? 'var(--bg-base)' : 'var(--text-secondary)',
+                  border: 'none',
+                  padding: '6px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+              >
+                Carousel View ({showcaseProjects.length})
+              </button>
+              <button
+                onClick={() => setActiveTab('all')}
+                style={{
+                  background: activeTab === 'all' ? 'var(--text-primary)' : 'transparent',
+                  color: activeTab === 'all' ? 'var(--bg-base)' : 'var(--text-secondary)',
+                  border: 'none',
+                  padding: '6px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+              >
+                All Projects ({projects.length})
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* SHOWCASE VIEW */}
+        {/* APPLE CAROUSEL SHOWCASE VIEW */}
         {activeTab === 'showcase' && (
-          <div 
-            className="hud-showcase-grid"
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-              gap: '14px', 
-              marginBottom: '6px' 
-            }}
-          >
-            {showcaseProjects.map((proj) => (
-              <div 
-                key={proj.id}
-                className="editorial-card"
-                onClick={() => setSelectedProject(proj)}
-                style={{
-                  padding: '16px 18px',
-                  cursor: 'pointer',
-                  borderRadius: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <div 
-                        style={{ 
-                          width: '42px', 
-                          height: '42px', 
-                          borderRadius: '12px', 
-                          overflow: 'hidden', 
-                          background: 'var(--bg-base)', 
-                          border: '1px solid var(--border-subtle)', 
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0
-                        }}
-                      >
-                        <img 
-                          src={proj.appIcon} 
-                          alt={proj.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
+          <div>
+            <div className="apple-carousel-container" ref={carouselRef}>
+              {showcaseProjects.map((proj) => (
+                <div
+                  key={proj.id}
+                  className="editorial-card apple-carousel-card"
+                  onClick={() => setSelectedProject(proj)}
+                  style={{
+                    padding: '22px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    minHeight: '270px'
+                  }}
+                >
+                  <div>
+                    {/* Top Row */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div
+                          style={{
+                            width: '46px',
+                            height: '46px',
+                            borderRadius: '14px',
+                            overflow: 'hidden',
+                            background: 'var(--bg-base)',
+                            border: '1px solid var(--border-subtle)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0
+                          }}
+                        >
+                          <img
+                            src={proj.appIcon}
+                            alt={proj.title}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                          />
+                        </div>
+
+                        <div>
+                          <h3 style={{ fontSize: '17px', fontFamily: 'var(--font-header)', fontWeight: 700, margin: '0 0 2px 0', color: 'var(--text-primary)' }}>
+                            {proj.title}
+                          </h3>
+                          <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--accent-primary)' }}>
+                            [{proj.category.toUpperCase()}]
+                          </span>
+                        </div>
                       </div>
 
-                      <div>
-                        <h3 style={{ fontSize: '16px', fontFamily: 'var(--font-header)', fontWeight: 700, margin: '0 0 2px 0', color: 'var(--text-primary)' }}>
-                          {proj.title}
-                        </h3>
-                        <span className="hud-monospace" style={{ fontSize: '9.5px', color: 'var(--accent-primary)' }}>
-                          [{proj.category.toUpperCase()}]
-                        </span>
-                      </div>
+                      <span className="hud-monospace" style={{ fontSize: '8.5px', padding: '3px 8px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-primary)', border: '1px solid rgba(59, 130, 246, 0.3)', borderRadius: '9999px', fontWeight: 600 }}>
+                        {proj.status}
+                      </span>
                     </div>
 
-                    <span className="hud-monospace" style={{ fontSize: '8.5px', padding: '3px 8px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-primary)', border: '1px solid rgba(59, 130, 246, 0.3)', borderRadius: '9999px', fontWeight: 600 }}>
-                      {proj.status}
-                    </span>
+                    <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.45', marginBottom: '14px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      {proj.shortDesc}
+                    </p>
                   </div>
 
-                  <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.45', marginBottom: '12px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    {proj.shortDesc}
-                  </p>
-                </div>
+                  <div>
+                    {/* Tech Badges */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '12px' }}>
+                      {proj.stack.slice(0, 3).map((s, i) => (
+                        <span key={i} className="hud-monospace" style={{ fontSize: '8.5px', padding: '3px 8px', background: 'rgba(0, 0, 0, 0.06)', color: 'var(--text-secondary)', borderRadius: '6px' }}>
+                          {s}
+                        </span>
+                      ))}
+                    </div>
 
-                <div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px' }}>
-                    {proj.stack.slice(0, 3).map((s, i) => (
-                      <span key={i} className="hud-monospace" style={{ fontSize: '8.5px', padding: '3px 8px', background: 'rgba(0, 0, 0, 0.05)', color: 'var(--text-secondary)', borderRadius: '6px' }}>
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', borderTop: '1px solid var(--border-subtle)', paddingTop: '10px' }}>
-                    {proj.playstore && (
-                      <a 
-                        href={proj.playstore}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="btn-editorial"
-                        style={{ fontSize: '9px', padding: '4px 10px' }}
-                      >
-                        PLAY STORE
-                      </a>
-                    )}
-                    {proj.appstore && (
-                      <a 
-                        href={proj.appstore}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="btn-editorial"
-                        style={{ fontSize: '9px', padding: '4px 10px' }}
-                      >
-                        APP STORE
-                      </a>
-                    )}
+                    {/* Store Links */}
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', borderTop: '1px solid var(--border-subtle)', paddingTop: '12px' }}>
+                      {proj.playstore && (
+                        <a
+                          href={proj.playstore}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="btn-editorial"
+                          style={{ fontSize: '9.5px', padding: '5px 12px' }}
+                        >
+                          PLAY STORE
+                        </a>
+                      )}
+                      {proj.appstore && (
+                        <a
+                          href={proj.appstore}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="btn-editorial"
+                          style={{ fontSize: '9.5px', padding: '5px 12px' }}
+                        >
+                          APP STORE
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 
-        {/* ALL PROJECTS VIEW */}
+        {/* ALL PROJECTS GRID VIEW */}
         {activeTab === 'all' && (
-          <div 
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
               gap: '14px',
-              marginBottom: '10px' 
+              marginBottom: '10px'
             }}
           >
             {projects.map((proj) => (
-              <div 
+              <div
                 key={proj.id}
                 className="editorial-card"
                 onClick={() => setSelectedProject(proj)}
                 style={{
-                  padding: '16px 18px',
+                  padding: '18px 20px',
                   cursor: 'pointer',
                   borderRadius: '16px',
                   display: 'flex',
@@ -461,7 +364,7 @@ export default function SectorProjects() {
 
       {/* DETAIL MODAL */}
       {selectedProject && (
-        <div 
+        <div
           style={{
             position: 'fixed',
             top: 0,
@@ -479,7 +382,7 @@ export default function SectorProjects() {
           }}
           onClick={() => setSelectedProject(null)}
         >
-          <div 
+          <div
             className="editorial-card"
             style={{
               width: '100%',
@@ -492,9 +395,9 @@ export default function SectorProjects() {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <img 
-                  src={selectedProject.appIcon} 
-                  alt={selectedProject.title} 
+                <img
+                  src={selectedProject.appIcon}
+                  alt={selectedProject.title}
                   style={{ width: '52px', height: '52px', borderRadius: '14px', background: '#000', border: '1px solid var(--border-subtle)' }}
                 />
                 <div>
@@ -503,7 +406,7 @@ export default function SectorProjects() {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={() => setSelectedProject(null)}
                 style={{ background: 'rgba(0,0,0,0.08)', border: 'none', color: 'var(--text-primary)', width: '32px', height: '32px', borderRadius: '50%', fontSize: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
@@ -546,29 +449,6 @@ export default function SectorProjects() {
           </div>
         </div>
       )}
-
-      <style>{`
-        @media (min-width: 900px) {
-          .hud-showcase-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 14px !important;
-          }
-        }
-        @media (min-width: 650px) and (max-width: 899px) {
-          .hud-showcase-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 14px !important;
-          }
-        }
-        @media (max-width: 649px) {
-          .hud-projects-wrapper {
-            padding-top: 80px !important;
-          }
-          .hud-showcase-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
