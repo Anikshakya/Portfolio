@@ -28,7 +28,7 @@ export default function SectorHome() {
   const typedTelemetry = typedText.length > (prefixLength + nameLength) ? typedText.substring(prefixLength + nameLength) : '';
 
   return (
-    <div 
+    <div
       className="home-sector-wrapper"
       style={{
         display: 'flex',
@@ -165,7 +165,7 @@ export default function SectorHome() {
               </h2>
 
               <p style={{ fontSize: '13.5px', lineHeight: '1.55', color: 'var(--color-text-main)', margin: 0 }}>
-                Flutter Developer specializing in building high-performance, production-ready cross-platform mobile applications. Experienced in mobile architecture, native platform channels, state management, complex UI components, and API integrations. Skilled at leading mobile strategies and delivering scalable solutions for international clients. Also an ex MERN developer.
+                Flutter Developer specializing in building high-performance, production-ready cross-platform mobile applications. Experienced in mobile architecture, native platform channels, state management, complex UI components, and API integrations. Skilled at leading mobile strategies and delivering scalable solutions. Also an ex MERN developer.
               </p>
             </div>
           </div>
