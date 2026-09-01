@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function SectorHome() {
   const [typedText, setTypedText] = useState('');
-  const profilePicUrl = "/icons/portfolio.png";
+  const profilePicUrl = "/icons/portfolio.jpeg";
   const fullText = 'Hi, I am ANIK SHAKYA.\n\n> CLASS: Flutter Developer & Ex-MERN Developer\n> FOCUS: High-Performance Cross-Platform Mobile Apps';
 
   useEffect(() => {
@@ -166,9 +166,9 @@ export default function SectorHome() {
 
               <p style={{ fontSize: '13.5px', lineHeight: '1.55', color: 'var(--color-text-main)', margin: 0 }}>
                 Goal-oriented Flutter & Web Developer with experience building high-performance, cross-
-platform mobile and web applications. Proficient in Flutter, Dart, state management, REST
-APIs, native platform integration, and responsive UI development. Focused on delivering
-scalable, maintainable solutions with strong performance, usability, and code quality.
+                platform mobile and web applications. Proficient in Flutter, Dart, state management, REST
+                APIs, native platform integration, and responsive UI development. Focused on delivering
+                scalable, maintainable solutions with strong performance, usability, and code quality.
               </p>
             </div>
           </div>
