@@ -12,9 +12,9 @@ export default function SectorSkills() {
   const coreSkills = [
     { name: 'Flutter & Dart Propulsion', value: 90, color: 'var(--color-cyan)', exp: '4 Years', details: 'GetX/Provider architecture, local caches (SQLite), platform channels, responsive animations.' },
     { name: 'Firebase Cloud Integrations', value: 90, color: 'var(--color-amber)', exp: '4 Years', details: 'Firestore real-time sync networks, auth validation, Crashlytics analytics, Firebase Analytics' },
-    { name: 'React.js Web Engines', value: 75, color: 'var(--color-magenta)', exp: '1 Year', details: 'Custom hooks state pipelines, performance profiles, HTML5 canvas integrations, SPA structures.' },
-    { name: 'Node.js & Express Routing', value: 50, color: 'var(--color-green)', exp: '1 Year', details: 'REST routing, secure authentication vectors (JWT), middleware injectors' },
-    { name: 'MongoDB Database Cores', value: 50, color: 'var(--color-green)', exp: '1 Year', details: 'Document mapping, compound indexing queries, pipeline aggregations.' }
+    { name: 'React.js Web Engines', value: 40, color: 'var(--color-magenta)', exp: '1 Year', details: 'Custom hooks state pipelines, performance profiles, HTML5 canvas integrations, SPA structures.' },
+    { name: 'Node.js & Express Routing', value: 40, color: 'var(--color-green)', exp: '1 Year', details: 'REST routing, secure authentication vectors (JWT), middleware injectors' },
+    { name: 'MongoDB Database Cores', value: 40, color: 'var(--color-green)', exp: '1 Year', details: 'Document mapping, compound indexing queries, pipeline aggregations.' }
   ];
 
   return (
