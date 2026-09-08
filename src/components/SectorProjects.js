@@ -175,7 +175,7 @@ export default function SectorProjects() {
       title: 'Portfolio Web App',
       category: 'Interactive Web',
       isShowcase: true,
-      appIcon: '/icons/portfolio.png',
+      appIcon: '/icons/portfolio.jpeg',
       stack: ['React', 'CSS3', 'WebGL Shaders', 'Web Audio API', 'JavaScript'],
       shortDesc: 'Interactive sci-fi starship HUD portfolio showcasing mobile & web engineering projects and expertise.',
       longDesc: 'This personal portfolio web application built in React features a custom space canvas background, interactive black hole warp transitions, reactive audio synthesis, and HUD metrics.',
