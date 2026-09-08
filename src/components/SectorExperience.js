@@ -361,7 +361,7 @@ export default function SectorExperience() {
                         letterSpacing: '0.8px',
                       }}
                     >
-                      ACTIVE ROLE
+                      ACTIVE
                     </span>
                   )}
                 </div>
