@@ -10,9 +10,18 @@ export default function SectorContact() {
 
     setStatus('SENDING');
 
-    // Trigger mailto link directly to aniklinkin@gmail.com
-    const subject = `Portfolio Message from ${formData.name}`;
-    const body = `Hi Anik,\n\n${formData.message}\n\nSender Name: ${formData.name}\nSender Email: ${formData.email}`;
+    const subject = `Portfolio Inquiry from ${formData.name}`;
+
+    const body = `Hi Anik,
+
+    I’m reaching out through your website.
+
+    ${formData.message}
+
+    Best regards,
+    ${formData.name}
+    ${formData.email}`;
+
     const mailtoUrl = `mailto:aniklinkin@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setTimeout(() => {
@@ -52,9 +61,9 @@ export default function SectorContact() {
           <a 
             href="mailto:aniklinkin@gmail.com"
             className="hud-monospace glow-text-magenta contact-header-link" 
-            style={{ fontSize: '11px', textDecoration: 'none', fontWeight: 'bold', display: 'inline-block' }}
+            style={{ fontSize: '11px', textDecoration: 'none', fontWeight: 'bold', display: 'inline-block', padding: '9px 12px', border: '1px solid var(--color-magenta)', borderRadius: '6px' }}
           >
-            EMAIL: aniklinkin@gmail.com
+            EMAIL: aniklinkin@gmail.com ↗
           </a>
         </div>
 
@@ -299,8 +308,7 @@ export default function SectorContact() {
 
         .contact-header-link {
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-          padding: 4px 8px;
-          border-radius: 4px;
+          box-shadow: 0 0 10px rgba(255, 0, 127, 0.18);
         }
 
         .contact-header-link:hover {
@@ -308,6 +316,14 @@ export default function SectorContact() {
           box-shadow: 0 0 15px rgba(255, 0, 127, 0.5) !important;
           transform: translateY(-2px) scale(1.03);
           color: #ffffff !important;
+        }
+
+        .satisfaction-line {
+          color: var(--color-green);
+          font-size: 11px;
+          letter-spacing: 1.5px;
+          font-weight: bold;
+          margin: 0 0 18px;
         }
 
         .inline-email-link {

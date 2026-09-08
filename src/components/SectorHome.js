@@ -381,8 +381,8 @@ export default function SectorHome({ onContactClick }) {
               >
                 {[
                   ['+4 YRS', 'EXPERIENCE'],
-                  ['16+', 'PROJECTS'],
-                  ['100%', 'CLIENT SATISFACTION'],
+                  ['16+ ', 'PROJECTS'],
+                  ['100% ', 'CLIENT SATISFACTION'],
                 ].map(([value, label]) => (
                   <div
                     key={label}
