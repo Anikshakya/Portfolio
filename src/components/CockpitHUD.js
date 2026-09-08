@@ -9,6 +9,7 @@ export default function CockpitHUD({
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [logs, setLogs] = useState([]);
+  const [hoveredSector, setHoveredSector] = useState(null);
 
   // eslint-disable-next-line no-unused-vars
   const [shipStats, setShipStats] = useState({
@@ -245,6 +246,9 @@ export default function CockpitHUD({
       case 3:
         return 'RA 19h 20m / DEC +22° 41\'';
 
+      case 4:
+        return 'RA 21h 14m / DEC +12° 10\'';
+
       default:
         return 'RA 00h 00m / DEC +00° 00\'';
     }
@@ -283,9 +287,10 @@ export default function CockpitHUD({
   useEffect(() => {
     const sectorNames = [
       'Sector 0: Genesis (Home)',
-      'Sector 1: Creations (Work Showcase & Projects)',
-      'Sector 2: Expertise (Skills Constellation)',
-      'Sector 3: Contact Grid'
+      'Sector 1: Career Logs (Experience Timeline)',
+      'Sector 2: Creations (Work Showcase & Projects)',
+      'Sector 3: Expertise (Skills Constellation)',
+      'Sector 4: Contact Grid'
     ];
 
     setLogs(prev => {
@@ -446,6 +451,12 @@ export default function CockpitHUD({
     },
 
     {
+      title: 'EXPERIENCE',
+      label: 'Career Timeline',
+      desc: 'Roles, Milestones & Stack'
+    },
+
+    {
       title: 'PROJECTS',
       label: 'Work Showcase & Projects',
       desc: 'Deployed Apps & Repos'
@@ -567,7 +578,8 @@ export default function CockpitHUD({
             display: 'flex',
             gap: '6px',
             padding: '6px',
-            alignItems: 'center'
+            alignItems: 'center',
+            position: 'relative'
           }}
         >
 
@@ -597,14 +609,48 @@ export default function CockpitHUD({
               onClick={() =>
                 handleSectorChange(idx)
               }
-              onMouseEnter={() =>
-                playSound('hover')
-              }
+              onMouseEnter={() => {
+                playSound('hover');
+                setHoveredSector(idx);
+              }}
+              onMouseLeave={() => setHoveredSector(null)}
               disabled={isWarping}
+              title={`${sec.label} — ${sec.desc}`}
             >
               SEC_0{idx} {sec.title}
             </button>
           ))}
+
+          {hoveredSector !== null && (
+            <div
+              className="hud-panel"
+              style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                padding: '5px 12px',
+                fontSize: '10px',
+                fontFamily: 'var(--font-hud)',
+                whiteSpace: 'nowrap',
+                zIndex: 1000,
+                background: 'rgba(2, 8, 22, 0.95)',
+                borderColor: 'var(--color-cyan)',
+                boxShadow: '0 4px 20px rgba(0, 240, 255, 0.4)',
+                pointerEvents: 'none',
+                display: 'flex',
+                gap: '8px',
+                alignItems: 'center'
+              }}
+            >
+              <span className="glow-text-cyan" style={{ fontWeight: 'bold' }}>
+                [{sectorLabels[hoveredSector].label}]
+              </span>
+              <span style={{ color: 'var(--color-text-muted)' }}>
+                {sectorLabels[hoveredSector].desc}
+              </span>
+            </div>
+          )}
 
         </div>
 

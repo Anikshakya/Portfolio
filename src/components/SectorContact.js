@@ -51,8 +51,8 @@ export default function SectorContact() {
           </span>
           <a 
             href="mailto:aniklinkin@gmail.com"
-            className="hud-monospace glow-text-magenta" 
-            style={{ fontSize: '11px', textDecoration: 'none', fontWeight: 'bold' }}
+            className="hud-monospace glow-text-magenta contact-header-link" 
+            style={{ fontSize: '11px', textDecoration: 'none', fontWeight: 'bold', display: 'inline-block' }}
           >
             EMAIL: aniklinkin@gmail.com
           </a>
@@ -61,9 +61,61 @@ export default function SectorContact() {
         <h2 style={{ fontSize: '2.2rem', fontFamily: 'var(--font-header)', fontWeight: 800, marginBottom: '10px', letterSpacing: '1px' }}>
           GET IN <span className="glow-text-magenta">TOUCH</span>
         </h2>
-        <p style={{ fontSize: '15px', color: 'var(--color-text-muted)', marginBottom: '28px', lineHeight: '1.6' }}>
-          Have a project in mind or want to collaborate? Fill out the form below or send an email directly to <strong style={{ color: 'var(--color-cyan)' }}>aniklinkin@gmail.com</strong>.
+        <p style={{ fontSize: '15px', color: 'var(--color-text-muted)', marginBottom: '22px', lineHeight: '1.6' }}>
+          Have a project in mind or want to collaborate? Fill out the form below or send an email directly to <a href="mailto:aniklinkin@gmail.com" className="inline-email-link" style={{ color: 'var(--color-cyan)', textDecoration: 'none', fontWeight: 600 }}><strong style={{ color: 'var(--color-cyan)' }}>aniklinkin@gmail.com</strong></a>.
         </p>
+
+        <div style={{ marginBottom: '10px' }}>
+          <span
+            className="hud-monospace glow-text-cyan"
+            style={{
+              fontSize: '11px',
+              letterSpacing: '1.5px',
+              fontWeight: 'bold',
+              display: 'block',
+            }}
+          >
+            SOCIALS & CONTACT LINKS
+          </span>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: '10px',
+            marginBottom: '26px',
+          }}
+        >
+          {[
+            { label: 'PHONE', value: '+977 9863021878', href: 'tel:+9779863021878' },
+            { label: 'EMAIL', value: 'aniklinkin@gmail.com', href: 'mailto:aniklinkin@gmail.com' },
+            { label: 'LINKEDIN', value: 'Anik Shakya', href: 'https://www.linkedin.com/in/anik-shakya-67141b192/' },
+            { label: 'INSTAGRAM', value: '@anik_shakya_', href: 'https://www.instagram.com/anik_shakya_' },
+          ].map((contact) => (
+            <a
+              key={contact.label}
+              href={contact.href}
+              target={contact.href.startsWith('http') ? '_blank' : undefined}
+              rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className="hud-panel contact-card-link"
+              style={{
+                padding: '12px 14px',
+                textDecoration: 'none',
+                borderColor: 'rgba(0, 240, 255, 0.2)',
+                display: 'block',
+                cursor: 'pointer',
+              }}
+            >
+              <span className="hud-monospace contact-label" style={{ display: 'block', color: 'var(--color-cyan)', fontSize: '9px', letterSpacing: '1px', marginBottom: '5px', transition: 'all 0.2s ease' }}>
+                {contact.label} ↗
+              </span>
+              <span className="contact-value" style={{ color: '#fff', fontSize: '12px', wordBreak: 'break-word', transition: 'all 0.2s ease', fontWeight: 500 }}>
+                {contact.value}
+              </span>
+            </a>
+          ))}
+        </div>
 
         {status === 'READY' && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -218,11 +270,56 @@ export default function SectorContact() {
 
       </div>
       
-      {/* Dynamic spinner animations & mobile styles */}
+      {/* Dynamic spinner animations, link hover effects & mobile styles */}
       <style>{`
         @keyframes spin {
           to { transform: rotate(360deg); }
         }
+
+        .contact-card-link {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .contact-card-link:hover {
+          border-color: var(--color-cyan) !important;
+          background: rgba(0, 240, 255, 0.12) !important;
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(0, 240, 255, 0.35), inset 0 0 12px rgba(0, 240, 255, 0.2) !important;
+        }
+
+        .contact-card-link:hover .contact-label {
+          color: #ffffff !important;
+          letter-spacing: 1.5px !important;
+        }
+
+        .contact-card-link:hover .contact-value {
+          color: var(--color-cyan) !important;
+          text-shadow: 0 0 10px rgba(0, 240, 255, 0.8) !important;
+        }
+
+        .contact-header-link {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+          padding: 4px 8px;
+          border-radius: 4px;
+        }
+
+        .contact-header-link:hover {
+          background: rgba(255, 0, 127, 0.15) !important;
+          box-shadow: 0 0 15px rgba(255, 0, 127, 0.5) !important;
+          transform: translateY(-2px) scale(1.03);
+          color: #ffffff !important;
+        }
+
+        .inline-email-link {
+          transition: all 0.2s ease !important;
+        }
+
+        .inline-email-link:hover {
+          color: #ffffff !important;
+          text-shadow: 0 0 10px var(--color-cyan) !important;
+          text-decoration: underline !important;
+        }
+
         @media (max-width: 768px) {
           .hud-contact-wrapper {
             padding-top: 95px !important;

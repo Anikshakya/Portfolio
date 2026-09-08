@@ -200,8 +200,9 @@ pre {
 }
 
 .hud-button:hover {
-  background: var(--color-cyan);
-  color: #000;
+  background: var(--color-cyan) !important;
+  color: #000000 !important;
+  text-shadow: none !important;
   box-shadow: var(--shadow-cyan);
 }
 

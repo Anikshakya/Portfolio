@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import SpaceCanvas from './components/SpaceCanvas';
 import CockpitHUD from './components/CockpitHUD';
 import SectorHome from './components/SectorHome';
+import SectorExperience from './components/SectorExperience';
 import SectorProjects from './components/SectorProjects';
 import SectorSkills from './components/SectorSkills';
 import SectorContact from './components/SectorContact';
@@ -22,8 +23,20 @@ function App() {
 
     if (isWarping) return;
 
-    const height = window.innerHeight;
-    const activeIdx = Math.min(3, Math.max(0, Math.round(scrollTop / height)));
+    const viewportCenter = scrollTop + window.innerHeight / 2;
+    const activeIdx = sectorRefs.current.reduce((closestIdx, sectorEl, index) => {
+      if (!sectorEl) return closestIdx;
+
+      const closestEl = sectorRefs.current[closestIdx];
+      if (!closestEl) return index;
+
+      const sectorCenter = sectorEl.offsetTop + sectorEl.offsetHeight / 2;
+      const closestCenter = closestEl.offsetTop + closestEl.offsetHeight / 2;
+
+      return Math.abs(sectorCenter - viewportCenter) < Math.abs(closestCenter - viewportCenter)
+        ? index
+        : closestIdx;
+    }, 0);
     if (activeIdx !== currentSector) {
       setSector(activeIdx);
     }
@@ -58,7 +71,9 @@ function App() {
     // Fallback if ref nodes are missing
     if (!currentEl || !targetEl || !container) {
       setTimeout(() => {
-        const targetScrollTop = targetSectorIdx * window.innerHeight;
+        const targetScrollTop = targetEl
+          ? targetEl.offsetTop
+          : targetSectorIdx * window.innerHeight;
         container && container.scrollTo({ top: targetScrollTop, behavior: 'instant' });
         setSector(targetSectorIdx);
         setBlackHoleTransition(null);
@@ -138,7 +153,7 @@ function App() {
         if (window.innerWidth <= 768) {
           sectorRefs.current[targetSectorIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
-          const targetScrollTop = targetSectorIdx * window.innerHeight;
+          const targetScrollTop = sectorRefs.current[targetSectorIdx].offsetTop;
           container.scrollTo({ top: targetScrollTop, behavior: 'instant' });
         }
       }
@@ -271,7 +286,7 @@ function App() {
           <SectorHome />
         </div>
 
-        {/* Sector 1: Projects */}
+        {/* Sector 1: Experience */}
         <div
           className="sector-wrapper-item"
           style={{
@@ -289,10 +304,31 @@ function App() {
           }}
           ref={el => sectorRefs.current[1] = el}
         >
+          <SectorExperience />
+        </div>
+
+        {/* Sector 2: Projects */}
+        <div
+          className="sector-wrapper-item"
+          style={{
+            minHeight: '100vh',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 max(4vw, 16px)',
+            boxSizing: 'border-box',
+            scrollSnapAlign: 'start',
+            scrollSnapStop: 'always',
+            willChange: 'transform, opacity, filter',
+            ...getTransitionStyle(2)
+          }}
+          ref={el => sectorRefs.current[2] = el}
+        >
           <SectorProjects />
         </div>
 
-        {/* Sector 2: Skills */}
+        {/* Sector 3: Skills */}
         <div
           className="sector-wrapper-item"
           style={{
@@ -306,14 +342,14 @@ function App() {
             scrollSnapAlign: 'start',
             scrollSnapStop: 'always',
             willChange: 'transform, opacity, filter',
-            ...getTransitionStyle(2)
+            ...getTransitionStyle(3)
           }}
-          ref={el => sectorRefs.current[2] = el}
+          ref={el => sectorRefs.current[3] = el}
         >
           <SectorSkills />
         </div>
 
-        {/* Sector 3: Contact */}
+        {/* Sector 4: Contact */}
         <div
           className="sector-wrapper-item"
           style={{
@@ -327,9 +363,9 @@ function App() {
             scrollSnapAlign: 'start',
             scrollSnapStop: 'always',
             willChange: 'transform, opacity, filter',
-            ...getTransitionStyle(3)
+            ...getTransitionStyle(4)
           }}
-          ref={el => sectorRefs.current[3] = el}
+          ref={el => sectorRefs.current[4] = el}
         >
           <SectorContact />
         </div>

@@ -7,6 +7,33 @@ export default function SectorProjects() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
+  // Lock background outer page scrolling when project hologram modal is open
+  useEffect(() => {
+    const appEl = document.querySelector('.App');
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      if (appEl) appEl.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      if (appEl) appEl.style.overflowY = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      if (appEl) appEl.style.overflowY = '';
+    };
+  }, [selectedProject]);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && selectedProject) {
+        setSelectedProject(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedProject]);
+
   const projects = [
     {
       id: 'goatus',
@@ -780,34 +807,39 @@ export default function SectorProjects() {
       {/* Detailed Hologram HUD Modal Overlay */}
       {selectedProject && (
         <div
+          className="hud-modal-overlay"
           style={{
             position: 'fixed',
             top: 0,
             left: 0,
             width: '100vw',
             height: '100vh',
-            background: 'rgba(2, 2, 8, 0.85)',
-            backdropFilter: 'blur(8px)',
-            zIndex: 100,
+            background: 'rgba(2, 2, 8, 0.88)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            zIndex: 10000,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '16px'
           }}
           onClick={() => setSelectedProject(null)}
+          onWheel={(e) => e.stopPropagation()}
         >
           <div
-            className="hud-panel hud-panel-amber animate-scale-in"
+            className="hud-panel hud-panel-amber animate-scale-in hud-modal-content"
             style={{
               width: '100%',
               maxWidth: '680px',
-              padding: '28px',
+              padding: '24px',
               textAlign: 'left',
               borderWidth: '1.5px',
               borderColor: 'var(--color-amber)',
-              background: 'rgba(6, 12, 30, 0.95)',
-              maxHeight: '90vh',
-              overflowY: 'auto'
+              background: 'rgba(6, 12, 30, 0.96)',
+              maxHeight: '85vh',
+              overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              touchAction: 'pan-y'
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -1080,9 +1112,22 @@ export default function SectorProjects() {
             gap: 12px !important;
           }
           .hud-modal-content {
-            padding: 18px !important;
-            max-width: 94vw !important;
+            padding: 16px !important;
+            max-width: 95vw !important;
             max-height: 84vh !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            touch-action: pan-y !important;
+          }
+          .hud-modal-content::-webkit-scrollbar {
+            width: 4px;
+          }
+          .hud-modal-content::-webkit-scrollbar-track {
+            background: rgba(2, 2, 8, 0.5);
+          }
+          .hud-modal-content::-webkit-scrollbar-thumb {
+            background: var(--color-amber);
+            border-radius: 2px;
           }
         }
       `}</style>

@@ -106,16 +106,16 @@ export default function SpaceCanvas({
 
     const isSkillsSectorActive = () => {
       const sector = currentSectorRef.current;
-      if (sector === 2) return true;
-      if (sector > 0 && sector !== 2) return false;
-      return scrollYRef.current >= window.innerHeight * 0.8 && scrollYRef.current < window.innerHeight * 1.8;
+      if (sector === 3) return true;
+      if (sector > 0 && sector !== 3) return false;
+      return scrollYRef.current >= window.innerHeight * 2.8 && scrollYRef.current < window.innerHeight * 3.8;
     };
 
     const isContactSectorActive = () => {
       const sector = currentSectorRef.current;
-      if (sector === 3 || sector === 4) return true;
-      if (sector > 0 && sector !== 3 && sector !== 4) return false;
-      return scrollYRef.current >= window.innerHeight * 2.8;
+      if (sector === 4) return true;
+      if (sector > 0 && sector !== 4) return false;
+      return scrollYRef.current >= window.innerHeight * 3.8;
     };
 
     const handlePointerMove = (e) => {
