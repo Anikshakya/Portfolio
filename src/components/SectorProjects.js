@@ -14,7 +14,7 @@ export default function SectorProjects() {
       category: 'Mobile App (Japan)',
       isShowcase: true,
       appIcon: '/icons/goatus.png',
-      stack: ['Flutter', 'Dart', 'Firebase', 'In-App Subscriptions', 'BLoC'],
+      stack: ['Flutter', 'Dart', 'Firebase', 'In-App Subscriptions'],
       shortDesc: 'Japanese app engineered for Athletes where fans can subscribe, gift, view activities, and engage directly.',
       longDesc: 'GOATUS is a specialized Japanese mobile platform built for athletes and fans. Fans can subscribe to their favorite athletes, send gifts, track real-time athletic activities, and access exclusive content. Built with Flutter, clean BLoC architecture, and Firebase for scalable real-time synchronization.',
       status: 'STORE RELEASE',
@@ -26,6 +26,75 @@ export default function SectorProjects() {
         'Real-time activity feed & notifications',
         'High-performance cross-platform Flutter architecture'
       ]
+    },
+    {
+      id: 'morinfo',
+      title: 'Morinfo App',
+      category: 'Civic Utility Mobile',
+      isShowcase: true,
+      appIcon: '/icons/morinfo.png',
+      stack: [
+        'Flutter',
+        'Dart',
+        'Firebase',
+        'Push Notifications',
+        'Maps',
+        'Multilingual Support',
+        'NFC / My Number Card',
+      ],
+      shortDesc:
+          'Official Moriya City mobile application providing residents with disaster alerts, city notifications, electronic applications, garbage collection information, and daily-life services.',
+      longDesc:
+          'Morinfo is the official Moriya City mobile application in Japan. The app brings essential municipal services and daily-life information together in one platform, including disaster and evacuation alerts, city announcements, event information, garbage collection schedules, public facility search, electronic applications, multilingual support, and My Number Card integration using NFC.',
+      status: 'STORE RELEASE',
+      playstore:
+          'https://play.google.com/store/apps/details?id=jp.portal.moriya&hl=en',
+      appstore:
+          'https://apps.apple.com/jp/app/morinfo/id6752234095?l=en-US',
+      metrics: [
+        'Available on Japan Google Play Store & Apple App Store',
+        'Official Moriya City civic service application',
+        'Disaster alerts & evacuation information',
+        'Electronic applications and municipal notifications',
+        'Garbage collection calendar & reminder notifications',
+        'Public facility search with map integration',
+        'Multilingual support & My Number Card NFC integration',
+      ],
+    },
+    {
+      id: 'sendai-portal',
+      title: 'SENDAIポータル',
+      category: 'Civic Utility Mobile',
+      isShowcase: true,
+      appIcon: '/icons/sendai-portal.png',
+      stack: [
+        'Flutter',
+        'Dart',
+        'Firebase',
+        'Push Notifications',
+        'Weather API',
+        'Disaster Information',
+        'Maps',
+      ],
+      shortDesc:
+          'Official Sendai City portal application providing local announcements, weather, disaster information, garbage schedules, events, and online municipal services.',
+      longDesc:
+          'SENDAIポータル is the official regional portal application for Sendai City, Miyagi Prefecture, Japan. The application provides residents with city announcements, event information, weather and temperature updates, earthquake and tsunami information, heatstroke and heavy-rain alerts, garbage collection information, personal calendars, digital mailbox services, and online municipal procedures.',
+      status: 'STORE RELEASE',
+      playstore:
+          'https://play.google.com/store/apps/details?id=com.sendai_portal&hl=en',
+      appstore:
+          'https://apps.apple.com/jp/app/sendai%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB/id6478195671',
+      metrics: [
+        'Available on Japan Google Play Store & Apple App Store',
+        'Official Sendai City regional portal application',
+        'City announcements & event notifications',
+        'Weather, earthquake & tsunami information',
+        'Disaster and heatstroke warning notifications',
+        'Garbage collection calendar & local information',
+        'Digital mailbox with My Number Card integration',
+        'Online municipal procedures',
+      ],
     },
     {
       id: 'pecon',
