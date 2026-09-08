@@ -283,7 +283,7 @@ function App() {
           }}
           ref={el => sectorRefs.current[0] = el}
         >
-          <SectorHome />
+          <SectorHome onContactClick={() => triggerWarp(4)} />
         </div>
 
         {/* Sector 1: Experience */}

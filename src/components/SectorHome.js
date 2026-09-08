@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function SectorHome() {
+export default function SectorHome({ onContactClick }) {
   const [typedText, setTypedText] = useState('');
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const profilePicUrl = "/icons/portfolio.jpeg";
@@ -101,8 +101,8 @@ export default function SectorHome() {
       >
         <div
           style={{
-            width: '50%',
-            maxWidth: '800px',
+            width: '55%',
+            maxWidth: '850px',
             display: 'flex',
             flexDirection: 'column',
             gap: '14px',
@@ -508,6 +508,18 @@ export default function SectorHome() {
                 INSTAGRAM
               </a>
 
+              <button
+                type="button"
+                className="hud-button"
+                onClick={onContactClick}
+                style={{
+                  padding: '5px 10px',
+                  fontSize: '10px',
+                }}
+              >
+                GET IN TOUCH ↗
+              </button>
+
             </div>
           </div>
         </div>
@@ -634,7 +646,7 @@ export default function SectorHome() {
                   <span>⚡</span> <span><strong>Superpower:</strong> Crafting 120 FPS Flutter widgets, fun animations, native integrations, playing with sockets and mongoDB/express</span>
                 </li>
                 <li className="hud-monospace" style={{ fontSize: '12px', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span>🎮</span> <span><strong>Off-Duty Mode:</strong> Hiking, Thriller movies, gaming & exploring animations, logics puzzes </span>
+                  <span>🎮</span> <span><strong>Off-Duty Mode:</strong> Hiking, Thriller movies, gaming & exploring animations, logics </span>
                 </li>
                 <li className="hud-monospace" style={{ fontSize: '12px', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span>🚀</span> <span><strong>Mission Goal:</strong> Shipping top-ranked production apps for global users</span>

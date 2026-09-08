@@ -34,7 +34,7 @@ export default function SectorContact() {
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
-        maxWidth: '800px',
+        maxWidth: '1000px',
         padding: '100px 24px 40px 24px',
         zIndex: 5,
         position: 'relative',

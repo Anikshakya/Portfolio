@@ -469,8 +469,8 @@ export default function CockpitHUD({
     },
 
     {
-      title: 'CONTACT',
-      label: 'Comms Uplink',
+      title: 'CONTACT ME',
+      label: 'Contact Me',
       desc: 'Signal Deck & Inquiry'
     }
   ];
