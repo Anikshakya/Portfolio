@@ -11,13 +11,19 @@ export default function SectorProjects() {
   useEffect(() => {
     const appEl = document.querySelector('.App');
     if (selectedProject) {
+      document.body.classList.add('project-modal-open');
+      if (appEl) appEl.classList.add('project-modal-open');
       document.body.style.overflow = 'hidden';
       if (appEl) appEl.style.overflowY = 'hidden';
     } else {
+      document.body.classList.remove('project-modal-open');
+      if (appEl) appEl.classList.remove('project-modal-open');
       document.body.style.overflow = '';
       if (appEl) appEl.style.overflowY = '';
     }
     return () => {
+      document.body.classList.remove('project-modal-open');
+      if (appEl) appEl.classList.remove('project-modal-open');
       document.body.style.overflow = '';
       if (appEl) appEl.style.overflowY = '';
     };
@@ -821,7 +827,8 @@ export default function SectorProjects() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '16px'
+            padding: '16px',
+            overscrollBehavior: 'contain'
           }}
           onClick={() => setSelectedProject(null)}
           onWheel={(e) => e.stopPropagation()}
@@ -839,7 +846,8 @@ export default function SectorProjects() {
               maxHeight: '85vh',
               overflowY: 'auto',
               WebkitOverflowScrolling: 'touch',
-              touchAction: 'pan-y'
+              touchAction: 'pan-y',
+              overscrollBehavior: 'contain'
             }}
             onClick={(e) => e.stopPropagation()}
           >

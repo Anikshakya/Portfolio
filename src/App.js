@@ -386,6 +386,11 @@ function App() {
             min-height: 100vh !important;
             overflow-y: auto !important;
           }
+          body.project-modal-open,
+          .App.project-modal-open {
+            overflow: hidden !important;
+            overscroll-behavior: none !important;
+          }
           .sector-wrapper-item {
             height: auto !important;
             min-height: auto !important;
