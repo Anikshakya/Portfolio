@@ -33,7 +33,7 @@ export default function SectorHome({ onContactClick }) {
   }, [isImageModalOpen]);
 
   const fullText =
-    'Hi, I am ANIK SHAKYA.\n\n> CLASS: Flutter Developer & Ex-MERN Developer\n> FOCUS: High-Performance Cross-Platform Apps';
+    'Hi, I am ANIK SHAKYA.\n\n> CLASS: Flutter Developer \n> FOCUS: High-Performance Cross-Platform Apps';
 
   useEffect(() => {
     let index = 0;
@@ -80,9 +80,9 @@ export default function SectorHome({ onContactClick }) {
         flexDirection: 'column',
         width: '100%',
         maxWidth: '1250px',
-        padding: '65px 20px 20px 20px',
-        maxHeight: 'calc(100vh - 75px)',
-        overflowY: 'auto',
+        padding: '50px 20px 10px 20px',
+        maxHeight: 'calc(100vh - 40px)',
+        overflow: 'visible',
         zIndex: 5,
         position: 'relative',
         textAlign: 'left',
@@ -272,7 +272,7 @@ export default function SectorHome({ onContactClick }) {
                       marginTop: '4px',
                     }}
                   >
-                    FLUTTER DEVELOPER & EX-MERN DEVELOPER
+                    FLUTTER DEVELOPER
                   </span>
                 </div>
               </div>
@@ -361,7 +361,7 @@ export default function SectorHome({ onContactClick }) {
                   margin: 0,
                 }}
               >
-                Flutter & Web Developer with
+                Flutter & Web Developer based in Naghbahal, Lalitpur with
                 experience building high-performance,
                 cross-platform mobile and web applications.
                 Proficient in Flutter, Dart, state management,
@@ -370,6 +370,24 @@ export default function SectorHome({ onContactClick }) {
                 scalable, maintainable solutions with strong
                 performance, usability, and code quality.
               </p>
+
+              <div
+                className="hud-monospace"
+                style={{
+                  fontSize: '11px',
+                  color: 'var(--color-cyan)',
+                  marginTop: '10px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: 'rgba(0, 240, 255, 0.06)',
+                  border: '1px solid rgba(0, 240, 255, 0.2)',
+                  padding: '5px 10px',
+                  borderRadius: '4px',
+                }}
+              >
+                <span><strong>LOCATION:</strong> Naghbahal, Lalitpur, Nepal</span>
+              </div>
 
               <div
                 style={{
@@ -639,6 +657,9 @@ export default function SectorHome({ onContactClick }) {
                 ⚡ FUN CREW INTEL & TRIVIA:
               </span>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <li className="hud-monospace" style={{ fontSize: '12px', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span>📍</span> <span><strong>Base Location:</strong> Naghbahal, Lalitpur, Nepal</span>
+                </li>
                 <li className="hud-monospace" style={{ fontSize: '12px', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span>☕</span> <span><strong>Primary Fuel:</strong> Moscow Mule -  H20</span>
                 </li>

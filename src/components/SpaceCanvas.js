@@ -313,51 +313,8 @@ export default function SpaceCanvas({
         return false;
       });
 
-      // Overlay UI - Skills Constellation
-      if (isSkillsSectorActive()) {
-        skillNodes.forEach((node, idx) => {
-          const targetX = node.px * canvas.width;
-          const targetY = node.py * canvas.height;
+      // Skills Constellation overlay disabled for clean full-width skills UI
 
-          if (mouseRef.current.draggedSkillIndex !== idx) {
-            const dx = targetX - node.x;
-            const dy = targetY - node.y;
-            node.vx = (node.vx + dx * 0.03) * 0.88;
-            node.vy = (node.vy + dy * 0.03) * 0.88;
-            node.x += node.vx;
-            node.y += node.vy;
-          }
-
-          const isDragging = mouseRef.current.draggedSkillIndex === idx;
-          const isSelected = selectedSkillIdRef.current === node.id;
-
-          node.connections.forEach((connId) => {
-            const target = skillNodes.find(n => n.id === connId);
-            if (target) {
-              const isConnActive = isSelected || selectedSkillIdRef.current === target.id;
-              ctx.strokeStyle = isConnActive ? '#00f0ff' : 'rgba(0, 240, 255, 0.25)';
-              ctx.lineWidth = isConnActive ? 2.5 : 1;
-              ctx.beginPath();
-              ctx.moveTo(node.x, node.y);
-              ctx.lineTo(target.x, target.y);
-              ctx.stroke();
-            }
-          });
-
-          ctx.beginPath();
-          ctx.arc(node.x, node.y, node.radius + (isDragging ? 5 : 0), 0, Math.PI * 2);
-          ctx.fillStyle = isSelected ? node.color : (isDragging ? 'rgba(0, 240, 255, 0.5)' : 'rgba(0, 240, 255, 0.18)');
-          ctx.fill();
-          ctx.strokeStyle = isSelected ? '#ffffff' : node.color;
-          ctx.lineWidth = isSelected ? 3 : 1.8;
-          ctx.stroke();
-
-          ctx.fillStyle = isSelected ? '#00f0ff' : '#ffffff';
-          ctx.font = isSelected ? 'bold 14px monospace' : 'bold 12px monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText(node.label, node.x, node.y - node.radius - 10);
-        });
-      }
 
       // Overlay UI - Contact Earth/Satellite
       if (isContactSectorActive()) {

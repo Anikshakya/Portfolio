@@ -176,7 +176,7 @@ export default function CockpitHUD({
           audioCtxRef.current.resume();
         }
 
-      } catch (e) {}
+      } catch (e) { }
 
       window.removeEventListener(
         'click',
@@ -409,7 +409,7 @@ export default function CockpitHUD({
 
         playSound('click');
 
-      } catch (e) {}
+      } catch (e) { }
     }
   };
 
@@ -446,7 +446,7 @@ export default function CockpitHUD({
   const sectorLabels = [
     {
       title: 'ABOUT ME',
-      label: 'Home Base',
+      label: 'About Me',
       desc: 'Identity, Bio & Highlights'
     },
 
@@ -464,7 +464,7 @@ export default function CockpitHUD({
 
     {
       title: 'SKILLS',
-      label: 'Skills Constellation',
+      label: 'Skills and Experience',
       desc: 'Flutter & Native Engine'
     },
 
@@ -586,11 +586,10 @@ export default function CockpitHUD({
           {sectorLabels.map((sec, idx) => (
             <button
               key={idx}
-              className={`hud-button ${
-                currentSector === idx
-                  ? 'glow-text-cyan'
-                  : ''
-              }`}
+              className={`hud-button ${currentSector === idx
+                ? 'glow-text-cyan'
+                : ''
+                }`}
               style={{
                 background:
                   currentSector === idx
