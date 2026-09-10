@@ -361,14 +361,7 @@ export default function SectorHome({ onContactClick }) {
                   margin: 0,
                 }}
               >
-                Flutter & Web Developer based in Naghbahal, Lalitpur with
-                experience building high-performance,
-                cross-platform mobile and web applications.
-                Proficient in Flutter, Dart, state management,
-                REST APIs, native platform integration, and
-                responsive UI development. Focused on delivering
-                scalable, maintainable solutions with strong
-                performance, usability, and code quality.
+                Flutter Developer with 4+ years of experience building high-performance, cross-platform mobile and web applications for international clients. Proficient in Flutter, Dart, REST APIs, Firebase, native platform integration, responsive UI development, in-app subscriptions, deep linking, maps, and many more. Focused on delivering scalable, maintainable solutions with strong performance, usability, clean architecture, and code quality.
               </p>
 
               <div

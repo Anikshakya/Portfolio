@@ -76,14 +76,14 @@ export default function SectorProjects() {
         'NFC / My Number Card',
       ],
       shortDesc:
-          'Official Moriya City mobile application providing residents with disaster alerts, city notifications, electronic applications, garbage collection information, and daily-life services.',
+        'Official Moriya City mobile application providing residents with disaster alerts, city notifications, electronic applications, garbage collection information, and daily-life services.',
       longDesc:
-          'Morinfo is the official Moriya City mobile application in Japan. The app brings essential municipal services and daily-life information together in one platform, including disaster and evacuation alerts, city announcements, event information, garbage collection schedules, public facility search, electronic applications, multilingual support, and My Number Card integration using NFC.',
+        'Morinfo is the official Moriya City mobile application in Japan. The app brings essential municipal services and daily-life information together in one platform, including disaster and evacuation alerts, city announcements, event information, garbage collection schedules, public facility search, electronic applications, multilingual support, and My Number Card integration using NFC.',
       status: 'STORE RELEASE',
       playstore:
-          'https://play.google.com/store/apps/details?id=jp.portal.moriya&hl=en',
+        'https://play.google.com/store/apps/details?id=jp.portal.moriya&hl=en',
       appstore:
-          'https://apps.apple.com/jp/app/morinfo/id6752234095?l=en-US',
+        'https://apps.apple.com/jp/app/morinfo/id6752234095?l=en-US',
       metrics: [
         'Available on Japan Google Play Store & Apple App Store',
         'Official Moriya City civic service application',
@@ -110,14 +110,14 @@ export default function SectorProjects() {
         'Maps',
       ],
       shortDesc:
-          'Official Sendai City portal application providing local announcements, weather, disaster information, garbage schedules, events, and online municipal services.',
+        'Official Sendai City portal application providing local announcements, weather, disaster information, garbage schedules, events, and online municipal services.',
       longDesc:
-          'SENDAIポータル is the official regional portal application for Sendai City, Miyagi Prefecture, Japan. The application provides residents with city announcements, event information, weather and temperature updates, earthquake and tsunami information, heatstroke and heavy-rain alerts, garbage collection information, personal calendars, digital mailbox services, and online municipal procedures.',
+        'SENDAIポータル is the official regional portal application for Sendai City, Miyagi Prefecture, Japan. The application provides residents with city announcements, event information, weather and temperature updates, earthquake and tsunami information, heatstroke and heavy-rain alerts, garbage collection information, personal calendars, digital mailbox services, and online municipal procedures.',
       status: 'STORE RELEASE',
       playstore:
-          'https://play.google.com/store/apps/details?id=com.sendai_portal&hl=en',
+        'https://play.google.com/store/apps/details?id=com.sendai_portal&hl=en',
       appstore:
-          'https://apps.apple.com/jp/app/sendai%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB/id6478195671',
+        'https://apps.apple.com/jp/app/sendai%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB/id6478195671',
       metrics: [
         'Available on Japan Google Play Store & Apple App Store',
         'Official Sendai City regional portal application',
@@ -403,7 +403,16 @@ export default function SectorProjects() {
       {/* Expanded panel container width */}
       <div
         className="hud-panel hud-projects-container hud-showcase-scroll-container animate-fade-in"
-        style={{ padding: '16px 20px', width: '100%', maxWidth: '1240px', margin: '0 auto', maxHeight: 'calc(100vh - 75px)', overflowY: 'auto' }}
+        style={{
+          padding: '16px 20px',
+          width: '100%',
+          maxWidth: '1240px',
+          margin: '0 auto',
+          maxHeight: 'calc(100vh - 75px)',
+          overflowY: 'auto',
+          scrollbarWidth: 'none',          // Firefox
+          msOverflowStyle: 'none'          // IE / Edge
+        }}
       >
 
         {/* Header telemetry */}
@@ -727,8 +736,8 @@ export default function SectorProjects() {
                 padding: '8px 4px 16px 4px',
                 width: '100%',
                 boxSizing: 'border-box',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none'
+                scrollbarWidth: 'none',       // Firefox
+                msOverflowStyle: 'none'       // IE / Edge
               }}
             >
               {projects.map((proj) => (
@@ -847,7 +856,9 @@ export default function SectorProjects() {
               overflowY: 'auto',
               WebkitOverflowScrolling: 'touch',
               touchAction: 'pan-y',
-              overscrollBehavior: 'contain'
+              overscrollBehavior: 'contain',
+              scrollbarWidth: 'none',       // Firefox
+              msOverflowStyle: 'none'       // IE / Edge
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -1040,11 +1051,19 @@ export default function SectorProjects() {
         </div>
       )}
 
-      {/* Styles for scrollbar hiding & button hover */}
+      {/* Styles – scrollbars completely hidden */}
       <style>{`
+        /* Hide all scrollbars (Chrome, Safari, Opera) */
         div::-webkit-scrollbar {
           display: none;
         }
+
+        /* Extra safety for the main containers */
+        .hud-showcase-scroll-container::-webkit-scrollbar,
+        .hud-modal-content::-webkit-scrollbar {
+          display: none;
+        }
+
         .hud-nav-btn:hover {
           background: var(--color-cyan) !important;
           color: #020208 !important;
@@ -1082,16 +1101,7 @@ export default function SectorProjects() {
           color: var(--color-cyan) !important;
           text-shadow: 0 0 12px var(--color-cyan) !important;
         }
-        .hud-showcase-scroll-container::-webkit-scrollbar {
-          width: 5px;
-        }
-        .hud-showcase-scroll-container::-webkit-scrollbar-track {
-          background: rgba(2, 2, 8, 0.5);
-        }
-        .hud-showcase-scroll-container::-webkit-scrollbar-thumb {
-          background: var(--color-cyan);
-          border-radius: 3px;
-        }
+
         @media (min-width: 900px) {
           .hud-showcase-grid {
             grid-template-columns: repeat(3, 1fr) !important;
@@ -1126,16 +1136,6 @@ export default function SectorProjects() {
             overflow-y: auto !important;
             -webkit-overflow-scrolling: touch !important;
             touch-action: pan-y !important;
-          }
-          .hud-modal-content::-webkit-scrollbar {
-            width: 4px;
-          }
-          .hud-modal-content::-webkit-scrollbar-track {
-            background: rgba(2, 2, 8, 0.5);
-          }
-          .hud-modal-content::-webkit-scrollbar-thumb {
-            background: var(--color-amber);
-            border-radius: 2px;
           }
         }
       `}</style>

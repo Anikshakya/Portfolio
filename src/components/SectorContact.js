@@ -330,7 +330,7 @@ ${formData.email}`;
               className="hud-monospace glow-text-cyan"
               style={{ fontSize: '9.5px', display: 'block', marginBottom: '2px' }}
             >
-              FLUTTER & CROSS-PLATFORM DEVELOPER
+              SENIOR FLUTTER & CROSS-PLATFORM DEVELOPER
             </span>
             <span
               className="hud-monospace"
